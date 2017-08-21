@@ -15,9 +15,7 @@ Basic Card Submission Guidelines:
 (Rules subject to change.)
 
 Balance Tips
- 
-(Thanks to Gadjiltron)
- 
+
 Ask yourself these questions when designing the card.
 
 Is your card strictly better than something that has seen play in the past few formats?
