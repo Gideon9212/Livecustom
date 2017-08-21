@@ -13,3 +13,20 @@ Basic Card Submission Guidelines:
 -Cards must pass review by Gideon, passing both these guidelines and a general evaluation of balance.
 
 (Rules subject to change.)
+
+Balance Tips
+ 
+(Thanks to Gadjiltron)
+ 
+Ask yourself these questions when designing the card.
+
+Is your card strictly better than something that has seen play in the past few formats?
+
+Is it very similar to something that's currently Limited or Forbidden?
+
+If you were the opponent, would you have a major problem trying to play around or get rid of this card?
+
+Can it cause an OTK, starting from a nearly empty field?
+
+If the answer to any of these questions is "Yes", consider toning down the effect or applying restrictions.
+If you're in doubt, just tone it down yourself.
