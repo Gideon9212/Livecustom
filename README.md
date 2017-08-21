@@ -8,6 +8,6 @@ Basic guidelines on getting your card added.
 
 -Follow PCST, v9 or higher (You can do GY or graveyard but must stay consistent)
 
--Must come with SFW pic. Pics rez must be 177x254 JPG, 512x512 png for field.
+-Must come with SFW pic. Pics rez must be 177x254 JPG for card, 512x512 png for field.
 
 -Must be reviewed and pass by Gideon. (This may change later on)
