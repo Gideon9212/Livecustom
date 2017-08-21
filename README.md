@@ -2,6 +2,8 @@ Basic Card Submission Guidelines:
 
 -Must have a working card script, card database, and pictures. We will not take requests to be scripted for you.
 
+-Card ID's must start with 515xxxxxxx (10 numbers total, first 3 starting with 515. Few exceptions will be made.)
+
 -Cards should have a "+0" effect on card advantage, except with extreme costs or conditions. (Even then, chances are low to be added)
 
 -No "instant win" conditions unless it is creative and balanced.
