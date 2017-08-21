@@ -1,13 +1,15 @@
-Basic guidelines on getting your card added.
+Basic Card Submission Guidelines:
 
--Must be scripted and come with a CDB and pictures. No requesting here.
+-Must have a working card script, card database, and pictures. We will not take requests to be scripted for you.
 
--Cards should give a net gain of 0.
+-Cards should have a "+0" effect on card advantage, except with extreme costs or conditions. (Even then, chances are low to be added)
 
--No "instant win" conditions unless its creative and balanced.
+-No "instant win" conditions unless it is creative and balanced.
 
--Follow PCST, v9 or higher (You can do GY or graveyard but must stay consistent)
+-Card text must follow PCST standards, as of Series 9 or higher (for example, we accept either "graveyard" or "GY", but it must be consistent.)
 
--Must come with SFW pic. Pics rez must be 177x254 JPG for card, 512x512 png for field.
+-Card pictures must be SFW. Picture resolution must be 177x254 and in JPG format for card proxies, 512x512 in PNG for field images.
 
--Must be reviewed and pass by Gideon. (This may change later on)
+-Cards must pass review by Gideon, passing both these guidelines and a general evaluation of balance.
+
+(Rules subject to change.)
