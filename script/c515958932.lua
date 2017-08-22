@@ -226,6 +226,11 @@ function c515958932.sumpenop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 			sg:Merge(g)
 		end
 	end
+	Duel.HintSelection(Group.FromCards(c))
+	Duel.HintSelection(Group.FromCards(rpz))
+	local se=e:GetLabelObject()
+	se:Reset()
+	e:Reset()
 	--Negate extra deck pen summons
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_DISABLE)
@@ -237,11 +242,6 @@ function c515958932.sumpenop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	e4:SetOperation(c515958932.pensumop)
 	e4:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_END)
 	c:RegisterEffect(e4)
-	Duel.HintSelection(Group.FromCards(c))
-	Duel.HintSelection(Group.FromCards(rpz))
-	local se=e:GetLabelObject()
-	se:Reset()
-	e:Reset()
 end
 --Unaffected
 function c515958932.unval(e,te)

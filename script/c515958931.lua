@@ -73,24 +73,36 @@ function c515958931.initial_effect(c)
 	e7:SetCountLimit(1,515958931)
 	e7:SetTarget(c515958931.destg)
 	e7:SetOperation(c515958931.desop)
+	
 	c:RegisterEffect(e7)
 end	
 --destroy scale & search
-function c515958931.desfilter(c)
-	if Duel.GetFieldCard(tp,LOCATION_SZONE,6) and Duel.GetFieldCard(tp,LOCATION_SZONE,7) then
-	return c:IsType(TYPE_PENDULUM) end
+function c515958931.desfilter(c,lsc,rsc)
+	return c:IsType(TYPE_PENDULUM) and (c:GetCode()==lsc:GetCode() or c:GetCode()==rsc:GetCode())
 end
 function c515958931.thfilter(c)
 	return c:IsSetCard(0x99) and c:IsAbleToHand()
 end
 function c515958931.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and chkc:IsControler(tp) and c515958931.desfilter(chkc) and chkc~=e:GetHandler() end
-	if chk==0 then return Duel.IsExistingTarget(c515958931.desfilter,tp,LOCATION_SZONE,0,1,e:GetHandler())
-		and Duel.IsExistingMatchingCard(c515958931.thfilter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c515958931.desfilter,tp,LOCATION_SZONE,0,1,1,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+	local lsc=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
+	local rsc=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
+	local f=Group.FromCards(lsc,rsc):Filter(aux.TRUE,nil)
+	if f:GetCount()>1 then
+		if chkc then 
+			return chkc:IsOnField() 
+			and chkc:IsControler(tp) 
+			and c515958931.desfilter(chkc) 
+			and chkc~=e:GetHandler()  
+		end
+		if chk==0 then 
+			return Duel.IsExistingTarget(c515958931.desfilter,tp,LOCATION_SZONE,0,1,e:GetHandler(),lsc,rsc) 
+			and Duel.IsExistingMatchingCard(c515958931.thfilter,tp,LOCATION_DECK,0,1,nil) 
+		end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+		local g=Duel.SelectTarget(tp,c515958931.desfilter,tp,LOCATION_SZONE,0,1,1,e:GetHandler(),lsc,rsc)
+		Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+		Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK) 
+	end
 end
 function c515958931.desop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -144,49 +156,6 @@ function c515958931.pensetop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
 		Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
-	end
-end
---Special summons
-function c515958931.filter(c,e,tp)
-	if Duel.GetFieldCard(tp,LOCATION_SZONE,6) and Duel.GetFieldCard(tp,LOCATION_SZONE,7) then 
-		psL=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
-		psR=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
-		psL=psL:GetLeftScale(psL)
-		psR=psR:GetRightScale(psR)
-		lv=c:GetLevel()
-		if psL>psR then psL,psR=psR,psL end
-		if lv>psL and lv<psR then 	
-		return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_PENDULUM,tp,true,false) end
-	end
-	--Debug.Message((psL:GetLeftScale(psL)+psR:GetRightScale(psR))/2)
-	return false
-end
-function c515958931.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
- 		and Duel.IsExistingMatchingCard(c515958931.filter,tp,LOCATION_EXTRA,0,1,nil,e,tp) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
-end
-function c515958931.spop(e,tp,eg,ep,ev,re,r,rp)
-	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	if ft<=0 then return end
-	if Duel.IsPlayerAffectedByEffect(tp,59822133) then ft=1 end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c515958931.filter,tp,LOCATION_EXTRA,0,1,ft,nil,e,tp)
-	if g:GetCount()>0 then
-		Duel.HintSelection(g)
-		local tc=g:GetFirst()
-		while tc do
-			Duel.SpecialSummonStep(tc,SUMMON_TYPE_PENDULUM,tp,tp,true,false,POS_FACEUP)
-			local e1=Effect.CreateEffect(e:GetHandler())
-			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_CANNOT_NEGATE+EFFECT_FLAG_IGNORE_IMMUNE)
-			e1:SetCode(EFFECT_DISABLE)
-			e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_END)
-			tc:RegisterEffect(e1)
-			tc=g:GetNext()
-		end
-		Duel.SpecialSummonComplete()
-		Duel.Damage(tp,ct,REASON_EFFECT)
 	end
 end
 --Negate extra deck summons
