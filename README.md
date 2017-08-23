@@ -1,6 +1,6 @@
 Basic Card Submission Guidelines:
 
--Must have a working card script, card database, and pictures. We will not take requests to be scripted for you.
+-Must have a working card script, card database, and pictures. We will not take requests to be scripted for you here. Request go to this hub: https://github.com/Gideon9212/Custom_Requests
 
 -Card ID's must start with 515xxxxxxx (10 numbers total, first 3 starting with 515. Few exceptions will be made.)
 
