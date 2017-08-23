@@ -3,7 +3,7 @@
 --Scripted by Eerie Code
 function c120401024.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,c120401024.matfilter,aux.FilterBoolFunction(Card.IsRace,RACE_BEASTWARRIOR),true)
+	aux.AddFusionProcMix(c,true,true,c120401024.matfilter,aux.FilterBoolFunction(Card.IsRace,RACE_BEASTWARRIOR))
 	--attack all
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(120401024,0))
