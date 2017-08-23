@@ -7,6 +7,8 @@ Basic Card Submission Guidelines:
 -Custom setcodes must start with fxx (x being the numbers. If you want to do f1, do f01 please)
 Check setcode list here: https://docs.google.com/spreadsheets/d/1QEB79bUre_l6NMFjbhDKRACkrJs0Pz23IZVFMj3chM0/edit#gid=0
 
+-Custom summons or attributes are not allowed. We are not modifying the core for your customs. Custom types are still allowed.
+
 -Cards should have a "+0" effect on card advantage, except with extreme costs or conditions. (Even then, chances are low to be added)
 
 -No "instant win" conditions unless it is creative and balanced.
