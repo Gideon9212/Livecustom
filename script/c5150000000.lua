@@ -48,7 +48,7 @@ function c5150000000.dtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local dg=Duel.GetMatchingGroup(c5150000000.damfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil,e)
 	if dg:GetCount()>0 then
 		Duel.SetOperationInfo(0,CATEGORY_DAMAGE,0,0,PLAYER_ALL,dg:GetCount()*500)
-		e:SetCategory(CATEGORY_DESTROY+CATEGORY_DAMAGE)
+		e:SetCategory(bit.bor(e:GetCategory(),CATEGORY_DAMAGE))
 	end
 end
 function c5150000000.dop(e,tp,eg,ep,ev,re,r,rp)
