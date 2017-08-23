@@ -4,6 +4,9 @@ Basic Card Submission Guidelines:
 
 -Card ID's must start with 515xxxxxxx (10 numbers total, first 3 starting with 515. Few exceptions will be made.)
 
+-Custom setcodes must start with fxx (x being the numbers. If you want to do f1, do f01 please)
+Check setcode list here: https://docs.google.com/spreadsheets/d/1QEB79bUre_l6NMFjbhDKRACkrJs0Pz23IZVFMj3chM0/edit#gid=0
+
 -Cards should have a "+0" effect on card advantage, except with extreme costs or conditions. (Even then, chances are low to be added)
 
 -No "instant win" conditions unless it is creative and balanced.
@@ -30,3 +33,5 @@ Can it cause an OTK, starting from a nearly empty field?
 
 If the answer to any of these questions is "Yes", consider toning down the effect or applying restrictions.
 If you're in doubt, just tone it down yourself.
+
+PCST GUIDE: https://www.ygopro.co/Forum/tabid/95/g/posts/t/16549/PSCT-Guide
