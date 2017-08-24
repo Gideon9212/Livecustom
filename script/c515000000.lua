@@ -43,7 +43,7 @@ function c515000000.damfilter(c,e)
 end
 function c515000000.dtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local sg=Duel.GetMatchingGroup(c510000000.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+	local sg=Duel.GetMatchingGroup(c515000000.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,sg,sg:GetCount(),0,0)
 	local dg=Duel.GetMatchingGroup(c515000000.damfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil,e)
 	if dg:GetCount()>0 then
