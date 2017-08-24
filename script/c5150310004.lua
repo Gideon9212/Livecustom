@@ -52,7 +52,7 @@ function c5150310004.shmzonefilter(c)
 	return c:IsSetCard(0xf31) and c:IsFaceup()
 end
 function c5150310004.shgravefilter(c)
-	return c:IsSetCard(0xf31)
+	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER)
 end
 function c5150310004.shtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -101,7 +101,7 @@ function c5150310004.shop(e,tp,eg,ep,ev,re,r,rp)
 				local e1=Effect.CreateEffect(c)
 				e1:SetType(EFFECT_TYPE_SINGLE)
 				e1:SetCode(EFFECT_UPDATE_ATTACK)
-				e1:SetValue(300*num2)
+				e1:SetValue(400*num2)
 				e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 				local e2=e1:Clone()
 				e2:SetCode(EFFECT_UPDATE_DEFENSE)
@@ -148,6 +148,12 @@ function c5150310004.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
+function c5150310009.ccost(e,c,tp)
+	return Duel.CheckLPCost(tp,1000)
+end
+function c5150310009.acop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.PayLPCost(tp,1000)
+end
 function c5150310004.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
@@ -159,5 +165,12 @@ function c5150310004.spop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x47e0000)
 		e1:SetValue(LOCATION_REMOVED)
 		c:RegisterEffect(e1,true)
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_FIELD)
+		e2:SetCode(EFFECT_SPSUMMON_COST)
+		e2:SetTargetRange(LOCATION_EXTRA,0)
+		e2:SetCost(c5150310009.ccost)
+		e2:SetOperation(c5150310009.acop)
+		Duel.RegisterEffect(e2,tp)
 	end
 end
