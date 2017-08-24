@@ -53,7 +53,6 @@ function c5150310000.raval(e,c)
 		if bit.band(att,0x1)~=0 then ct=ct+1 end
 		att=bit.rshift(att,1)
 	end
-	if ct<2 then ct=2 end
 	return ct-1
 end
 function c5150310000.filter(c,e,tp)
