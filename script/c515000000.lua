@@ -1,8 +1,8 @@
 --Neo Five-Souls Kuriboh
-function c5150000000.initial_effect(c)
+function c515000000.initial_effect(c)
 	c:EnableReviveLimit()
 	--fusion prochedure
-	aux.AddFusionProcMixRep(c,false,false,c5150000000.matfilter,5,99)
+	aux.AddFusionProcMixRep(c,false,false,c515000000.matfilter,5,99)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -14,45 +14,45 @@ function c5150000000.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
-	e2:SetValue(c5150000000.indval)
+	e2:SetValue(c515000000.indval)
 	c:RegisterEffect(e2)
 	--destroy everything
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e3:SetCondition(c5150000000.dcon)
-	e3:SetTarget(c5150000000.dtg)
-	e3:SetOperation(c5150000000.dop)
+	e3:SetCondition(c515000000.dcon)
+	e3:SetTarget(c515000000.dtg)
+	e3:SetOperation(c515000000.dop)
 	c:RegisterEffect(e3)
 end
-function c5150000000.matfilter(c,fc,sub,mg,sg)
+function c515000000.matfilter(c,fc,sub,mg,sg)
 	return c:IsFusionSetCard(0xa4) and (not sg or not sg:IsExists(Card.IsFusionCode,1,c,c:GetFusionCode()))
 end
-function c5150000000.indval(e,c)
+function c515000000.indval(e,c)
 	return not c:IsSetCard(0xa4)
 end
-function c5150000000.dcon(e,tp,eg,ep,ev,re,r,rp)
+function c515000000.dcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
 end
-function c5150000000.desfilter(c)
+function c515000000.desfilter(c)
 	return not c:IsSetCard(0xa4)
 end
-function c5150000000.damfilter(c,e)
+function c515000000.damfilter(c,e)
 	return c:IsDestructable(e) and c:IsAbleToGrave()
 end
-function c5150000000.dtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c515000000.dtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local sg=Duel.GetMatchingGroup(c5150000000.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+	local sg=Duel.GetMatchingGroup(c510000000.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,sg,sg:GetCount(),0,0)
-	local dg=Duel.GetMatchingGroup(c5150000000.damfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil,e)
+	local dg=Duel.GetMatchingGroup(c515000000.damfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil,e)
 	if dg:GetCount()>0 then
 		Duel.SetOperationInfo(0,CATEGORY_DAMAGE,0,0,PLAYER_ALL,dg:GetCount()*500)
 		e:SetCategory(bit.bor(e:GetCategory(),CATEGORY_DAMAGE))
 	end
 end
-function c5150000000.dop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(c5150000000.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+function c515000000.dop(e,tp,eg,ep,ev,re,r,rp)
+	local g=Duel.GetMatchingGroup(c515000000.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 	if g:GetCount()>0 then
 		Duel.Destroy(g,REASON_EFFECT)
 		local dam=g:FilterCount(Card.IsLocation,nil,LOCATION_GRAVE)*500

@@ -1,13 +1,13 @@
 --Doriado's Elemelon Farm
 --AlphaKretin
-function c5150310009.initial_effect(c)
+function c515310009.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(c5150310009.target)
-	e1:SetOperation(c5150310009.activate)
+	e1:SetTarget(c515310009.target)
+	e1:SetOperation(c515310009.activate)
 	c:RegisterEffect(e1)
 	--atk & def
 	local e2=Effect.CreateEffect(c)
@@ -26,8 +26,8 @@ function c5150310009.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e4:SetRange(LOCATION_FZONE)
 	e4:SetCode(EVENT_LEAVE_FIELD)
-	e4:SetCondition(c5150310009.descon)
-	e4:SetOperation(c5150310009.desop)
+	e4:SetCondition(c515310009.descon)
+	e4:SetOperation(c515310009.desop)
 	c:RegisterEffect(e4)
 	--neg hand
 	local e5=Effect.CreateEffect(c)
@@ -35,17 +35,17 @@ function c5150310009.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_QUICK_F)
 	e5:SetRange(LOCATION_FZONE)
 	e5:SetCode(EVENT_CHAINING)
-	e5:SetCondition(c5150310009.negcon)
-	e5:SetTarget(c5150310009.negtg)
-	e5:SetOperation(c5150310009.negop)
+	e5:SetCondition(c515310009.negcon)
+	e5:SetTarget(c515310009.negtg)
+	e5:SetOperation(c515310009.negop)
 	c:RegisterEffect(e5)
 	--neg gy/banish
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e6:SetCode(EVENT_CHAIN_SOLVING)
 	e6:SetRange(LOCATION_FZONE)
-	e6:SetCondition(c5150310009.discon)
-	e6:SetOperation(c5150310009.disop)
+	e6:SetCondition(c515310009.discon)
+	e6:SetOperation(c515310009.disop)
 	c:RegisterEffect(e6)
 	--cannot set
 	local e7=Effect.CreateEffect(c)
@@ -54,7 +54,7 @@ function c5150310009.initial_effect(c)
 	e7:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e7:SetRange(LOCATION_FZONE)
 	e7:SetTargetRange(0,1)
-	e7:SetCondition(c5150310009.setcon)
+	e7:SetCondition(c515310009.setcon)
 	e7:SetTarget(aux.TRUE)
 	c:RegisterEffect(e7)
 	--neg backrow
@@ -64,69 +64,69 @@ function c5150310009.initial_effect(c)
 	e8:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e8:SetRange(LOCATION_FZONE)
 	e8:SetTargetRange(1,0)
-	e8:SetCondition(c5150310009.acscon)
-	e8:SetValue(c5150310009.acslimit)
+	e8:SetCondition(c515310009.acscon)
+	e8:SetValue(c515310009.acslimit)
 	c:RegisterEffect(e8)
 end
-function c5150310009.filter(c)
+function c515310009.filter(c)
 	return c:IsSetCard(0xf31) and c:IsAbleToHand()
 end
-function c5150310009.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c5150310009.filter,tp,LOCATION_DECK,0,1,nil) end
+function c515310009.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c515310009.filter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
-function c5150310009.activate(e,tp,eg,ep,ev,re,r,rp)
+function c515310009.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=Duel.GetMatchingGroup(c5150310009.filter,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(5150310009,0)) then
+	local g=Duel.GetMatchingGroup(c515310009.filter,tp,LOCATION_DECK,0,nil)
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(515310009,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)
 		Duel.SendtoHand(sg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,sg)
 	end
 end
-function c5150310009.filter1(c)
+function c515310009.filter1(c)
 	return c:IsFaceup() and c:IsSetCard(0xf31)
 end
-function c5150310009.desfilter(c)
+function c515310009.desfilter(c)
 	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
-function c5150310009.descon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c5150310009.desfilter,1,nil)
-		and Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,1,nil)
+function c515310009.descon(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(c515310009.desfilter,1,nil)
+		and Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,1,nil)
 end
-function c5150310009.desop(e,tp,eg,ep,ev,re,r,rp)
+function c515310009.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Recover(tp,1000,REASON_EFFECT)
 end
-function c5150310009.negcon(e,tp,eg,ep,ev,re,r,rp)
+function c515310009.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
 	return loc==LOCATION_HAND and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev) 
-		and Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,2,nil)
+		and Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,2,nil)
 end
-function c5150310009.ngtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c515310009.ngtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return re:GetHandler():IsAbleToGrave() end
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 	if re:GetHandler():IsRelateToEffect(re) then
 		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,eg,1,0,0)
 	end
 end
-function c5150310009.negop(e,tp,eg,ep,ev,re,r,rp)
+function c515310009.negop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
 		Duel.SendtoGrave(eg,REASON_EFFECT)
 	end
 end
-function c5150310009.discon(e,tp,eg,ep,ev,re,r,rp)
-	return re:IsActiveType(TYPE_MONSTER) and re:GetHandler():GetAttack()==0 and Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,3,nil)
+function c515310009.discon(e,tp,eg,ep,ev,re,r,rp)
+	return re:IsActiveType(TYPE_MONSTER) and re:GetHandler():GetAttack()==0 and Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,3,nil)
 end
-function c5150310009.disop(e,tp,eg,ep,ev,re,r,rp)
+function c515310009.disop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateEffect(ev)
 end
-function c5150310009.setcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,4,nil)
+function c515310009.setcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,4,nil)
 end
-function c5150310009.acscon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,5,nil)
+function c515310009.acscon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,5,nil)
 end
-function c5150310009.aclimit(e,re,tp)
+function c515310009.aclimit(e,re,tp)
 	return re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL)
 end
