@@ -44,8 +44,8 @@ function c5150310009.initial_effect(c)
 	e6:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e6:SetCode(EVENT_CHAIN_SOLVING)
 	e6:SetRange(LOCATION_FZONE)
-	e6:SetCondition(c88305705.discon)
-	e6:SetOperation(c88305705.disop)
+	e6:SetCondition(c5150310009.discon)
+	e6:SetOperation(c5150310009.disop)
 	c:RegisterEffect(e6)
 	--cannot set
 	local e7=Effect.CreateEffect(c)
@@ -115,10 +115,10 @@ function c5150310009.negop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoGrave(eg,REASON_EFFECT)
 	end
 end
-function c88305705.discon(e,tp,eg,ep,ev,re,r,rp)
+function c5150310009.discon(e,tp,eg,ep,ev,re,r,rp)
 	return re:IsActiveType(TYPE_MONSTER) and re:GetHandler():GetAttack()==0 and Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,3,nil)
 end
-function c88305705.disop(e,tp,eg,ep,ev,re,r,rp)
+function c5150310009.disop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateEffect(ev)
 end
 function c5150310009.setcon(e,tp,eg,ep,ev,re,r,rp)
