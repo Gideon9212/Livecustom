@@ -31,18 +31,21 @@ function c5150310009.initial_effect(c)
 	c:RegisterEffect(e4)
 	--neg hand
 	local e5=Effect.CreateEffect(c)
-	e5:SetType(EFFECT_TYPE_FIELD)
-	e5:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e5:SetCode(EFFECT_CANNOT_ACTIVATE)
+	e5:SetCategory(CATEGORY_NEGATE+CATEGORY_TOGRAVE)
+	e5:SetType(EFFECT_TYPE_QUICK_F)
 	e5:SetRange(LOCATION_FZONE)
-	e5:SetTargetRange(0,1)
-	e5:SetCondition(c5150310009.achcon)
-	e5:SetValue(c5150310009.achlimit)
+	e5:SetCode(EVENT_CHAINING)
+	e5:SetCondition(c5150310009.negcon)
+	e5:SetTarget(c5150310009.negtg)
+	e5:SetOperation(c5150310009.negop)
 	c:RegisterEffect(e5)
 	--neg gy/banish
-	local e6=e5:Clone()
-	e6:SetCondition(c5150310009.acgcon)
-	e6:SetValue(c5150310009.acglimit)
+	local e6=Effect.CreateEffect(c)
+	e6:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e6:SetCode(EVENT_CHAIN_SOLVING)
+	e6:SetRange(LOCATION_FZONE)
+	e6:SetCondition(c88305705.discon)
+	e6:SetOperation(c88305705.disop)
 	c:RegisterEffect(e6)
 	--cannot set
 	local e7=Effect.CreateEffect(c)
@@ -95,19 +98,28 @@ end
 function c5150310009.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Recover(tp,1000,REASON_EFFECT)
 end
-function c5150310009.achcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,2,nil)
+function c5150310009.negcon(e,tp,eg,ep,ev,re,r,rp)
+	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
+	return loc==LOCATION_HAND and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev) 
+		and Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,2,nil)
 end
-function c5150310009.achlimit(e,re,tp)
-	local loc=re:GetActivateLocation()
-	return loc==LOCATION_HAND and re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsImmuneToEffect(e)
+function c5150310009.ngtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return re:GetHandler():IsAbleToGrave() end
+	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
+	if re:GetHandler():IsRelateToEffect(re) then
+		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,eg,1,0,0)
+	end
 end
-function c5150310009.acgcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,3,nil)
+function c5150310009.negop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
+		Duel.SendtoGrave(eg,REASON_EFFECT)
+	end
 end
-function c5150310009.acglimit(e,re,tp)
-	local loc=re:GetActivateLocation()
-	return (loc==LOCATION_GRAVE or loc==LOCATION_REMOVED) and re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsImmuneToEffect(e)
+function c88305705.discon(e,tp,eg,ep,ev,re,r,rp)
+	return re:IsActiveType(TYPE_MONSTER) and re:GetHandler():GetAttack()==0 and Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,3,nil)
+end
+function c88305705.disop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.NegateEffect(ev)
 end
 function c5150310009.setcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,4,nil)
@@ -116,5 +128,5 @@ function c5150310009.acscon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c5150310009.filter1,tp,LOCATION_MZONE,0,5,nil)
 end
 function c5150310009.aclimit(e,re,tp)
-	return re:IsHasType(EFFECT_TYPE_ACTIVATE)
+	return re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL)
 end
