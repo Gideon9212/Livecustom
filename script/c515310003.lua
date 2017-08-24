@@ -43,15 +43,17 @@ function c515310003.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c515310003.disable(e,c)
-	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_WIND) and aux.checksamecolumn(c,e:GetHandler())
+	local cg=e:GetHandler():GetColumnGroup()
+	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_FIRE) and cg:IsContains(c)
 end
 function c515310003.desfilter(c,attr)
 	return c:IsSetCard(0xf31) and c:GetAttribute()~=attr
 end
 function c515310003.destgfilter(c,attr)
 	local g1=Duel.GetMatchingGroup(c515310003.desfilter,tp,LOCATION_MZONE,0,nil,attr)
+	local cg=c:GetColumnGroup()
 	for gc in aux.Next(g1) do
-		if aux.checksamecolumn(c,gc) or c==gc then
+		if cg:IsContains(gc) or c==gc then
 			return true
 		end
 	end

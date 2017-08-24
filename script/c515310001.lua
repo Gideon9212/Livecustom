@@ -49,7 +49,8 @@ function c515310001.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c515310001.disable(e,c)
-	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_WATER) and aux.checksamecolumn(c,e:GetHandler())
+local cg=e:GetHandler():GetColumnGroup()
+	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_FIRE) and cg:IsContains(c)
 end
 function c515310001.desfilter(c,attr)
 	return c:IsSetCard(0xf31) and c:GetAttribute()~=attr and c:IsType(TYPE_MONSTER)
