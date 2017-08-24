@@ -94,13 +94,18 @@ function c5150310001.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
 function c5150310001.spcostfilter(c,attr)
-	return c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsAbleToRemoveAsCost() and c:IsType(TYPE_MONSTER)
+	if not (c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsAbleToRemoveAsCost() and c:IsType(TYPE_MONSTER)) then return false end
+	if c:IsLocation(LOCATION_GRAVE) then
+		return not Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741)
+	else
+		return Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741)
+	end
 end
 function c5150310001.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.IsExistingMatchingCard(c5150310001.spcostfilter,tp,LOCATION_GRAVE,0,1,c,c:GetAttribute()) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c5150310001.spcostfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,c,c:GetAttribute()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c5150310001.spcostfilter,tp,LOCATION_GRAVE,0,1,1,c,c:GetAttribute())
+	local g=Duel.SelectMatchingCard(tp,c5150310001.spcostfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,1,c,c:GetAttribute())
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c5150310001.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

@@ -48,16 +48,27 @@ function c5150310005.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c5150310005.spfilter1(c)
-	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() and Duel.IsExistingMatchingCard(c5150310005.spfilter2,tp,LOCATION_GRAVE,0,1,nil,c:GetAttribute())
+	if not (c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() 
+		and Duel.IsExistingMatchingCard(c5150310005.spfilter2,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil,c:GetAttribute())) then return false end
+	if Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741) then
+		return c:IsFaceup() and c:IsLocation(LOCATION_MZONE)
+	else
+		return c:IsLocation(LOCATION_GRAVE)
+	end
 end
 function c5150310005.spfilter2(c,attr)
-	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() and c:GetAttribute()~=attr
+	if not (c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() and c:GetAttribute()~=attr) then return false end
+	if Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741) then
+		return c:IsFaceup() and c:IsLocation(LOCATION_MZONE)
+	else
+		return c:IsLocation(LOCATION_GRAVE)
+	end
 end
 function c5150310005.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c5150310005.spfilter1,tp,LOCATION_GRAVE,0,1,nil)
+	return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 or Duel.IsPlayerAffectedByEffect(tp,69832741)) 
+		and Duel.IsExistingMatchingCard(c5150310005.spfilter1,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil)
 end
 function c5150310005.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
@@ -96,13 +107,18 @@ function c5150310005.revcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
 function c5150310005.revcostfilter(c,attr)
-	return c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsAbleToRemoveAsCost() and c:IsType(TYPE_MONSTER)
+	if not (c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsAbleToRemoveAsCost() and c:IsType(TYPE_MONSTER)) then return false end
+	if c:IsLocation(LOCATION_GRAVE) then
+		return not Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741)
+	else
+		return Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741)
+	end
 end
 function c5150310005.revcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.IsExistingMatchingCard(c5150310005.revcostfilter,tp,LOCATION_GRAVE,0,1,c,c:GetAttribute()) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c5150310005.revcostfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,c,c:GetAttribute()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c5150310005.revcostfilter,tp,LOCATION_GRAVE,0,1,1,c,c:GetAttribute())
+	local g=Duel.SelectMatchingCard(tp,c5150310005.revcostfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,1,c,c:GetAttribute())
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function c5150310005.revtg(e,tp,eg,ep,ev,re,r,rp,chk)
