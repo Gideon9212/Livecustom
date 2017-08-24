@@ -2,6 +2,7 @@
 --AlphaKretin
 function c5150310011.initial_effect(c)
 	c:EnableCounterPermit(0x20)
+	c:SetCounterLimit(0x20,6)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
