@@ -94,7 +94,7 @@ function c515310001.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
 function c515310001.spcostfilter(c,attr)
-	if not c:IsSetCard(0xf31) or c:IsAttribute(attr) or not c:IsAbleToRemoveAsCost() or not c:IsType(TYPE_MONSTER)) then return false end
+	if not c:IsSetCard(0xf31) or c:IsAttribute(attr) or not c:IsAbleToRemoveAsCost() or not c:IsType(TYPE_MONSTER) then return false end
 	if c:IsLocation(LOCATION_GRAVE) then
 		return not Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741)
 	else
