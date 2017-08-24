@@ -48,8 +48,8 @@ function c5150310005.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c5150310005.spfilter1(c)
-	if not (c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() 
-		and Duel.IsExistingMatchingCard(c5150310005.spfilter2,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil,c:GetAttribute())) then return false end
+	if not c:IsSetCard(0xf31) or not c:IsType(TYPE_MONSTER) or not c:IsAbleToRemoveAsCost() 
+		or not Duel.IsExistingMatchingCard(c5150310005.spfilter2,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil,c:GetAttribute()) then return false end
 	if Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741) then
 		return c:IsFaceup() and c:IsLocation(LOCATION_MZONE)
 	else
@@ -57,7 +57,7 @@ function c5150310005.spfilter1(c)
 	end
 end
 function c5150310005.spfilter2(c,attr)
-	if not (c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() and c:GetAttribute()~=attr) then return false end
+	if not c:IsSetCard(0xf31) or not c:IsType(TYPE_MONSTER) or not c:IsAbleToRemoveAsCost() or c:IsAttribute(attr) then return false end
 	if Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741) then
 		return c:IsFaceup() and c:IsLocation(LOCATION_MZONE)
 	else
@@ -107,7 +107,7 @@ function c5150310005.revcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
 function c5150310005.revcostfilter(c,attr)
-	if not (c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsAbleToRemoveAsCost() and c:IsType(TYPE_MONSTER)) then return false end
+	if not c:IsSetCard(0xf31) or c:IsAttribute(attr) or not c:IsAbleToRemoveAsCost() or not c:IsType(TYPE_MONSTER)) then return false end
 	if c:IsLocation(LOCATION_GRAVE) then
 		return not Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741)
 	else
