@@ -20,7 +20,8 @@ function c515310013.condition(e,tp,eg,ep,ev,re,r,rp)
 	local rc=re:GetHandler()
 	local boo=false
 	for tc in aux.Next(g) do
-		if aux.checksamecolumn(tc,rc) then boo=true end
+		local cg=tc:GetColumnGroup()
+		if cg:IsContains(rc) then boo=true end
 	end
 	return boo and Duel.IsChainNegatable(ev) and rp~=tp
 end

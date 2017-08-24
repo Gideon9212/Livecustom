@@ -40,7 +40,8 @@ function c515310000.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c515310000.disable(e,c)
-	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_FIRE) and aux.checksamecolumn(c,e:GetHandler())
+	local cg=e:GetHandler():GetColumnGroup()
+	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_FIRE) and cg:IsContains(c)
 end
 function c515310000.raval(e,c)
 	local tp=e:GetHandlerPlayer()
@@ -87,7 +88,7 @@ function c515310000.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
 function c515310000.spcostfilter(c,attr)
-	if not c:IsSetCard(0xf31) or c:IsAttribute(attr) or not c:IsAbleToRemoveAsCost() or not c:IsType(TYPE_MONSTER)) then return false end
+	if not c:IsSetCard(0xf31) or c:IsAttribute(attr) or not c:IsAbleToRemoveAsCost() or not c:IsType(TYPE_MONSTER) then return false end
 	if c:IsLocation(LOCATION_GRAVE) then
 		return not Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741)
 	else
