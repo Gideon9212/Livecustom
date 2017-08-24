@@ -46,13 +46,14 @@ function c5150310000.raval(e,c)
 	local att=0
 	for i=0,4 do
 		local tc=Duel.GetFieldCard(tp,LOCATION_MZONE,i)
-		if tc and tc:IsFaceup() then att=bit.bor(att,tc:GetAttribute()) end
+		if tc and tc:IsFaceup() and c~=tc then att=bit.bor(att,tc:GetAttribute()) end
 	end
 	local ct=0
 	while att~=0 do
 		if bit.band(att,0x1)~=0 then ct=ct+1 end
 		att=bit.rshift(att,1)
 	end
+	if ct<2 then ct=2 end
 	return ct-1
 end
 function c5150310000.filter(c,e,tp)
