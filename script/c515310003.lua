@@ -34,7 +34,7 @@ function c515310003.initial_effect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_TO_GRAVE)
-	e4:SetProperty(EVENT_FLAG_DELAY)
+	e4:SetProperty(EFFECT_FLAG_DELAY)
 	e4:SetCountLimit(1,515310003)
 	e4:SetCondition(c515310003.revcon)
 	e4:SetCost(c515310003.revcost)
@@ -44,7 +44,7 @@ function c515310003.initial_effect(c)
 end
 function c515310003.disable(e,c)
 	local cg=e:GetHandler():GetColumnGroup()
-	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_FIRE) and cg:IsContains(c)
+	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_WIND) and cg:IsContains(c) and not c:IsControler(tp)
 end
 function c515310003.desfilter(c,attr)
 	return c:IsSetCard(0xf31) and c:GetAttribute()~=attr
