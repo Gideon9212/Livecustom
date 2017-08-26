@@ -36,10 +36,11 @@ function c120401013.initial_effect(c)
 	c:RegisterEffect(e3)
 	if not Card.IsWight then
 		function Card.IsWight(c)
-			return c:IsCode(36021814,40991587,32274490,22339232,57473560,90243945,96383838) or c:IsSetCard(0xe01)
+			return c:IsCode(36021814,40991587,32274490,22339232,57473560,90243945,96383838) or c.is_wight
 		end
 	end
 end
+c120401013.is_wight=true
 function c120401013.rmcfilter(c)
 	return c:IsFaceup() and c:IsWight()
 end
