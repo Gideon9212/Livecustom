@@ -41,7 +41,7 @@ function c515310000.initial_effect(c)
 end
 function c515310000.disable(e,c)
 	local cg=e:GetHandler():GetColumnGroup()
-	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_FIRE) and cg:IsContains(c)
+	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_FIRE) and cg:IsContains(c) and not c:IsControler(tp)
 end
 function c515310000.raval(e,c)
 	local tp=e:GetHandlerPlayer()
