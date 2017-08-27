@@ -39,7 +39,7 @@ function c515000000.desfilter(c)
 	return not c:IsSetCard(0xa4)
 end
 function c515000000.damfilter(c,e)
-	return c:IsDestructable(e) and c:IsAbleToGrave()
+	return not c:IsSetCard(0xa4) and c:IsDestructable(e) and c:IsAbleToGrave()
 end
 function c515000000.dtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
