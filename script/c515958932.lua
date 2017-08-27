@@ -1,4 +1,8 @@
 --Odd-Eyes Slayer Magician
+local ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
+if Duel.GetMasterRule and Duel.GetMasterRule()>=4 
+then ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 
+end
 function c515958932.initial_effect(c)
 	--pendulum treat
 	aux.EnablePendulumAttribute(c)
@@ -35,7 +39,7 @@ function c515958932.initial_effect(c)
 	e5:SetCategory(CATEGORY_TOHAND)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
-	e5:SetCountLimit(1)
+	e5:SetCountLimit(1,515958932)
 	e5:SetCondition(c515958932.penconn2)
 	e5:SetTarget(c515958932.pentgg2)
 	e5:SetOperation(c515958932.penopp2)
@@ -50,7 +54,7 @@ function c515958932.penff1(c)
 	return c:IsOnField()
 end
 function c515958932.pensettg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckLocation(tp,LOCATION_SZONE,6) or Duel.CheckLocation(tp,LOCATION_SZONE,7) end
+	if chk==0 then return Duel.CheckLocation(tp,ScaleLocation,leftScale) or Duel.CheckLocation(tp,ScaleLocation,rightScale) end
 end
 function c515958932.pentgg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
@@ -66,9 +70,9 @@ function c515958932.penopp(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(g,tp,REASON_EFFECT)
 	end
 	local c=e:GetHandler()
-	if not Duel.CheckLocation(tp,LOCATION_SZONE,6) and not Duel.CheckLocation(tp,LOCATION_SZONE,7) then return Duel.SendtoGrave(c,tp,REASON_EFFECT) end
+	if not Duel.CheckLocation(tp,ScaleLocation,leftScale) and not Duel.CheckLocation(tp,ScaleLocation,rightScale) then return Duel.SendtoGrave(c,tp,REASON_EFFECT) end
 	if c:IsRelateToEffect(e) then
-		Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+		Duel.MoveToField(c,tp,tp,ScaleLocation,POS_FACEUP,true)
 	end
 end
 --Negate extra deck Pendulum summons
@@ -122,7 +126,7 @@ function c515958932.sumop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterFlagEffect(tp,515958932,RESET_PHASE+PHASE_END,0,1)
 end
 function c515958932.regop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
+	local tc=Duel.GetFieldCard(tp,ScaleLocation,leftScale)
 	if tc and tc:GetFlagEffect(29432357)==0 then
 		tc:RegisterFlagEffect(29432357,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,0)
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -144,7 +148,7 @@ function c515958932.sumpencon(e,c,og)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	if c:GetSequence()~=6 then return false end
-	local rpz=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
+	local rpz=Duel.GetFieldCard(tp,ScaleLocation,rightScale)
 	if rpz==nil then return false end
 	local lscale=c:GetLeftScale()
 	local rscale=rpz:GetRightScale()
@@ -158,7 +162,7 @@ function c515958932.sumpencon(e,c,og)
 	end
 end
 function c515958932.sumpenop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
-	local rpz=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
+	local rpz=Duel.GetFieldCard(tp,ScaleLocation,rightScale)
 	local lscale=c:GetLeftScale()
 	local rscale=rpz:GetRightScale()
 	if lscale>rscale then lscale,rscale=rscale,lscale end

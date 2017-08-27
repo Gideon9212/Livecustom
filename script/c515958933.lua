@@ -1,4 +1,8 @@
 --Odd-Eyes Illusory Magician
+local ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
+if Duel.GetMasterRule and Duel.GetMasterRule()>=4 
+then ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 
+end
 function c515958933.initial_effect(c)
 	--pendulum treat
 	aux.EnablePendulumAttribute(c)
@@ -30,7 +34,6 @@ function c515958933.initial_effect(c)
 	e5:SetDescription(1995)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
-	e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e5:SetCountLimit(1)
 	e5:SetTarget(c515958933.lvtg)
 	e5:SetOperation(c515958933.lvop)
@@ -62,13 +65,13 @@ function c515958933.pensetcon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0
 end
 function c515958933.pensettg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckLocation(tp,LOCATION_SZONE,6) or Duel.CheckLocation(tp,LOCATION_SZONE,7) end
+	if chk==0 then return Duel.CheckLocation(tp,ScaleLocation,leftScale) or Duel.CheckLocation(tp,ScaleLocation,rightScale) end
 end
 function c515958933.pensetop(e,tp,eg,ep,ev,re,r,rp) 
-	if not Duel.CheckLocation(tp,LOCATION_SZONE,6) and not Duel.CheckLocation(tp,LOCATION_SZONE,7) then return false end
+	if not Duel.CheckLocation(tp,ScaleLocation,leftScale) and not Duel.CheckLocation(tp,ScaleLocation,rightScale) then return false end
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+		Duel.MoveToField(c,tp,tp,ScaleLocation,POS_FACEUP,true)
 	end
 end
 --Atk/Def up
@@ -85,11 +88,11 @@ function c515958933.atkval(e,c,tp)
 end
 --Level Up/Down by 1
 function c515958933.lvfilter(c)
-    return c:IsFaceup() and c:GetLevel()>0       
+    return c:IsFaceup()        
 end
 function c515958933.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c45103815.filter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c515958933.lvfilter,tp,LOCATION_MZONE,0,1,nil) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) end
+	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,550)
 	local g=Duel.SelectTarget(tp,c515958933.lvfilter,tp,LOCATION_MZONE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_,g,g:GetCount(),0,0)
@@ -101,7 +104,7 @@ function c515958933.lvop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local c=e:GetHandler()
 	if c:IsFaceup() and c:IsRelateToEffect(e) and  tc:IsRelateToEffect(e) then
-		local e1=Effect.CreateEffect(e:GetHandler())
+		local e1=Effect.CreateEffect(tc)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_LEVEL)
 		if e:GetLabel()==0 then

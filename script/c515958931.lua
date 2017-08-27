@@ -1,4 +1,9 @@
 --Odd-Eyes Blood Magician
+local ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
+if Duel.GetMasterRule and Duel.GetMasterRule()>=4 
+then ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 
+end
+
 function c515958931.initial_effect(c)
 	--pendulum treat
 	aux.EnablePendulumAttribute(c)
@@ -44,8 +49,13 @@ function c515958931.initial_effect(c)
 	e6:SetType(EFFECT_TYPE_IGNITION)
 	e6:SetRange(LOCATION_PZONE)
 	e6:SetCountLimit(1)
-	e6:SetTarget(c515958931.target)
-	e6:SetOperation(c515958931.activate)
+	if Duel.GetMasterRule and Duel.GetMasterRule()<4 then
+		e6:SetTarget(c515958931.target)
+		e6:SetOperation(c515958931.activate)
+	else
+		e6:SetTarget(c515958931.target2)
+		e6:SetOperation(c515958931.activate2)
+	end
 	c:RegisterEffect(e6)
 	--destroy scale & search
 	local e7=Effect.CreateEffect(c)
@@ -61,28 +71,43 @@ function c515958931.initial_effect(c)
 end	
 --destroy scale & search
 function c515958931.desfilter(c,lsc,rsc)
-	return c:IsType(TYPE_PENDULUM) and (c:GetCode()==lsc:GetCode() or c:GetCode()==rsc:GetCode())
+	if Duel.GetMasterRule and Duel.GetMasterRule()<4 then
+		return c:IsType(TYPE_PENDULUM) and (c:GetCode()==lsc:GetCode() or c:GetCode()==rsc:GetCode())
+	else
+		return c:IsType(TYPE_PENDULUM)
+	end
 end
 function c515958931.thfilter(c)
 	return c:IsSetCard(0x99) and c:IsAbleToHand()
 end
 function c515958931.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local lsc=Duel.GetFieldCard(tp,LOCATION_SZONE,6)
-	local rsc=Duel.GetFieldCard(tp,LOCATION_SZONE,7)
-	local f=Group.FromCards(lsc,rsc):Filter(aux.TRUE,nil)
-	if f:GetCount()>1 then
+	if Duel.GetMasterRule and Duel.GetMasterRule()<4 then
+		local lsc=Duel.GetFieldCard(tp,ScaleLocation,leftScale)
+		local rsc=Duel.GetFieldCard(tp,ScaleLocation,rightScale)
+		local f=Group.FromCards(lsc,rsc):Filter(aux.TRUE,nil)
+		if f:GetCount()==2 then
+			if chkc then 
+				return chkc:IsOnField()	and chkc:IsControler(tp) and c515958931.desfilter(chkc) and chkc~=e:GetHandler()  
+			end
+			if chk==0 then 
+				return Duel.IsExistingTarget(c515958931.desfilter,tp,ScaleLocation,0,1,e:GetHandler(),lsc,rsc) 
+				and Duel.IsExistingMatchingCard(c515958931.thfilter,tp,LOCATION_DECK,0,1,nil) 
+			end
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+			local g=Duel.SelectTarget(tp,c515958931.desfilter,tp,ScaleLocation,0,1,1,e:GetHandler(),lsc,rsc)
+			Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+			Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK) 
+		end
+	else
 		if chkc then 
-			return chkc:IsOnField() 
-			and chkc:IsControler(tp) 
-			and c515958931.desfilter(chkc) 
-			and chkc~=e:GetHandler()  
+			return chkc:IsOnField()	and chkc:IsControler(tp) and c515958931.desfilter(chkc) and chkc~=e:GetHandler()  
 		end
 		if chk==0 then 
-			return Duel.IsExistingTarget(c515958931.desfilter,tp,LOCATION_SZONE,0,1,e:GetHandler(),lsc,rsc) 
+			return Duel.IsExistingTarget(c515958931.desfilter,tp,ScaleLocation,0,1,e:GetHandler()) 
 			and Duel.IsExistingMatchingCard(c515958931.thfilter,tp,LOCATION_DECK,0,1,nil) 
 		end
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		local g=Duel.SelectTarget(tp,c515958931.desfilter,tp,LOCATION_SZONE,0,1,1,e:GetHandler(),lsc,rsc)
+		local g=Duel.SelectTarget(tp,c515958931.desfilter,tp,ScaleLocation,0,1,1,e:GetHandler())
 		Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 		Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK) 
 	end
@@ -157,7 +182,7 @@ end
 function c515958931.atkval(e,c)
 	return e:GetHandler():GetDefense()*2
 end
---Fusion
+--Fusion 
 function c515958931.filter0(c,e)
 	return (c:IsOnField() or c:IsLocation(LOCATION_HAND)) 
 	and c:IsCanBeFusionMaterial() 
@@ -173,12 +198,13 @@ function c515958931.filter2(c,e,tp,m,f,chkf)
 	and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) 
 	and c:CheckFusionMaterial(m,nil,chkf)
 end
+---Fusion mr3
 function c515958931.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
 		local mg1=Duel.GetFusionMaterial(tp):Filter(Card.IsOnField,nil)
-		if Duel.GetFieldCard(tp,LOCATION_SZONE,6) or Duel.GetFieldCard(tp,LOCATION_SZONE,7) then
-			mg1:Merge(Duel.GetMatchingGroup(c515958931.filter0,tp,LOCATION_SZONE+LOCATION_HAND,0,nil,e))
+		if Duel.GetFieldCard(tp,ScaleLocation,leftScale) or Duel.GetFieldCard(tp,ScaleLocation,rightScale) then
+			mg1:Merge(Duel.GetMatchingGroup(c515958931.filter0,tp,ScaleLocation+LOCATION_HAND,0,nil,e))
 		end
 		local res=Duel.IsExistingMatchingCard(c515958931.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
 		if not res then
@@ -197,8 +223,66 @@ end
 function c515958931.activate(e,tp,eg,ep,ev,re,r,rp)
 	local chkf=Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and PLAYER_NONE or tp
 	local mg1=Duel.GetFusionMaterial(tp):Filter(c515958931.filter1,nil,e)
-	if Duel.GetFieldCard(tp,LOCATION_SZONE,6) or Duel.GetFieldCard(tp,LOCATION_SZONE,7) then
-		mg1:Merge(Duel.GetMatchingGroup(c515958931.filter0,tp,LOCATION_SZONE+LOCATION_HAND,0,nil,e))
+	if Duel.GetFieldCard(tp,ScaleLocation,leftScale) or Duel.GetFieldCard(tp,ScaleLocation,rightScale) then
+		mg1:Merge(Duel.GetMatchingGroup(c515958931.filter0,tp,ScaleLocation+LOCATION_HAND,0,nil,e))
+	end
+	local sg1=Duel.GetMatchingGroup(c515958931.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
+	local mg2=nil
+	local sg2=nil
+	local ce=Duel.GetChainMaterial(tp)
+	if ce~=nil then
+		local fgroup=ce:GetTarget()
+		mg2=fgroup(ce,e,tp)
+		local mf=ce:GetValue()
+		sg2=Duel.GetMatchingGroup(c515958931.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg2,mf,chkf)
+	end
+	if sg1:GetCount()>0 or (sg2~=nil and sg2:GetCount()>0) then
+		local sg=sg1:Clone()
+		if sg2 then sg:Merge(sg2) end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		local tg=sg:Select(tp,1,1,nil)
+		local tc=tg:GetFirst()
+		if sg1:IsContains(tc) and (sg2==nil or not sg2:IsContains(tc) or not Duel.SelectYesNo(tp,ce:GetDescription())) then
+			local mat1=Duel.SelectFusionMaterial(tp,tc,mg1,nil,chkf)
+			tc:SetMaterial(mat1)
+			Duel.SendtoGrave(mat1,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
+			Duel.BreakEffect()
+			Duel.SpecialSummon(tc,SUMMON_TYPE_FUSION,tp,tp,false,false,POS_FACEUP)
+		else
+			local mat2=Duel.SelectFusionMaterial(tp,tc,mg2,nil,chkf)
+			local fop=ce:GetOperation()
+			fop(ce,e,tp,tc,mat2)
+		end
+		tc:CompleteProcedure()
+	end
+end
+---Fusion mr4
+function c515958931.target2(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		local chkf=tp
+		local mg1=Duel.GetFusionMaterial(tp):Filter(Card.IsOnField,nil)
+		if Duel.GetFieldGroupCount(tp,LOCATION_PZONE,0)>=1 then
+			mg1:Merge(Duel.GetMatchingGroup(c515958931.filter0,tp,LOCATION_PZONE+LOCATION_HAND,0,nil,e))
+		end
+		local res=Duel.IsExistingMatchingCard(c515958931.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg1,nil,chkf)
+		if not res then
+			local ce=Duel.GetChainMaterial(tp)
+			if ce~=nil then
+				local fgroup=ce:GetTarget()
+				local mg2=fgroup(ce,e,tp)
+				local mf=ce:GetValue()
+				res=Duel.IsExistingMatchingCard(c515958931.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg2,mf,chkf)
+			end
+		end
+		return res
+	end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+end
+function c515958931.activate2(e,tp,eg,ep,ev,re,r,rp)
+	local chkf=tp
+	local mg1=Duel.GetFusionMaterial(tp):Filter(c515958931.filter1,nil,e)
+	if Duel.GetFieldGroupCount(tp,LOCATION_PZONE,0)>=1 then
+		mg1:Merge(Duel.GetMatchingGroup(c515958931.filter0,tp,LOCATION_PZONE+LOCATION_HAND,0,nil,e))
 	end
 	local sg1=Duel.GetMatchingGroup(c515958931.filter2,tp,LOCATION_EXTRA,0,nil,e,tp,mg1,nil,chkf)
 	local mg2=nil

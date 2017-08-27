@@ -1,4 +1,8 @@
 --Odd-Eyes Exceed Magician
+local ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
+if Duel.GetMasterRule and Duel.GetMasterRule()>=4 
+then ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 
+end
 function c515958930.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
@@ -59,13 +63,13 @@ function c515958930.pensetcon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0
 end
 function c515958930.pensettg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckLocation(tp,LOCATION_SZONE,6) or Duel.CheckLocation(tp,LOCATION_SZONE,7) end
+	if chk==0 then return Duel.CheckLocation(tp,ScaleLocation,leftScale) or Duel.CheckLocation(tp,ScaleLocation,rightScale) end
 end
 function c515958930.pensetop(e,tp,eg,ep,ev,re,r,rp) 
-	if not Duel.CheckLocation(tp,LOCATION_SZONE,6) and not Duel.CheckLocation(tp,LOCATION_SZONE,7) then return false end
+	if not Duel.CheckLocation(tp,ScaleLocation,leftScale) and not Duel.CheckLocation(tp,ScaleLocation,rightScale) then return false end
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+		Duel.MoveToField(c,tp,tp,ScaleLocation,POS_FACEUP,true)
 	end
 end
 --Xyz to lvl7
