@@ -31,7 +31,7 @@ function c515220050.matfilter(c)
 	return (c:IsSetCard(0x98) and c:IsLinkType(TYPE_PENDULUM)) or c:IsSetCard(0x99) or c:IsSetCard(0x9f)
 end
 function c515220050.bstval(e,c)
-	return c:GetLinkedGroupCount()*300
+	return e:GetHandler():GetLinkedGroupCount()*300
 end
 function c515220050.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

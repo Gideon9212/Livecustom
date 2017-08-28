@@ -35,8 +35,8 @@ function c515220018.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetCountLimit(1)
-	e3:SetTarget(c515220018.sptg)
-	e3:SetOperation(c515220018.spop)
+	e3:SetTarget(c515220018.sctg)
+	e3:SetOperation(c515220018.scop)
 	c:RegisterEffect(e3)
 end
 function c515220018.pccon(e,tp,eg,ep,ev,re,r,rp)
@@ -109,6 +109,7 @@ function c515220018.scfilter1(c,tp,mc)
 end
 function c515220018.scfilter2(c,mc,sc)
 	local mg=Group.FromCards(c,mc)
+	c:AssumeProperty(ASSUME_TYPE,c:GetOriginalType())
 	return c:IsCanBeSynchroMaterial(sc) and sc:IsSynchroSummonable(nil,mg)
 end
 function c515220018.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
