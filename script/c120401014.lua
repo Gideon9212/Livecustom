@@ -35,7 +35,7 @@ function c120401014.initial_effect(c)
 	--wight function
 	if not Card.IsWight then
 		function Card.IsWight(c)
-			return c:IsCode(36021814,40991587,32274490,22339232,57473560,90243945,96383838) or c:IsSetCard(0xe01)
+			return c:IsCode(36021814,40991587,32274490,22339232,57473560,90243945,96383838) or c.is_wight
 		end
 	end
 end
