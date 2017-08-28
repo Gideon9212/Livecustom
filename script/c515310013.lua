@@ -45,7 +45,7 @@ function c515310013.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c515310013.cfilter,tp,LOCATION_MZONE,0,nil)
 	g:KeepAlive()
 	local ct=c515310013.count(g)
-	if Duel.NegateActivation(ev) and Duel.SelectYesNo(tp,aux.Stringid(515310013,0)) and ct>0 then
+	if Duel.NegateActivation(ev) and Duel.SelectYesNo(tp,aux.Stringid(4031,13)) and ct>0 then
 		local tg=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,ct,nil)
 		Duel.Destroy(tg,REASON_EFFECT)
 	end

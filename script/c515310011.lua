@@ -47,7 +47,7 @@ function c515310011.initial_effect(c)
 	c:RegisterEffect(e6)
 	--move
 	local e7=Effect.CreateEffect(c)
-	e7:SetDescription(aux.Stringid(515310011,0))
+	e7:SetDescription(aux.Stringid(4031,10))
 	e7:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e7:SetType(EFFECT_TYPE_QUICK_O)
 	e7:SetCode(EVENT_FREE_CHAIN)
@@ -58,7 +58,7 @@ function c515310011.initial_effect(c)
 	c:RegisterEffect(e7)
 	--return
 	local e8=Effect.CreateEffect(c)
-	e8:SetDescription(aux.Stringid(515310011,1))
+	e8:SetDescription(aux.Stringid(4031,11))
 	e8:SetCategory(CATEGORY_TOGRAVE)
 	e8:SetType(EFFECT_TYPE_IGNITION)
 	e8:SetRange(LOCATION_SZONE)
@@ -94,7 +94,7 @@ end
 function c515310011.seqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c515310011.seqfilter(chkc,tp) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(515310010,2))
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(4031,12))
 	Duel.SelectTarget(tp,c515310011.seqfilter,tp,LOCATION_MZONE,0,1,1,nil,tp)
 end
 function c515310011.seqop(e,tp,eg,ep,ev,re,r,rp)
