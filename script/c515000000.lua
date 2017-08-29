@@ -27,7 +27,7 @@ function c515000000.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c515000000.matfilter(c,fc,sub,mg,sg)
-	return c:IsFusionSetCard(0xa4) and (not sg or not sg:IsExists(Card.IsFusionCode,1,c,c:GetFusionCode()))
+	return c:IsFusionSetCard(0xa4) and (not sg or not sg:IsExists(Card.IsFusionCode,1,c,c:GetFusionCode())) and (not mg or mg:GetClassCount(Card.GetFusionCode)>4)
 end
 function c515000000.indval(e,c)
 	return not c:IsSetCard(0xa4)
