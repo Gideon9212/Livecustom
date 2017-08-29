@@ -1,0 +1,91 @@
+--Blue Striker: Moon Burst of OrgXIII
+function c5154242594.initial_effect(c)
+		--link summon
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),1)
+	c:EnableReviveLimit()
+	--multi attack
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_EXTRA_ATTACK)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetValue(c5154242594.atkval)
+	c:RegisterEffect(e1)
+	--chain attack
+	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e2:SetCountLimit(1,5154242594)
+	e2:SetCode(EVENT_BATTLE_DESTROYING)
+	e2:SetCondition(c5154242594.atcon)
+	e2:SetTarget(c5154242594.attg)
+	e2:SetOperation(c5154242594.atop)
+	c:RegisterEffect(e2)
+end
+function c5154242594.atcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local bc=c:GetBattleTarget()
+	return c==Duel.GetAttacker() and c:IsRelateToBattle() and c:IsStatus(STATUS_OPPO_BATTLE) 
+		and bc:IsType(TYPE_MONSTER)
+end
+function c5154242594.attg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
+		and Duel.GetAttackTarget():IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK,1-tp) end
+	Duel.GetAttackTarget():CreateEffectRelation(e)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,Duel.GetAttackTarget(),1,0,0)
+end
+function c5154242594.atop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local bc=Duel.GetAttackTarget()
+	if not bc:IsRelateToEffect(e) and bc:IsLocation(LOCATION_GRAVE) then return end
+	if Duel.SpecialSummon(bc,0,tp,1-tp,false,false,POS_FACEUP_ATTACK) then
+	local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_UPDATE_ATTACK)
+			e1:SetValue(-1000)
+			e1:SetReset(RESET_EVENT+0x1fe0000)
+			bc:RegisterEffect(e1)
+			Duel.SpecialSummonComplete()
+			if c:IsFaceup() and c:IsRelateToEffect(e) then
+			if bc and bc:IsFaceup() and c:IsFaceup() and c:IsRelateToEffect(e) then
+			local e2=Effect.CreateEffect(c)
+			e2:SetLabelObject(bc)
+			e2:SetType(EFFECT_TYPE_SINGLE)
+			e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+			e2:SetCode(EFFECT_EXTRA_ATTACK)
+			e2:SetCondition(c5154242594.con)
+			e2:SetValue(1)
+			e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+			c:RegisterEffect(e2)
+			bc:RegisterFlagEffect(5154242594,RESET_EVENT+0x1fe0000,0,1)
+		
+		end
+	end
+end
+end
+function c5154242594.con(e,tp,eg,ep,ev,re,r,rp)
+	local bc=e:GetLabelObject()
+	return bc:GetFlagEffect(5154242594)==1
+end
+function c5154242594.atkval(e,c)
+return c:GetLinkedGroupCount()-1
+	
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
