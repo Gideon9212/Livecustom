@@ -103,7 +103,7 @@ function c515310009.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return loc==LOCATION_HAND and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev) 
 		and Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,2,nil)
 end
-function c515310009.ngtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c515310009.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return re:GetHandler():IsAbleToGrave() end
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 	if re:GetHandler():IsRelateToEffect(re) then
