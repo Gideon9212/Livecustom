@@ -36,10 +36,10 @@ function c515000000.dcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
 end
 function c515000000.desfilter(c)
-	return not c:IsSetCard(0xa4)
+	return not (c:IsSetCard(0xa4) and c:IsFaceup())
 end
 function c515000000.damfilter(c,e)
-	return not c:IsSetCard(0xa4) and c:IsDestructable(e) and c:IsAbleToGrave()
+	return not (c:IsSetCard(0xa4) and c:IsFaceup()) and c:IsDestructable(e) and c:IsAbleToGrave()
 end
 function c515000000.dtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
