@@ -1,7 +1,7 @@
 --Blue Striker: Moon Burst of OrgXIII
 function c5154242594.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_MONSTER),1)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_MONSTER),2)
 	c:EnableReviveLimit()
 	--multi attack
 	local e1=Effect.CreateEffect(c)
@@ -16,7 +16,7 @@ function c5154242594.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCountLimit(1,5154242594)
 	e2:SetCode(EVENT_BATTLE_DESTROYING)
-	e2:SetCondition(5154242594.atcon)
+	e2:SetCondition(c5154242594.atcon)
 	e2:SetTarget(c5154242594.attg)
 	e2:SetOperation(c5154242594.atop)
 	c:RegisterEffect(e2)
@@ -85,7 +85,6 @@ function c5154242594.actlimit(e,c)
 end
 function c5154242594.con(e,tp,eg,ep,ev,re,r,rp)
 	local bc=e:GetLabelObject()
-	Debug.Message(bc:GetFlagEffect(5154242594)>0)
 	return bc:GetFlagEffect(5154242594)>0
 end
 function c5154242594.atkval(e,c)
