@@ -2,7 +2,7 @@ Basic Card Submission Guidelines:
 
 -Must have a working card script, card database, and pictures. We will not take requests to be scripted for you here. Request go to this hub: https://github.com/Gideon9212/Custom_Requests
 
--Card ID's must start with 515xxxxxx (9 numbers total, first 3 starting with 515. Few exceptions will be made. Any more then 10 will cause overflow.)
+-Card ID's must start with 515xxxxxx (9 numbers total, first 3 starting with 515. Few exceptions will be made. 10 or more will cause overflow.)
 
 -Custom setcodes must start with fxx (x being the numbers. If you want to do f1, do f01 please)
 Check setcode list here: https://docs.google.com/spreadsheets/d/1QEB79bUre_l6NMFjbhDKRACkrJs0Pz23IZVFMj3chM0/edit#gid=0
