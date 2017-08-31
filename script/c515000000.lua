@@ -2,7 +2,7 @@
 function c515000000.initial_effect(c)
 	c:EnableReviveLimit()
 	--fusion prochedure
-	aux.AddFusionProcMixRep(c,false,false,c515000000.matfilter,5,99)
+	aux.AddFusionProcMixRep(c,false,false,c515000000.matfilter,5,7)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
