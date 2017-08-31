@@ -27,6 +27,7 @@ function c120401055.initial_effect(c)
 	--chain check
 	if not c120401055.global_flag then
 		c120401055.global_flag=true
+		c120401055.counter={}
 		c120401055.counter[0]=0
 		c120401055.counter[1]=0
 		local g1=Effect.CreateEffect(c)
