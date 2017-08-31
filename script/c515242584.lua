@@ -17,7 +17,7 @@ function c515242584.initial_effect(c)
 	--Trade
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(515242584,1))
-	e2:SetCountLimit(1,5152425841)
+	e2:SetCountLimit(1,515242580)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)

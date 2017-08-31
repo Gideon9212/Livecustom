@@ -7,7 +7,7 @@ function c515242573.initial_effect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,515242573+EFFECT_COUNT_CODE_OATH)
+	e1:SetCountLimit(1,515242572+EFFECT_COUNT_CODE_OATH)
 	e1:SetOperation(c515242573.activate)
 	c:RegisterEffect(e1)
 --Can't target scales
