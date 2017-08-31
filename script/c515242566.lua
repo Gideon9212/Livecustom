@@ -26,7 +26,7 @@ function c515242566.initial_effect(c)
 	--If deal damage,kill a thing
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(515242566,2))
-	e3:SetCountLimit(1,5152425661)
+	e3:SetCountLimit(1,515242568)
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_BATTLE_DAMAGE)

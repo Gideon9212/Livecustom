@@ -28,7 +28,7 @@ function c515242565.initial_effect(c)
 	--Tribute
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(515242565,3))
-	e4:SetCountLimit(1,5152425651)
+	e4:SetCountLimit(1,515242567)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)

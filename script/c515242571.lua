@@ -15,7 +15,7 @@ function c515242571.initial_effect(c)
 	--Destroy Spell & Trap
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(515242571,1))
-	e2:SetCountLimit(1,5152425711)
+	e2:SetCountLimit(1,515242571)
 	e2:SetCategory(CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
