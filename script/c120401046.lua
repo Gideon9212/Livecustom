@@ -44,7 +44,7 @@ function c120401046.fdfilter(c)
 	return c:IsFaceup() and c:IsCode(10424147)
 end
 function c120401046.wlfilter(c,tp,sc)
-	return c:IsFaceup() and c:IsCode(120401046) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsCode(120401047) and c:IsAbleToGraveAsCost()
 		and Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c),sc)>0
 end
 function c120401046.lkcon(e,c)
