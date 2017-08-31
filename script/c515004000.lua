@@ -7,6 +7,15 @@ function c515004000.initial_effect(c)
 	aux.AddSynchroProcedure(c,c515004000.fil,1,1,aux.NonTuner(c515004000.fil),1,1)
 	aux.AddXyzProcedure(c,c515004000.xyzfilter,nil,2,nil,nil,nil,nil,true,true)
 	c:EnableReviveLimit()
+	--splimit
+	local lm=Effect.CreateEffect(c)
+	lm:SetType(EFFECT_TYPE_FIELD)
+	lm:SetRange(LOCATION_PZONE)
+	lm:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	lm:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CANNOT_NEGATE)
+	lm:SetTargetRange(1,0)
+	lm:SetTarget(c515004000.splimit)
+	c:RegisterEffect(lm)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -121,6 +130,9 @@ function c515004000.sumop(e,tp,eg,ep,ev,re,r,rp)
 			end
 		end
 	end
+end
+function c515004000.splimit(e,c,sump,sumtype,sumpos,targetp)
+	return bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 function c515004000.sucop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
