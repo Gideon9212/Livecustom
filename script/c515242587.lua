@@ -23,7 +23,7 @@ function c515242587.initial_effect(c)
 	e2:SetOperation(c515242587.desop)
 	c:RegisterEffect(e2)
 		local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(515242587,2))
+	e3:SetDescription(aux.Stringid(4066,0))
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_HAND)
@@ -35,10 +35,10 @@ function c515242587.initial_effect(c)
 	
 end
 
---OPT, send a Striker you control to the deck, sp summon a different one frmo the deck.
+--OPT, send a Striker you control to the deck, If you do, sp summon a different one from the deck.
 function c515242587.filter1(c,e,tp)
 	local code=c:GetCode()
-	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsAbleToDeckAsCost()
+	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsAbleToDeckOrExtraAsCost()
 		and Duel.IsExistingMatchingCard(c515242587.filter2,tp,LOCATION_DECK,0,1,nil,code,e,tp)
 end
 function c515242587.filter2(c,code,e,tp)
@@ -48,23 +48,23 @@ function c515242587.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingMatchingCard(c515242587.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	end
-	local rg=Duel.SelectMatchingCard(tp,c515242587.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-	e:SetLabel(rg:GetFirst():GetCode())
-	Duel.SendtoDeck(rg,nil,2,REASON_COST)
+	
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,rg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
+	
 end
 function c515242587.op(e,tp,eg,ep,ev,re,r,rp)
-if not e:GetHandler():IsRelateToEffect(e) then return end
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local code=e:GetLabel()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c515242587.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
-	if g:GetCount()>0 then
-		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-	end
+if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242587.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
+    local rg=Duel.SelectMatchingCard(tp,c515242587.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+    local code=rg:GetFirst():GetCode()
+    Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
+    if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+    local g=Duel.SelectMatchingCard(tp,c515242587.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
+    if g:GetCount()>0 then
+        Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+    end
 end
-
-
 
 
 
