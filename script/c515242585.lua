@@ -23,7 +23,7 @@ function c515242585.initial_effect(c)
 	c:RegisterEffect(e2)
 		--Search
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(515242585,2))
+	e4:SetDescription(aux.Stringid(4066,0))
 	e4:SetCountLimit(1,515242582)
 	e4:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e4:SetType(EFFECT_TYPE_IGNITION)
@@ -34,7 +34,7 @@ function c515242585.initial_effect(c)
 	c:RegisterEffect(e4)
 				--Activate
 	local e5=Effect.CreateEffect(c)
-	e5:SetDescription(aux.Stringid(515242585,0))
+	e5:SetDescription(aux.Stringid(4066,4))
 	e5:SetCategory(CATEGORY_TODECK)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
@@ -45,9 +45,10 @@ function c515242585.initial_effect(c)
 	e5:SetOperation(c515242585.activate)
 	c:RegisterEffect(e5)
 end
+--OPT, send a Striker you control to the deck, If you do, sp summon a different one from the deck.
 function c515242585.filter1(c,e,tp)
 	local code=c:GetCode()
-	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsAbleToDeckAsCost()
+	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsAbleToDeckOrExtraAsCost()
 		and Duel.IsExistingMatchingCard(c515242585.filter2,tp,LOCATION_DECK,0,1,nil,code,e,tp)
 end
 function c515242585.filter2(c,code,e,tp)
@@ -57,25 +58,23 @@ function c515242585.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingMatchingCard(c515242585.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	end
-	local rg=Duel.SelectMatchingCard(tp,c515242585.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-	e:SetLabel(rg:GetFirst():GetCode())
-	Duel.SendtoDeck(rg,nil,2,REASON_COST)
+	
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,rg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
+	
 end
 function c515242585.op(e,tp,eg,ep,ev,re,r,rp)
-if not e:GetHandler():IsRelateToEffect(e) then return end
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local code=e:GetLabel()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c515242585.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
-	if g:GetCount()>0 then
-		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-	end
+if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242585.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
+    local rg=Duel.SelectMatchingCard(tp,c515242585.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+    local code=rg:GetFirst():GetCode()
+    Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
+    if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+    local g=Duel.SelectMatchingCard(tp,c515242585.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
+    if g:GetCount()>0 then
+        Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+    end
 end
-
-
-
-
 
 
 
