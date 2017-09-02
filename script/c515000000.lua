@@ -39,13 +39,13 @@ function c515000000.desfilter(c)
 	return not (c:IsSetCard(0xa4) and c:IsFaceup())
 end
 function c515000000.damfilter(c,e)
-	return not (c:IsSetCard(0xa4) and c:IsFaceup()) and c:IsDestructable(e) and c:IsAbleToGrave()
+	return c:IsDestructable(e) and c:IsAbleToGrave()
 end
 function c515000000.dtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	local sg=Duel.GetMatchingGroup(c515000000.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,sg,sg:GetCount(),0,0)
-	local dg=Duel.GetMatchingGroup(c515000000.damfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil,e)
+	local dg=sg:Filter(c515000000.damfilter,nil,e)
 	if dg:GetCount()>0 then
 		Duel.SetOperationInfo(0,CATEGORY_DAMAGE,0,0,PLAYER_ALL,dg:GetCount()*500)
 		e:SetCategory(bit.bor(e:GetCategory(),CATEGORY_DAMAGE))
