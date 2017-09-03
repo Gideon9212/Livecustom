@@ -19,6 +19,8 @@ Check setcode list here: https://docs.google.com/spreadsheets/d/1QEB79bUre_l6NMF
 
 -Cards must pass review by Gideon, passing both these guidelines and a general evaluation of balance.
 
+-When your card passes, please put just the artwork here: https://github.com/Gideon9212/CustomArtwork
+
 (Rules subject to change.)
 
 Balance Tips
