@@ -154,10 +154,10 @@ function c515310004.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-function c515310009.ccost(e,c,tp)
+function c515310004.ccost(e,c,tp)
 	return Duel.CheckLPCost(tp,1000)
 end
-function c515310009.acop(e,tp,eg,ep,ev,re,r,rp)
+function c515310004.acop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.PayLPCost(tp,1000)
 end
 function c515310004.spop(e,tp,eg,ep,ev,re,r,rp)
@@ -175,8 +175,8 @@ function c515310004.spop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetType(EFFECT_TYPE_FIELD)
 		e2:SetCode(EFFECT_SPSUMMON_COST)
 		e2:SetTargetRange(LOCATION_EXTRA,0)
-		e2:SetCost(c515310009.ccost)
-		e2:SetOperation(c515310009.acop)
+		e2:SetCost(c515310004.ccost)
+		e2:SetOperation(c515310004.acop)
 		Duel.RegisterEffect(e2,tp)
 	end
 end
