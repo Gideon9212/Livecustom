@@ -61,7 +61,7 @@ function c515310000.filter(c,e,tp)
 	return c:IsFaceup() and c:IsSetCard(0xf31) and c:IsDestructable(e) and Duel.IsExistingMatchingCard(c515310000.thfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetAttribute())
 end
 function c515310000.thfilter(c,e,tp,attr)
-	return c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsAbleToHand()
+	return c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsAbleToHand() and c:IsType(TYPE_MONSTER)
 end
 function c515310000.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c515310000.filter(chkc,e,tp) end
