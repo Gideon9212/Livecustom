@@ -61,12 +61,11 @@ function c515310000.filter(c,e,tp)
 	return c:IsFaceup() and c:IsSetCard(0xf31) and c:IsDestructable(e) and Duel.IsExistingMatchingCard(c515310000.thfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetAttribute())
 end
 function c515310000.thfilter(c,e,tp,attr)
-	return c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xf31) and not c:IsAttribute(attr) and c:IsAbleToHand()
 end
 function c515310000.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c515310000.filter(chkc,e,tp) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(c515310000.filter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
+	if chk==0 then return Duel.IsExistingTarget(c515310000.filter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
