@@ -58,14 +58,14 @@ function c120401052.thfilter(c,sc1,sc2)
 		and not c:IsCode(sc2:GetCode())
 end
 function c120401052.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c120401052.thcfilter,tp,LOCATION_DECK,0,1,nil,tp) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c120401052.thcfilter,tp,LOCATION_HAND,0,1,nil,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local tc1=Duel.SelectMatchingCard(tp,c120401052.thcfilter,tp,LOCATION_DECK,0,1,1,nil,tp):GetFirst()
+	local tc1=Duel.SelectMatchingCard(tp,c120401052.thcfilter,tp,LOCATION_HAND,0,1,1,nil,tp):GetFirst()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local tc2=Duel.SelectMatchingCard(tp,c120401052.thcfilter,tp,LOCATION_DECK,0,1,1,nil,tp,tc1):GetFirst()
+	local tc2=Duel.SelectMatchingCard(tp,c120401052.thcfilter,tp,LOCATION_HAND,0,1,1,nil,tp,tc1):GetFirst()
 	local g=Group.FromCards(tc1,tc2)
 	Duel.SendtoGrave(g,REASON_COST)
-	e:SetLabelObject(g)
+	e:SetLabelObject(Duel.GetOperatedGroup())
 end
 function c120401052.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
