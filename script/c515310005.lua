@@ -47,17 +47,17 @@ function c515310005.initial_effect(c)
 	e4:SetOperation(c515310005.revop)
 	c:RegisterEffect(e4)
 end
-function c515310005.spfilter1(c)
+function c515310005.spfilter(c)
 	if not c:IsSetCard(0xf31) or not c:IsType(TYPE_MONSTER) or not c:IsAbleToRemoveAsCost() 
-		or not Duel.IsExistingMatchingCard(c515310005.spfilter2,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil,c:GetAttribute()) then return false end
+	or not Duel.IsExistingMatchingCard(c515310005.spfilter2,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil,c:GetAttribute()) then return false end
 	if Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741) then
 		return c:IsFaceup() and c:IsLocation(LOCATION_MZONE)
 	else
 		return c:IsLocation(LOCATION_GRAVE)
 	end
 end
-function c515310005.spfilter2(c,attr)
-	if not c:IsSetCard(0xf31) or not c:IsType(TYPE_MONSTER) or not c:IsAbleToRemoveAsCost() or c:IsAttribute(attr) then return false end
+function c515310005.spfilter2(c,att)
+	if not c:IsSetCard(0xf31) or not c:IsType(TYPE_MONSTER) or c:IsAttribute(att) or not c:IsAbleToRemoveAsCost() then return false end
 	if Duel.IsPlayerAffectedByEffect(c:GetControler(),69832741) then
 		return c:IsFaceup() and c:IsLocation(LOCATION_MZONE)
 	else
@@ -68,13 +68,13 @@ function c515310005.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 or Duel.IsPlayerAffectedByEffect(tp,69832741)) 
-		and Duel.IsExistingMatchingCard(c515310005.spfilter1,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil)
+		and Duel.IsExistingMatchingCard(c515310005.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil)
 end
 function c515310005.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g1=Duel.SelectMatchingCard(tp,c515310005.spfilter1,tp,LOCATION_GRAVE,0,1,1,nil)
+	local g1=Duel.SelectMatchingCard(tp,c515310005.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,1,nil)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g2=Duel.SelectMatchingCard(tp,c515310005.spfilter2,tp,LOCATION_GRAVE,0,1,1,nil,g1:GetFirst():GetAttribute())
+	local g2=Duel.SelectMatchingCard(tp,c515310005.spfilter2,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,1,nil,g1:GetFirst():GetAttribute())
 	g1:Merge(g2)
 	Duel.Remove(g1,POS_FACEUP,REASON_COST)
 end
@@ -83,7 +83,7 @@ function c515310005.disable(e,c)
 	return (c:IsType(TYPE_EFFECT) or bit.band(c:GetOriginalType(),TYPE_EFFECT)==TYPE_EFFECT) and not c:IsAttribute(ATTRIBUTE_DARK) and cg:IsContains(c) and not c:IsControler(tp)
 end
 function c515310005.thcfilter(c)
-	return c:IsSetCard(0xf31)
+	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER)
 end
 function c515310005.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c515310005.thcfilter,1,nil)
