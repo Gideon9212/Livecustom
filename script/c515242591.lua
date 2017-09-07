@@ -73,7 +73,7 @@ local hg=Duel.GetFieldGroup(1-tp,LOCATION_HAND,0)
 	end
 end
 function c515242591.thfilter(c)
-	return c:IsType(TYPE_SPELL)  and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL) and c:IsSetCard(0x666) and c:IsAbleToHand()
 end
 function c515242591.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242591.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
