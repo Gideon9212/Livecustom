@@ -134,9 +134,15 @@ function c515310208.mvop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.SelectMatchingCard(tp,c515310208.mvfilter,tp,0,LOCATION_MZONE,1,1,nil,c)
 	Duel.Hint(HINT_SELECTMSG,tp,571)
 	if c515310208.zonechk(c:GetLinkedZone(),tp) then
-		local s=Duel.SelectDisableField(tp,1,0,LOCATION_MZONE,0x1F0000-c:GetLinkedZone())
-		local nseq=bit.rshift(s,17)-1
-		Duel.MoveSequence(tc:GetFirst(),nseq)
+        	local s=Duel.SelectDisableField(tp,1,0,LOCATION_MZONE,0x1f0000-c:GetLinkedZone())
+        	local nseq=0
+        	for i=0,4 do
+            		if bit.band(bit.lshift(0x10000,i),s)==bit.lshift(0x10000,i) then
+                		nseq=i
+                		break
+            		end
+        	end
+        	Duel.MoveSequence(tc:GetFirst(),nseq)
 	end
 end
 
