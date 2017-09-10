@@ -1,0 +1,39 @@
+--Dark Magic Endow
+--scripted by Larry126
+function c515002500.initial_effect(c)
+	--Activate
+	local e1=Effect.CreateEffect(c)
+	e1:SetCategory(CATEGORY_DRAW+CATEGORY_DECKDES)
+	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetCost(c515002500.cost)
+	e1:SetTarget(c515002500.target)
+	e1:SetOperation(c515002500.activate)
+	c:RegisterEffect(e1)
+end
+c515002500.listed_names={46986414,38033121,30208479,40737112,515002500,88619463}
+function c515002500.costfilter(c)
+	return c:IsDiscardable() and (c:IsSetCard(0x10a2) or
+		(c:IsSetCard(0xa1) and c:IsType(TYPE_SPELL)) or
+		c:IsCode(40737112,30208479,
+		15256925,76792184,88619463,
+		7084129,13722870,29436665,
+		30603688,35191415,71696014,
+		71703785,73752131,75380687,
+		92377303,98502113,88619463) or
+		aux.IsCodeListed(c,46986414,38033121,30208479))
+end
+function c515002500.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c515002500.costfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end
+	Duel.DiscardHand(tp,c515002500.costfilter,1,1,REASON_COST+REASON_DISCARD,e:GetHandler())
+end
+function c515002500.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsPlayerCanDraw(tp,2) end
+	Duel.SetTargetPlayer(tp)
+	Duel.SetTargetParam(2)
+	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,2)
+end
+function c515002500.activate(e,tp,eg,ep,ev,re,r,rp)
+	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
+	Duel.Draw(p,d,REASON_EFFECT)
+end
