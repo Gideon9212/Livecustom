@@ -90,18 +90,18 @@ function c515242580.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 function c515242580.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
-function c515242580.filter2(c)
-	return c:IsSetCard(0x666) and c:IsType(TYPE_PENDULUM)
+function c515242580.filter3(c)
+	return c:IsSetCard(0x666) and c:IsType(TYPE_PENDULUM) and not c:IsType(TYPE_LINK)
 	end
 	
 function c515242580.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,2,tp,LOCATION_DECK)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,2,tp,LOCATION_EXTRA)
 end
 function c515242580.operation(e,tp,eg,ep,ev,re,r,rp)
 	local hg=Duel.GetFieldGroup(1-tp,LOCATION_HAND,0)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c515242580.filter2,tp,LOCATION_DECK,0,2,2,nil)
+	local g=Duel.SelectMatchingCard(tp,c515242580.filter3,tp,LOCATION_EXTRA,0,2,2,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
