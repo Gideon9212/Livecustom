@@ -11,17 +11,17 @@ function c515002500.initial_effect(c)
 	e1:SetOperation(c515002500.activate)
 	c:RegisterEffect(e1)
 end
-c515002500.listed_names={46986414,38033121,30208479,40737112,515002500,88619463}
+c515002500.listed_names={46986414,38033121,30208479,515002500}
 function c515002500.costfilter(c)
-	return c:IsDiscardable() and (c:IsSetCard(0x10a2) or
-		(c:IsSetCard(0xa1) and c:IsType(TYPE_SPELL)) or
-		c:IsCode(40737112,30208479,
-		15256925,76792184,88619463,
+	return c:IsDiscardable() and
+		((c:IsSetCard(0xa1) and c:IsType(TYPE_SPELL)) or
+		c:IsCode(15256925,76792184,
 		7084129,13722870,29436665,
 		30603688,35191415,71696014,
 		71703785,73752131,75380687,
-		92377303,98502113,88619463) or
-		aux.IsCodeListed(c,46986414,38033121,30208479))
+		92377303,98502113) or
+		aux.IsCodeListed(c,46986414,38033121,30208479) or
+		(c:IsRace(RACE_SPELLCASTER) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsLevelAbove(6)))
 end
 function c515002500.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515002500.costfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end

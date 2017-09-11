@@ -83,7 +83,7 @@ function c515002502.atg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c515002502.cfilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToDeckAsCost()
+	return (c:IsType(TYPE_CONTINUOUS) and c:IsFaceup()) or (c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsFacedown()) and c:IsAbleToDeckAsCost()
 end
 function c515002502.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFlagEffect(tp,515002502)==0 
