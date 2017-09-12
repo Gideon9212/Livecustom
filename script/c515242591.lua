@@ -25,6 +25,7 @@ function c515242591.initial_effect(c)
 	e2:SetTarget(c515242591.sptg2)
 	e2:SetOperation(c515242591.spop2)
 	c:RegisterEffect(e2)
+	--
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_IGNITION)
@@ -58,12 +59,11 @@ function c515242591.filter2(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x666)
 end
 function c515242591.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() end
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c515242591.filter2(chkc) end
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242591.filter2,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_HINTMSG_ATOEXTRA,g,1,0,0)
 end
 function c515242591.spop2(e,tp,eg,ep,ev,re,r,rp)
-	local hg=Duel.GetFieldGroup(1-tp,LOCATION_HAND,0)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOEXTRA)
 	local g=Duel.SelectMatchingCard(tp,c515242591.filter2,tp,LOCATION_GRAVE,0,1,2,nil)
 	if g:GetCount()>0 then
