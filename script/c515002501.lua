@@ -14,6 +14,7 @@ function c515002501.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
 	e2:SetRange(LOCATION_SZONE)
+	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetTargetRange(LOCATION_ONFIELD,0)
 	e2:SetCondition(c515002501.indcon)
 	e2:SetTarget(aux.TargetBoolFunction(Card.IsType,TYPE_CONTINUOUS))
@@ -21,6 +22,7 @@ function c515002501.initial_effect(c)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+	e3:SetValue(aux.tgoval)
 	c:RegisterEffect(e3)
 end
 c515002501.card_code_list={46986414,515002501}
@@ -31,7 +33,7 @@ function c515002501.indcon(e)
 	return Duel.IsExistingMatchingCard(c515002501.cfilter,tp,LOCATION_ONFIELD,0,1,nil)
 end
 function c515002501.indval(e,re,tp)
-	return e:GetHandler():GetControler()~=tp
+	return tp~=e:GetHandlerPlayer()
 end
 function c515002501.filter(c)
 	return (c:IsCode(46986414) or aux.IsCodeListed(c,46986414) or
