@@ -11,7 +11,7 @@ function c515002500.initial_effect(c)
 	e1:SetOperation(c515002500.activate)
 	c:RegisterEffect(e1)
 end
-c515002500.listed_names={46986414,38033121,30208479,515002500}
+c515002500.card_code_list={46986414,38033121,30208479,515002500}
 function c515002500.costfilter(c)
 	return c:IsDiscardable() and
 		((c:IsSetCard(0xa1) and c:IsType(TYPE_SPELL)) or

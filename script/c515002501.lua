@@ -23,7 +23,7 @@ function c515002501.initial_effect(c)
 	e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	c:RegisterEffect(e3)
 end
-c515002501.listed_names={46986414,515002501}
+c515002501.card_code_list={46986414,515002501}
 function c515002501.cfilter(c)
 	return c:IsFaceup() and c:IsCode(46986414)
 end
