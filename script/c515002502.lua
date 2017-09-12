@@ -32,7 +32,7 @@ function c515002502.initial_effect(c)
 	e3:SetOperation(c515002502.operation2)
 	c:RegisterEffect(e3) 
 end
-c515002502.listed_names={46986414,515002502,38033121,30208479}
+c515002502.card_code_list={46986414,515002502,38033121,30208479}
 function c515002502.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
