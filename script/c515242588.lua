@@ -103,7 +103,7 @@ function c515242588.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c515242588.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local tg=Duel.SelectMatchingCard(tp,c515242588.filter,tp,0x51,0,1,1,nil):GetFirst()
+	local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242588.filter),tp,0x51,0,1,1,nil):GetFirst()
 	if tg then
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tg)

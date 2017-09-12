@@ -21,7 +21,6 @@ function c515242576.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_DESTROYED)
 	e2:SetCountLimit(1,515242575)
---	e2:SetCondition(c515242576.condition)
 	e2:SetTarget(c515242576.target)
 	e2:SetOperation(c515242576.operation)
 	c:RegisterEffect(e2)
@@ -55,16 +54,14 @@ function c515242576.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c515242576.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local tg=Duel.SelectMatchingCard(tp,c515242576.filter,tp,0x51,0,1,1,nil):GetFirst()
+	local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242576.filter),tp,0x51,0,1,1,nil):GetFirst()
 	if tg then
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tg)
 	end
 end
 --On death kill pend scale
-function c515242576.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsReason(REASON_BATTLE)
-end
+
 function c515242576.desfilter(c)
 	return c:IsType(TYPE_MONSTER)
 end

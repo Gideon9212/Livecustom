@@ -85,7 +85,7 @@ function c515242584.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
     if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
         and Duel.IsExistingTarget(c515242584.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-    local g=Duel.SelectTarget(tp,c515242584.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+    local g=Duel.SelectTarget(tp,aux.NecroValleyFilter(c515242584.spfilter),tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
     Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
 end
 
@@ -113,7 +113,7 @@ function c515242584.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c515242584.thop2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local tg=Duel.SelectMatchingCard(tp,c515242584.sfilter,tp,0x51,0,1,1,nil):GetFirst()
+	local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242584.sfilter),tp,0x51,0,1,1,nil):GetFirst()
 	if tg then
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tg)

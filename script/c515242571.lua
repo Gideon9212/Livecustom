@@ -20,7 +20,6 @@ function c515242571.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
---	e2:SetCondition(c515242571.descon2)
 	e2:SetTarget(c515242571.destg2)
 	e2:SetOperation(c515242571.desop2)
 	c:RegisterEffect(e2)
@@ -82,7 +81,7 @@ function c515242571.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c515242571.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local tg=Duel.SelectMatchingCard(tp,c515242571.filter,tp,0x51,0,1,1,nil):GetFirst()
+	local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242571.filter),tp,0x51,0,1,1,nil):GetFirst()
 	if tg then
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tg)
@@ -90,9 +89,6 @@ function c515242571.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 	
 --Effect 2 (Destroy spell & trap) Code
-function c515242571.descon2(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_PENDULUM
-end
 function c515242571.filter3(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)
 end

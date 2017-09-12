@@ -79,14 +79,14 @@ function c515242580.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c515242580.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local tg=Duel.SelectMatchingCard(tp,c515242580.filter,tp,0x51,0,1,1,nil):GetFirst()
+	local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242580.filter),tp,0x51,0,1,1,nil):GetFirst()
 	if tg then
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tg)
 	end
 	end
 
---search if deal damage
+--if destroyed, add 2 Blue Strikers from Extra to Hand
 function c515242580.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
@@ -99,7 +99,6 @@ function c515242580.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,2,tp,LOCATION_EXTRA)
 end
 function c515242580.operation(e,tp,eg,ep,ev,re,r,rp)
-	local hg=Duel.GetFieldGroup(1-tp,LOCATION_HAND,0)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c515242580.filter3,tp,LOCATION_EXTRA,0,2,2,nil)
 	if g:GetCount()>0 then
