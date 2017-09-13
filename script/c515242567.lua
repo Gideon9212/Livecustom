@@ -90,7 +90,8 @@ function c515242567.filter4(c)
 		
 end
 function c515242567.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingTarget(c515242567.filter4),tp,LOCATION_DECK,0,1,nil) end
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_DECK) and c515242567.filter4(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c515242567.filter4,tp,LOCATION_DECK,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectTarget(tp,c515242567.filter4,tp,LOCATION_DECK,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_HINTMSG_TOGRAVE,g,1,0,0)
@@ -115,7 +116,7 @@ function c515242567.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c515242567.cfilter2,1,nil,tp)
 end
 function c515242567.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(1-tp) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE)() end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_GRAVE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,0,LOCATION_GRAVE,1,1,nil)

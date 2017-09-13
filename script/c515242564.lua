@@ -116,7 +116,7 @@ function c515242564.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c515242564.cfilter2,1,nil,tp)
 end
 function c515242564.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(1-tp) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE)() end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_GRAVE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,0,LOCATION_GRAVE,1,1,nil)

@@ -1,9 +1,9 @@
 --Blue Striker: Tiny Pony, the Wise
 function c515242591.initial_effect(c)
-	--link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
+		--link summon
+aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
 	c:EnableReviveLimit()
-	--search if deal damage
+			--search if deal damage
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(4066,5))
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -14,7 +14,7 @@ function c515242591.initial_effect(c)
 	e1:SetTarget(c515242591.sptg)
 	e1:SetOperation(c515242591.spop)
 	c:RegisterEffect(e1)
-	--search if deal damage
+			--search if deal damage
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(4066,6))
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -25,7 +25,7 @@ function c515242591.initial_effect(c)
 	e2:SetTarget(c515242591.sptg2)
 	e2:SetOperation(c515242591.spop2)
 	c:RegisterEffect(e2)
-	local e3=Effect.CreateEffect(c)
+		local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_GRAVE)
@@ -38,7 +38,7 @@ function c515242591.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetLinkedGroupCount()>=1
 end
 function c515242591.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED) end
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED)() end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,1,nil)
@@ -58,8 +58,9 @@ function c515242591.filter2(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x666)
 end
 function c515242591.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c515242591.filter2(chkc) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and c515242591.filter2 () end
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242591.filter2,tp,LOCATION_GRAVE,0,1,nil) end
+	
 	Duel.SetOperationInfo(0,CATEGORY_HINTMSG_ATOEXTRA,g,1,0,0)
 end
 function c515242591.spop2(e,tp,eg,ep,ev,re,r,rp)
