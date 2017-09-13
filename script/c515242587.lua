@@ -73,7 +73,7 @@ function c515242587.filter3(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP+TYPE_MONSTER)
 end
 function c515242587.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() end
+	if chkc then return chkc:IsOnField() and c515242587.filter3 end
 	if chk==0 then return Duel.IsExistingTarget(c515242587.filter3,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOHAND)
 	local g=Duel.SelectTarget(tp,c515242587.filter3,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
@@ -100,7 +100,7 @@ end
 function c515242587.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242587.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242587.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242587.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end

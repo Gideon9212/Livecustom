@@ -20,7 +20,6 @@ function c515242571.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
---	e2:SetCondition(c515242571.descon2)
 	e2:SetTarget(c515242571.destg2)
 	e2:SetOperation(c515242571.desop2)
 	c:RegisterEffect(e2)
@@ -76,7 +75,7 @@ end
 function c515242571.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242571.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242571.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242571.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end
@@ -90,9 +89,6 @@ function c515242571.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 	
 --Effect 2 (Destroy spell & trap) Code
-function c515242571.descon2(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_PENDULUM
-end
 function c515242571.filter3(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)
 end

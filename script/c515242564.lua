@@ -30,6 +30,7 @@ function c515242564.initial_effect(c)
 	e4:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
+	--If you pendulum summon a Blue Striker monster: target 1 card in your opp's graveyard, banish it
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(515242564,0))
 	e5:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_REMOVE)
@@ -64,6 +65,7 @@ function c515242564.initial_effect(c)
 	e7:SetTarget(c515242564.tribute)
 	e7:SetOperation(c515242564.activate)
 	c:RegisterEffect(e7)
+	--If a Blue Striker monser you control is destroyed by battle: you can send 1 Blue Striker monster from your deck to the grave.
 	local e8=Effect.CreateEffect(c)
 	e8:SetCategory(CATEGORY_TOGRAVE)
 	e8:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -88,10 +90,10 @@ function c515242564.filter4(c)
 		
 end
 function c515242564.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() end
-	if chk==0 then return Duel.IsExistingTarget(aux.NecroValleyFilter(c515242564.filter4),tp,LOCATION_DECK,0,1,nil) end
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_DECK) and c515242564.filter4(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c515242564.filter4,tp,LOCATION_DECK,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectTarget(tp,aux.NecroValleyFilter(c515242564.filter4),tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c515242564.filter4,tp,LOCATION_DECK,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_HINTMSG_TOGRAVE,g,1,0,0)
 end
 function c515242564.spop2(e,tp,eg,ep,ev,re,r,rp)
@@ -114,7 +116,7 @@ function c515242564.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c515242564.cfilter2,1,nil,tp)
 end
 function c515242564.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_GRAVE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,0,LOCATION_GRAVE,1,1,nil)
@@ -145,7 +147,7 @@ function c515242564.tribute(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c515242564.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242564.filter),tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c515242564.filter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)

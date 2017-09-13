@@ -91,7 +91,7 @@ end
 function c515242585.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242585.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242585.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242585.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end

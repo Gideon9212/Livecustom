@@ -81,14 +81,15 @@ end
 function c515242565.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242565.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242565.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242565.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end
 function c515242565.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local tg=Duel.SelectMatchingCard(tp,c515242565.filter,tp,0x51,0,1,1,nil):GetFirst()
-	if tg then
+	
+if tg then
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tg)
 	end
@@ -103,8 +104,8 @@ function c515242565.descost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsReleasable() end
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
-function c515242565.destg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_EXTRA) and chkc:IsControler(tp) and c515242565.filter3(chkc,e,tp) end
+function c515242565.destg2(e,tp,eg,ep,ev,re,r,rp,chk)
+
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingTarget(c515242565.filter3,tp,LOCATION_EXTRA+LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)

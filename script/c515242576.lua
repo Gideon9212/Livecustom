@@ -21,7 +21,6 @@ function c515242576.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_DESTROYED)
 	e2:SetCountLimit(1,515242575)
---	e2:SetCondition(c515242576.condition)
 	e2:SetTarget(c515242576.target)
 	e2:SetOperation(c515242576.operation)
 	c:RegisterEffect(e2)
@@ -49,7 +48,7 @@ end
 function c515242576.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242576.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242576.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242576.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end
@@ -62,9 +61,7 @@ function c515242576.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 --On death kill pend scale
-function c515242576.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsReason(REASON_BATTLE)
-end
+
 function c515242576.desfilter(c)
 	return c:IsType(TYPE_MONSTER)
 end

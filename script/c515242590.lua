@@ -34,7 +34,7 @@ aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetCountLimit(1,515242586)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCost(c515242590.tdcost)
+	e2:SetCost(aux.bfgcost)
 	e2:SetTarget(c515242590.tdtg)
 	e2:SetOperation(c515242590.tdop)
 	c:RegisterEffect(e2)
@@ -54,7 +54,9 @@ function c515242590.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(c515242590.tdfilter,tp,LOCATION_REMOVED,0,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
-function c515242590.tdop(e,tp,eg,ep,ev,re,r,rp)
+function c515242590.tdop(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c515242590.tdfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_REMOVED,0,1,nil) end
 	local g=Duel.GetMatchingGroup(c515242590.tdfilter,tp,LOCATION_REMOVED,0,nil)
 	Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 end
@@ -85,7 +87,7 @@ function c515242590.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function c515242590.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsController(1-tp) end
+	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
