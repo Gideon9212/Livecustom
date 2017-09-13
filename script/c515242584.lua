@@ -3,7 +3,7 @@ function c515242584.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
 	--==Pendulum Effect==--
-	-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
+		-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
 	-- Special Summon 1 "Blue Striker" monster with a different name from your Deck.
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON)
@@ -81,7 +81,7 @@ function c515242584.spfilter(c,e,tp)
 end
 
 function c515242584.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-    if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c515242584.spfilter(chkc) end
+    if chkc then return chkc:IsLocation(LOCATION_GRAVE,0) and chkc:IsControler(tp) and c515242584.spfilter and chkc:IsCanBeSpecialSummoned(e,0,tp,false,false) end
     if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
         and Duel.IsExistingTarget(c515242584.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
