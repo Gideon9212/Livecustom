@@ -13,8 +13,7 @@ end
 function c515242572.filter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666)
 end
-function c515242572.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_HAND) and chkc:IsControler(tp) and c515242572.filter(chkc) end
+function c515242572.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,2)
 		and Duel.IsExistingTarget(c515242572.filter,tp,LOCATION_HAND,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(515242572,0))

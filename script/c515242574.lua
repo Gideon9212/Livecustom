@@ -77,13 +77,13 @@ end
 function c515242574.filter3(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242574.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.NecroValleyFilter(c515242574.filter3),tp,0x51,0,1,nil) end
+function c515242574.target1(e,tp,eg,ep,ev,re,r,rp,chk,)
+	if chk==0 then return Duel.IsExistingMatchingCard(c515242574.filter3,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end
 function c515242574.operation1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242574.filter3),tp,0x51,0,1,1,nil):GetFirst()
+	local tg=Duel.SelectMatchingCard(tp,c515242574.filter3,tp,0x51,0,1,1,nil):GetFirst()
 	if tg then
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tg)
@@ -101,7 +101,7 @@ end
 function c515242574.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsController(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end

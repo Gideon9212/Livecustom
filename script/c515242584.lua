@@ -14,7 +14,7 @@ function c515242584.initial_effect(c)
 	e1:SetCountLimit(1)
 	c:RegisterEffect(e1)
 	--==Monster Effects==--
-	--Trade
+	--Revive
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(515242584,1))
 	e2:SetCountLimit(1,515242580)
@@ -70,7 +70,7 @@ if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c51
 end
 end
 
---Trade Pends
+--Revive
 
 function c515242584.cfilter(c,e,tp)
 	return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and c:IsAbleToDeck() and c:IsSetCard(0x666)
@@ -81,11 +81,11 @@ function c515242584.spfilter(c,e,tp)
 end
 
 function c515242584.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-    if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and chkc:IsCanBeSpecialSummoned(e,0,tp,false,false) end
+    if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c515242584.spfilter and chkc:IsCanBeSpecialSummoned(e,0,tp,false,false) end
     if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
         and Duel.IsExistingTarget(c515242584.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-    local g=Duel.SelectTarget(tp,aux.NecroValleyFilter(c515242584.spfilter),tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+    local g=Duel.SelectTarget(tp,c515242584.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
     Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
 end
 
@@ -107,13 +107,13 @@ end
 function c515242584.sfilter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242584.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.NecroValleyFilter(c515242584.sfilter),tp,0x51,0,1,nil) end
+function c515242584.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c515242584.sfilter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end
 function c515242584.thop2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242584.sfilter),tp,0x51,0,1,1,nil):GetFirst()
+	local tg=Duel.SelectMatchingCard(tp,c515242584.sfilter,tp,0x51,0,1,1,nil):GetFirst()
 	if tg then
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,tg)

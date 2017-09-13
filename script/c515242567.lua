@@ -89,11 +89,10 @@ function c515242567.filter4(c)
 	 return c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER)
 		
 end
-function c515242567.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() end
-	if chk==0 then return Duel.IsExistingTarget(aux.NecroValleyFilter(c515242567.filter4),tp,LOCATION_DECK,0,1,nil) end
+function c515242567.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingTarget(c515242567.filter4),tp,LOCATION_DECK,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectTarget(tp,aux.NecroValleyFilter(c515242567.filter4),tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c515242567.filter4,tp,LOCATION_DECK,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_HINTMSG_TOGRAVE,g,1,0,0)
 end
 function c515242567.spop2(e,tp,eg,ep,ev,re,r,rp)
@@ -116,7 +115,7 @@ function c515242567.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c515242567.cfilter2,1,nil,tp)
 end
 function c515242567.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE)() end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_GRAVE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,0,LOCATION_GRAVE,1,1,nil)
@@ -147,7 +146,7 @@ function c515242567.tribute(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c515242567.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c515242567.filter),tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,c515242567.filter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
