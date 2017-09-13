@@ -90,7 +90,7 @@ function c515242564.filter4(c)
 		
 end
 function c515242564.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_DECK) and c515242564.filter4 end
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_DECK) and c515242564.filter4(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c515242564.filter4,tp,LOCATION_DECK,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectTarget(tp,c515242564.filter4,tp,LOCATION_DECK,0,1,1,nil)
