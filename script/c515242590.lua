@@ -55,7 +55,7 @@ function c515242590.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
 function c515242590.tdop(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c515242590.tdfilter end
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c515242590.tdfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_REMOVED,0,1,nil) end
 	local g=Duel.GetMatchingGroup(c515242590.tdfilter,tp,LOCATION_REMOVED,0,nil)
 	Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
