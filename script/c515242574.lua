@@ -78,7 +78,7 @@ function c515242574.filter3(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
 function c515242574.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.IsExistingMatchingCard(c515242574.filter3,tp,0x51,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(aux.NecroValleyFilter(c515242574.filter3),tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end
 function c515242574.operation1(e,tp,eg,ep,ev,re,r,rp,chk)
