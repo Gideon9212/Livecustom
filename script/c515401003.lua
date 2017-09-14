@@ -1,6 +1,5 @@
 --Survivor - Megalosaurus
 function c515401003.initial_effect(c)
-	c:SetUniqueOnField(1,0,515401003,LOCATION_MZONE)
 	c:EnableReviveLimit()
 	--Summon Limit
 	local e1=Effect.CreateEffect(c)
