@@ -3,7 +3,7 @@
 --Scripted by Eerie Code
 function c120401058.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,c120401058.matfilter,3,3,true)
+	aux.AddLinkProcedure(c,nil,3,nil,c120401058.spcheck)
 	--link boost
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -58,9 +58,8 @@ function c120401058.initial_effect(c)
 	e7:SetOperation(c120401058.immop)
 	c:RegisterEffect(e7)
 end
-function c120401058.matfilter(c,chk,tp,sg)
-	if chk then return not sg:IsExists(Card.IsRace,1,c,c:GetRace()) end
-	return true
+function c120401058.spcheck(g,lc,tp)
+	return g:GetClassCount(Card.GetRace,lc,SUMMON_TYPE_LINK,tp)>1
 end
 function c120401058.lbcon(e)
 	return e:GetHandler():GetLinkedGroup():IsExists(aux.NOT(Card.IsControler),nil,e:GetHandlerPlayer())

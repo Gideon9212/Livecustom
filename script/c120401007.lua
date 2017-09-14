@@ -27,8 +27,8 @@ function c120401007.initial_effect(c)
 	e2:SetOperation(c120401007.desop2)
 	c:RegisterEffect(e2)
 end
-function c120401007.matfilter(c)
-	return c:IsLinkType(TYPE_EFFECT) and c:IsRace(RACE_MACHINE)
+function c120401007.matfilter(c,lc,sumtype,tp)
+	return c:IsType(TYPE_EFFECT,lc,sumtype,tp) and c:IsRace(RACE_MACHINE,lc,sumtype,tp)
 end
 function c120401007.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local lg=e:GetHandler():GetLinkedGroup()

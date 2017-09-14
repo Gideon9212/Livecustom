@@ -32,8 +32,8 @@ function c120401004.initial_effect(c)
 	e3:SetOperation(c120401004.fusop)
 	c:RegisterEffect(e3)
 end
-function c120401004.matfilter(c)
-	return c:IsRace(RACE_DRAGON) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsLevelAbove(5)
+function c120401004.matfilter(c,lc,sumtype,tp)
+	return c:IsRace(RACE_DRAGON,lc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_DARK,lc,sumtype,tp) and c:IsLevelAbove(5)
 end
 function c120401004.infilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x3b)
