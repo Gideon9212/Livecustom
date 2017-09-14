@@ -28,6 +28,12 @@ function c120401042.initial_effect(c)
 	e3:SetOperation(c120401042.tdop)
 	c:RegisterEffect(e3)
 end
+function c120401042.thcfilter(c)
+	return c:IsFaceup() and c:IsRace(RACE_SPELLCASTER)
+end
+function c120401042.thcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(c120401042.thcfilter,tp,LOCATION_MZONE,0,1,nil)
+end
 function c120401042.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>2 end
 end
