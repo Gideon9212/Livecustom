@@ -27,7 +27,7 @@ function c515242593.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local tc=Duel.GetAttacker()
 	if tc==c then tc=Duel.GetAttackTarget() end
-	if chk==0 then return tc and tc:IsFaceup() and not tc:IsType(TYPE_LINK) end
+	if chk==0 then return tc and not tc:IsType(TYPE_LINK) end
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,0,0)
 end
 function c515242593.desop(e,tp,eg,ep,ev,re,r,rp)
