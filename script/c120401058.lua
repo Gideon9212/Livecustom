@@ -62,7 +62,7 @@ function c120401058.spcheck(g,lc,tp)
 	return g:GetClassCount(Card.GetRace,lc,SUMMON_TYPE_LINK,tp)>1
 end
 function c120401058.lbcon(e)
-	return e:GetHandler():GetLinkedGroup():IsExists(aux.NOT(Card.IsControler),nil,e:GetHandlerPlayer())
+	return e:GetHandler():GetLinkedGroup():IsExists(aux.NOT(Card.IsControler),1,nil,e:GetHandlerPlayer())
 end
 function c120401058.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetHandler():GetBattleTarget()
