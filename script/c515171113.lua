@@ -70,12 +70,12 @@ function c515171113.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_FIELD)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
 		e1:SetTargetRange(LOCATION_MZONE,0)
-		e1:SetTarget(c515171113.filter2)
+		e1:SetTarget(c515171113.atkfilter)
 		e1:SetValue(500)
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		Duel.RegisterEffect(e1,tp)
 	end
 end
-function c515171113.filter2(e,c)
+function c515171113.atkfilter(e,c)
 	return c:IsSetCard(0xb4)
 end
