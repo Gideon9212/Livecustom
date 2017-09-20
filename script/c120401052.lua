@@ -41,6 +41,7 @@ function c120401052.initial_effect(c)
 	e4:SetTarget(c120401052.breptg)
 	c:RegisterEffect(e4)
 end
+c120401052.toss_coin=true
 function c120401052.immtg(e,c)
 	return e:GetHandler():GetLinkedGroup():IsContains(c)
 end
