@@ -29,6 +29,7 @@ function c515171113.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetHintTiming(TIMING_DAMAGE_STEP,TIMING_DAMAGE_STEP+0x1c0)
 	e3:SetCountLimit(1,515171113)
+	e3:SetCondition(c515171113.atkcon)
 	e3:SetTarget(c515171113.atktg)
 	e3:SetOperation(c515171113.atkop)
 	c:RegisterEffect(e3)
@@ -55,6 +56,9 @@ function c515171113.operation(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) then
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
+end
+function c515171113.atkcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
 end
 function c515171113.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() end
