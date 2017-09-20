@@ -27,6 +27,7 @@ function c120401007.initial_effect(c)
 	e2:SetOperation(c120401007.desop2)
 	c:RegisterEffect(e2)
 end
+c120401007.toss_coin=true
 function c120401007.matfilter(c,lc,sumtype,tp)
 	return c:IsType(TYPE_EFFECT,lc,sumtype,tp) and c:IsRace(RACE_MACHINE,lc,sumtype,tp)
 end
