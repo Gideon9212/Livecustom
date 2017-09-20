@@ -28,7 +28,7 @@ function c515171116.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c515171116.filter(c)
-	return c:IsSetCard(0xb4) and c:GetType()==TYPE_SPELL+TYPE_RITUAL and c:CheckActivateEffect(true,true,false)~=nil
+	return c:IsSetCard(0xb4) and c:GetType()==TYPE_SPELL+TYPE_RITUAL and not c:IsPublic() and c:CheckActivateEffect(true,true,false)~=nil
 end
 function c515171116.filter2(c)
 	return c:IsSetCard(0xb4) and c:GetType()==TYPE_SPELL+TYPE_RITUAL and c:IsAbleToGraveAsCost() and c:CheckActivateEffect(true,true,false)~=nil
