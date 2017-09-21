@@ -44,7 +44,7 @@ function c515171116.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
     if g:GetFirst():IsLocation(LOCATION_HAND) then
         Duel.ConfirmCards(1-tp,g)
         Duel.ShuffleHand(tp)
-    elseif g:GetFirst():IsLocation(LOCATION_DECK) then
+    else
         Duel.SendtoGrave(g,REASON_COST)
     end
     e:SetCategory(te:GetCategory())
