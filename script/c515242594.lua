@@ -29,7 +29,7 @@ function c515242594.atcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c515242594.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
-		and Duel.GetAttackTarget():IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK,1-tp) end
+		and Duel.GetAttackTarget():IsCanBeSpecialSummoned(e,0,tp,false,LOCATION_GRAVE,POS_FACEUP_ATTACK,1-tp) end
 	Duel.GetAttackTarget():CreateEffectRelation(e)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,Duel.GetAttackTarget(),1,0,0)
 end
@@ -37,7 +37,7 @@ function c515242594.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=Duel.GetAttackTarget()
 	if not bc:IsRelateToEffect(e) and bc:IsLocation(LOCATION_GRAVE) then return end
-	if Duel.SpecialSummonStep(bc,0,tp,1-tp,false,false,POS_FACEUP_ATTACK) then
+	if Duel.SpecialSummonStep(bc,0,tp,1-tp,false,LOCATION_GRAVE,POS_FACEUP_ATTACK) then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_UPDATE_ATTACK)
