@@ -95,7 +95,7 @@ function c515310009.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c515310009.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
-	return loc==LOCATION_HAND and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev) 
+	return loc==LOCATION_HAND and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev) and not eg:GetFirst():IsControler(tp)
 		and Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,2,nil)
 end
 function c515310009.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
