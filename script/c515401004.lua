@@ -2,7 +2,7 @@
 function c515401004.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcMix(c,true,true,aux.FilterBoolFunction(Card.IsRace,RACE_INSECT),aux.FilterBoolFunction(Card.IsFusionAttribute,ATTRIBUTE_WATER))
+	aux.AddFusionProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsRace,RACE_INSECT),aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_WATER))
 	--self immune spell
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
