@@ -4,7 +4,7 @@
 function c515220043.initial_effect(c)
 	c:SetSPSummonOnce(515220043)
 	--synchro summon
-	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
+	aux.AddSynchroProcedure(c,nil,1,1,aux.NonTuner(nil),1,99)
 	c:EnableReviveLimit()
 	--Level Change
 	local e1=Effect.CreateEffect(c)
