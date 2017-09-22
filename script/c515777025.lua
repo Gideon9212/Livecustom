@@ -2,7 +2,7 @@
 --Scripted By Steelren
 function c515777025.initial_effect(c)
 	--synchro summon procedure
-	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
+	aux.AddSynchroProcedure(c,nil,1,1,aux.NonTuner(nil),1,99)
 	c:EnableReviveLimit()
 	--to the deck
 	local e1=Effect.CreateEffect(c)
