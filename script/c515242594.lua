@@ -25,7 +25,7 @@ function c515242594.atcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local bc=c:GetBattleTarget()
 	return c==Duel.GetAttacker() and c:IsRelateToBattle() and c:IsStatus(STATUS_OPPO_BATTLE) 
-		and bc:IsType(TYPE_MONSTER)
+		and bc:IsType(TYPE_MONSTER) and not bc:IsType(TYPE_TOKEN)
 end
 function c515242594.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
