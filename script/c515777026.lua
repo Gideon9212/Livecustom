@@ -2,7 +2,7 @@
 --Scripted by Steelren
 function c515777026.initial_effect(c)
 	--synchro summon
-	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
+	aux.AddSynchroProcedure(c,nil,1,1,aux.NonTuner(nil),1,99)
 	c:EnableReviveLimit()
 	--draw 2-1
 	local e1=Effect.CreateEffect(c)
