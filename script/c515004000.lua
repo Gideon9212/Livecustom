@@ -106,14 +106,24 @@ function c515004000.initial_effect(c)
 		Duel.RegisterEffect(ge1,0)
 	end
 end
-function c515004000.fil(c,sc,sumtype,tp)
+function c515004000.fil(...)
+	local c,val,sc,sumtype,tp
+	if type({...}[3])=='number' then
+		c,sc,sumtype,tp=table.unpack({...})
+	else
+		c,val,sc,sumtype,tp=table.unpack({...})
+	end
 	return c:IsLevel(6) and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON,sc,sumtype,tp)
 end
 function c515004000.fil2(c,sc,sumtype,tp)
-	return c:OsLevel(6) and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON,sc,sumtype,tp) and c:IsType(TYPE_TUNER,sc,sumtype,tp)
+	return c:IsLevel(6) and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON,sc,sumtype,tp) and c:IsType(TYPE_TUNER,sc,sumtype,tp)
 end
 function c515004000.xyzcheck(g,tp,xyz)
-	return not sg or ((not c:IsType(TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp) and sg:IsExists(Card.IsType,1,nil,TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp)) or (c:IsType(TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp) and sg:IsExists(aux.NOT(Card.IsType),1,nil,TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp)))
+    return g:IsExists(c515004000.xyzchk,1,nil,xyz,SUMMON_TYPE_XYZ,tp)
+end
+function c515004000.xyzchk(c,g,tp,xyz)
+    return c:IsType(TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp) and 
+        g:IsExists(aux.NOT(Card.IsType),1,c,TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp)
 end
 function c515004000.sumop(e,tp,eg,ep,ev,re,r,rp)
 	for tc in aux.Next(eg) do
