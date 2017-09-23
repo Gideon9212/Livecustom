@@ -5,7 +5,7 @@ function c515004000.initial_effect(c)
 	--xyz summon
 	Auxiliary.AddFusionProcMix(c,false,false,c515004000.fil2,aux.NonTuner(c515004000.fil))
 	aux.AddSynchroProcedure(c,c515004000.fil,1,1,aux.NonTuner(c515004000.fil),1,1)
-	aux.AddXyzProcedure(c,c515004000.xyzfilter,nil,2,nil,nil,nil,nil,true,true)
+	aux.AddXyzProcedure(c,c515004000.fil,nil,2,nil,nil,nil,nil,true,c515004000.xyzcheck)
 	c:EnableReviveLimit()
 	--splimit
 	local lm=Effect.CreateEffect(c)
@@ -106,15 +106,14 @@ function c515004000.initial_effect(c)
 		Duel.RegisterEffect(ge1,0)
 	end
 end
-function c515004000.fil(c)
-	return c:GetLevel()==6 and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON)
+function c515004000.fil(c,sc,sumtype,tp)
+	return c:IsLevel(6) and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON,sc,sumtype,tp)
 end
-function c515004000.fil2(c)
-	return c:GetLevel()==6 and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_TUNER)
+function c515004000.fil2(c,sc,sumtype,tp)
+	return c:OsLevel(6) and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON,sc,sumtype,tp) and c:IsType(TYPE_TUNER,sc,sumtype,tp)
 end
-function c515004000.xyzfilter(c,chk,tp,sg)
-	if chk then return not sg or ((not c:IsType(TYPE_TUNER) and sg:IsExists(Card.IsType,1,nil,TYPE_TUNER)) or (c:IsType(TYPE_TUNER) and sg:IsExists(aux.NOT(Card.IsType),1,nil,TYPE_TUNER))) end
-	return c515004000.fil(c)
+function c515004000.xyzcheck(g,tp,xyz)
+	return not sg or ((not c:IsType(TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp) and sg:IsExists(Card.IsType,1,nil,TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp)) or (c:IsType(TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp) and sg:IsExists(aux.NOT(Card.IsType),1,nil,TYPE_TUNER,xyz,SUMMON_TYPE_XYZ,tp)))
 end
 function c515004000.sumop(e,tp,eg,ep,ev,re,r,rp)
 	for tc in aux.Next(eg) do
