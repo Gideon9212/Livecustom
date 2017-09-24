@@ -55,7 +55,7 @@ function c515242564.initial_effect(c)
 	e6:SetTarget(c515242564.pentg)
 	e6:SetOperation(c515242564.penop)
 	c:RegisterEffect(e6)
-    --S/T Search
+    	--S/T Search
 	local e7=Effect.CreateEffect(c)
 	e7:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e7:SetType(EFFECT_TYPE_IGNITION)
@@ -77,7 +77,6 @@ function c515242564.initial_effect(c)
 	e8:SetTarget(c515242564.sptg2)
 	e8:SetOperation(c515242564.spop2)
 	c:RegisterEffect(e8)
-
 end
 function c515242564.cfilter3(c,tp)
 	return c:IsSetCard(0x666) and c:GetPreviousControler()==tp
@@ -87,7 +86,6 @@ function c515242564.spcon2(e,tp,eg,ep,ev,re,r,rp)
 end
 function c515242564.filter4(c)
 	 return c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER)
-		
 end
 function c515242564.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_DECK) and c515242564.filter4(chkc) end
@@ -103,12 +101,6 @@ function c515242564.spop2(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SendtoGrave(tc,REASON_EFFECT)
 	end
 end
-
-
-
-
-
-
 function c515242564.cfilter2(c,tp)
 	return c:IsFaceup() and c:GetSummonPlayer()==tp and c:IsSetCard(0x666) and c:GetSummonType()==SUMMON_TYPE_PENDULUM
 end
@@ -129,18 +121,14 @@ function c515242564.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(tc,nil,2,REASON_EFFECT)
 	end
 end
-
-
 function c515242564.cfilter(c)
-	 return c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER) and c:IsFaceup() 
-		
+	 return c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER) and c:IsFaceup() 	
 end
 function c515242564.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c515242564.cfilter,1,e:GetHandler()) end
 	local g=Duel.SelectReleaseGroup(tp,c515242564.cfilter,1,1,e:GetHandler())
 	Duel.Release(g,REASON_COST)
 end
-
 function c515242564.tribute(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242564.filter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
@@ -153,14 +141,6 @@ function c515242564.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
-
-
-
-
-
-
-
 function c515242564.target(e,c)
 	return c:IsSetCard(0x666) 
 end
@@ -179,25 +159,17 @@ function c515242564.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
-
-
-
 function c515242564.efilter(e,c)
- return c:IsSetCard(0x666)
+	return c:IsSetCard(0x666)
 end
 function c515242564.condition(e,tp,eg,ep,ev,re,r,rp)
- return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
+	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end
 function c515242564.target2(e,tp,eg,ep,ev,re,r,rp,chk)
- if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-  and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
- Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+ 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+  		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
+ 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-
-
-
-
 function c515242564.pencon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0 and c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
@@ -212,13 +184,6 @@ function c515242564.penop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.MoveToField(c,tp,tp,LOCATION_PZONE,POS_FACEUP,true)
 	end
 end
-
-
-
-
 function c515242564.filter(c)
-	 return c:IsSetCard(0x666) and c:IsType(TYPE_SPELL+TYPE_TRAP)
-		
+	 return c:IsSetCard(0x666) and c:IsType(TYPE_SPELL+TYPE_TRAP)	
 end
-
-
