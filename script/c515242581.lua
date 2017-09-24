@@ -22,7 +22,7 @@ function c515242581.initial_effect(c)
 	e2:SetTarget(c515242581.destg1)
 	e2:SetOperation(c515242581.desop1)
 	c:RegisterEffect(e2)
-		-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
+	-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
 	-- Special Summon 1 "Blue Striker" monster with a different name from your Deck.
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON)
@@ -46,23 +46,21 @@ function c515242581.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingMatchingCard(c515242581.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	end
-	
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,rg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
-	
 end
 function c515242581.op(e,tp,eg,ep,ev,re,r,rp)
-if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242581.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
-    local rg=Duel.SelectMatchingCard(tp,c515242581.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-    local code=rg:GetFirst():GetCode()
-   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
-    if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-    local g=Duel.SelectMatchingCard(tp,c515242581.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
-    if g:GetCount()>0 then
-        Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-    end
-end
+	if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242581.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
+    	local rg=Duel.SelectMatchingCard(tp,c515242581.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+    	local code=rg:GetFirst():GetCode()
+   	if Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
+    		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+    		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+    		local g=Duel.SelectMatchingCard(tp,c515242581.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
+    		if g:GetCount()>0 then
+        		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+    		end
+	end
 end
 --Effect 1 (Search) Code
 function c515242581.thcon(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -85,9 +83,7 @@ function c515242581.thop(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.ConfirmCards(1-tp,tg)
 	end
 end
-
 --Destroy monster
-
 function c515242581.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsController(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_MZONE,1,nil) end
@@ -97,8 +93,7 @@ function c515242581.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c515242581.desop1(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
+	if tc and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-
