@@ -1,8 +1,9 @@
 --Blue Striker: Little Monster Moon Burst
 function c515242586.initial_effect(c)
-		--pendulum summon
+	--pendulum summon
 	aux.EnablePendulumAttribute(c)
-		local e3=Effect.CreateEffect(c)
+	--
+	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(4066,0))
 	e3:SetCountLimit(1,515242583)
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -12,7 +13,7 @@ function c515242586.initial_effect(c)
 	e3:SetTarget(c515242586.destg1)
 	e3:SetOperation(c515242586.desop1)
 	c:RegisterEffect(e3)
-		-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
+	-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
 	-- Special Summon 1 "Blue Striker" monster with a different name from your Deck.
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TODECK+CATEGORY_SPECIAL_SUMMON)
@@ -22,8 +23,7 @@ function c515242586.initial_effect(c)
 	e2:SetOperation(c515242586.op)
 	e2:SetCountLimit(1)
 	c:RegisterEffect(e2)
-
-		--If dies, move card from grave to extra
+	--If dies, move card from grave to extra
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(515242586,2))
 	e5:SetCountLimit(1,515242584)
@@ -53,8 +53,6 @@ function c515242586.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
-
 --Effect 1 (Search) Code
 function c515242586.descon1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -89,21 +87,19 @@ function c515242586.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingMatchingCard(c515242586.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	end
-	
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,rg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
-	
 end
 function c515242586.op(e,tp,eg,ep,ev,re,r,rp)
-if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242586.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
-    local rg=Duel.SelectMatchingCard(tp,c515242586.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-    local code=rg:GetFirst():GetCode()
-   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
-    if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-    local g=Duel.SelectMatchingCard(tp,c515242586.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
-    if g:GetCount()>0 then
-        Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-    end
-end
+	if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242586.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
+    	local rg=Duel.SelectMatchingCard(tp,c515242586.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+    	local code=rg:GetFirst():GetCode()
+   	if Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
+    		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+    		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+    		local g=Duel.SelectMatchingCard(tp,c515242586.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
+    		if g:GetCount()>0 then
+       	 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+    		end
+	end
 end
