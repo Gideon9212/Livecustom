@@ -38,39 +38,39 @@ function c515242594.atop(e,tp,eg,ep,ev,re,r,rp)
 	local bc=Duel.GetAttackTarget()
 	if not bc:IsRelateToEffect(e) and bc:IsLocation(LOCATION_GRAVE) then return end
 	if Duel.SpecialSummonStep(bc,0,tp,1-tp,false,false,POS_FACEUP_ATTACK) then
-			local e1=Effect.CreateEffect(c)
-			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_UPDATE_ATTACK)
-			e1:SetValue(-1000)
-			e1:SetReset(RESET_EVENT+0x1fe0000)
-			bc:RegisterEffect(e1)
-			Duel.SpecialSummonComplete()
-			if c:IsFaceup() and c:IsRelateToEffect(e) then
-				if bc and bc:IsFaceup() and c:IsFaceup() and c:IsRelateToEffect(e) then
-					local e2=Effect.CreateEffect(c)
-					e2:SetLabelObject(bc)
-					e2:SetType(EFFECT_TYPE_SINGLE)
-					e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-					e2:SetCode(EFFECT_EXTRA_ATTACK_MONSTER)
-					e2:SetCondition(c515242594.con)
-					e2:SetValue(1)
-					e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-					c:RegisterEffect(e2)
-					local e3=Effect.CreateEffect(c)
-					e3:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-					e3:SetType(EFFECT_TYPE_FIELD)
-					e3:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
-					e3:SetRange(LOCATION_MZONE)
-					e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-					e3:SetCondition(c515242594.con)
-					e3:SetTarget(c515242594.attacktarget)
-					e3:SetLabelObject(bc)
-					e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-					e3:SetValue(1)
-					c:RegisterEffect(e3)
-					bc:RegisterFlagEffect(515242594,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
-				end
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetValue(-1000)
+		e1:SetReset(RESET_EVENT+0x1fe0000)
+		bc:RegisterEffect(e1)
+		Duel.SpecialSummonComplete()
+		if c:IsFaceup() and c:IsRelateToEffect(e) then
+			if bc and bc:IsFaceup() and c:IsFaceup() and c:IsRelateToEffect(e) then
+				local e2=Effect.CreateEffect(c)
+				e2:SetLabelObject(bc)
+				e2:SetType(EFFECT_TYPE_SINGLE)
+				e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+				e2:SetCode(EFFECT_EXTRA_ATTACK_MONSTER)
+				e2:SetCondition(c515242594.con)
+				e2:SetValue(1)
+				e2:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+				c:RegisterEffect(e2)
+				local e3=Effect.CreateEffect(c)
+				e3:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
+				e3:SetType(EFFECT_TYPE_FIELD)
+				e3:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
+				e3:SetRange(LOCATION_MZONE)
+				e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+				e3:SetCondition(c515242594.con)
+				e3:SetTarget(c515242594.attacktarget)
+				e3:SetLabelObject(bc)
+				e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+				e3:SetValue(1)
+				c:RegisterEffect(e3)
+				bc:RegisterFlagEffect(515242594,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 			end
+		end
 	end
 end
 function c515242594.attacktarget(e,c)
@@ -90,22 +90,3 @@ end
 function c515242594.atkval(e,c)
 	return c:GetLinkedGroupCount()-1   
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
