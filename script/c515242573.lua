@@ -1,7 +1,6 @@
 --Moon's Clouds to Hide
 function c515242573.initial_effect(c)
-
---Activate
+	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(4066,2))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -10,7 +9,7 @@ function c515242573.initial_effect(c)
 	e1:SetCountLimit(1,515242572)
 	e1:SetOperation(c515242573.activate)
 	c:RegisterEffect(e1)
---Can't target scales
+	--Can't target scales
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
@@ -20,7 +19,7 @@ function c515242573.initial_effect(c)
 	e2:SetTarget(c515242573.tgtg)
 	e2:SetValue(aux.tgoval)
 	c:RegisterEffect(e2)
---SP battle protection
+	--SP battle protection
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_PHASE+PHASE_STANDBY)
@@ -31,7 +30,7 @@ function c515242573.initial_effect(c)
 	e3:SetCountLimit(1)
 	e3:SetOperation(c515242573.standop)
 	c:RegisterEffect(e3)
---Shuffle
+	--Shuffle
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
 	e4:SetType(EFFECT_TYPE_IGNITION)
@@ -41,7 +40,7 @@ function c515242573.initial_effect(c)
 	e4:SetCountLimit(1)
 	e4:SetOperation(c515242573.shfop)
 	c:RegisterEffect(e4)
---Pend
+	--Pend
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(515242573,1))
 	e5:SetCategory(CATEGORY_TODECK)
@@ -53,7 +52,7 @@ function c515242573.initial_effect(c)
 	e5:SetTarget(c515242573.pendtg)
 	e5:SetOperation(c515242573.pendop)
 	c:RegisterEffect(e5)
---No Desu
+	--No Desu ne
 	local e6=Effect.CreateEffect(c)
 	e6:SetType(EFFECT_TYPE_SINGLE)
 	e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -66,7 +65,6 @@ end
 function c515242573.codefilter(c)
 	return c:IsSetCard(0x666) and c:IsFaceup()
 end
-
 --Can't Target scales code
 function c515242573.tgcon(e)
 	local tp=e:GetHandler():GetControler()
@@ -74,8 +72,7 @@ function c515242573.tgcon(e)
 	return g:GetClassCount(Card.GetCode)>=1
 end
 function c515242573.tgtg(e,c)
-    return (c:IsSetCard(0x666))
-        and (c:GetSequence()==0 or c:GetSequence()==4)
+    	return (c:IsSetCard(0x666)) and (c:GetSequence()==0 or c:GetSequence()==4)
 end
 --Activation code
 function c515242573.thfilter(c)
@@ -98,8 +95,6 @@ function c515242573.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-
-
 function c515242573.standcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c515242573.codefilter,tp,LOCATION_EXTRA,0,nil)
 	return g:GetClassCount(Card.GetCode)>=2
@@ -116,7 +111,7 @@ end
 function c515242573.standop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
+	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
@@ -131,7 +126,6 @@ end
 function c515242573.valcon(e,re,r,rp)
 	return bit.band(r,REASON_BATTLE)~=0
 end
-
 function c515242573.shfcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(c515242573.codefilter,tp,LOCATION_EXTRA,0,nil)
 	if chk==0 then return g:GetClassCount(Card.GetCode)>=3 end
@@ -170,7 +164,6 @@ function c515242573.shfop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.RegisterEffect(e2,tp)
 	end
 end
-
 function c515242573.pendfilter(c,tp)
 	if bit.band(c:GetSummonType(),SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM then
 		return c:GetSummonPlayer()==tp and c:IsPreviousLocation(LOCATION_EXTRA) and c:IsSetCard(0x666)
@@ -190,7 +183,7 @@ end
 function c515242573.pendop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
+	if tc and tc:IsRelateToEffect(e) then
 		Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)
 	end
 end
