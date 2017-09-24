@@ -1,19 +1,19 @@
 --Blue Striker: Tiny Pony, the Courageous
 function c515242595.initial_effect(c)
-    --pendulum summon
-    aux.EnablePendulumAttribute(c)
-		--link summon
-aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),3)
+    	--pendulum summon
+	aux.EnablePendulumAttribute(c)
+	--link summon
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),3)
 	c:EnableReviveLimit()
-		--add link summon
-    local e0=Effect.CreateEffect(c)
-    e0:SetType(EFFECT_TYPE_FIELD)
-    e0:SetCode(EFFECT_SPSUMMON_PROC)
+	--add link summon
+    	local e0=Effect.CreateEffect(c)
+    	e0:SetType(EFFECT_TYPE_FIELD)
+    	e0:SetCode(EFFECT_SPSUMMON_PROC)
 	e0:SetDescription(aux.Stringid(4066,3))
-    e0:SetProperty(EFFECT_FLAG_UNCOPYABLE)
-    e0:SetRange(LOCATION_EXTRA)
-    e0:SetCondition(c515242595.sprcon)
-    e0:SetOperation(c515242595.sprop)
+    	e0:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+    	e0:SetRange(LOCATION_EXTRA)
+    	e0:SetCondition(c515242595.sprcon)
+    	e0:SetOperation(c515242595.sprop)
 	e0:SetValue(SUMMON_TYPE_LINK)
 	c:RegisterEffect(e0)
 	--anti back row
@@ -38,7 +38,6 @@ aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),3)
 	e2:SetValue(c515242595.aclimit)
 	e2:SetCondition(c515242595.actcon)
 	c:RegisterEffect(e2)
-
 end
 c515242595.pendulum_level=4
 function c515242595.aclimit(e,re,tp)
@@ -47,9 +46,8 @@ end
 function c515242595.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler() or Duel.GetAttackTarget()==e:GetHandler()
 end
-
 function c515242595.descon(e)
-return e:GetHandler():GetLinkedGroupCount()>=1
+	return e:GetHandler():GetLinkedGroupCount()>=1
 end
 function c515242595.filter3(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)
@@ -67,44 +65,32 @@ function c515242595.desop2(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
 function c515242595.sprfilter1(c,tp)
-    local lv=c:GetLevel()
-    return lv>0 and c:IsSetCard(0x666) and not c:IsCode(515242564) and c:IsFaceup() and c:IsAbleToGraveAsCost()
-        and Duel.IsExistingMatchingCard(c515242595.sprfilter2,tp,LOCATION_EXTRA,0,2,nil,lv)
-        and Duel.IsExistingMatchingCard(c515242595.sprfilter3,tp,LOCATION_EXTRA,0,1,nil,tp)
+    	local lv=c:GetLevel()
+    	return lv>0 and c:IsSetCard(0x666) and not c:IsCode(515242564) and c:IsFaceup() and c:IsAbleToGraveAsCost()
+    		and Duel.IsExistingMatchingCard(c515242595.sprfilter2,tp,LOCATION_EXTRA,0,2,nil,lv)
+        	and Duel.IsExistingMatchingCard(c515242595.sprfilter3,tp,LOCATION_EXTRA,0,1,nil,tp)
 end
 function c515242595.sprfilter2(c,lv)
-    return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsCode(515242564) and c:GetLevel()==lv and c:IsAbleToGraveAsCost()
+    	return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsCode(515242564) and c:GetLevel()==lv and c:IsAbleToGraveAsCost()
 end
 function c515242595.sprfilter3(c,lv)
-    return c:IsFaceup() and c:IsCode(515242564) and c:IsAbleToGraveAsCost()
+    	return c:IsFaceup() and c:IsCode(515242564) and c:IsAbleToGraveAsCost()
 end
 function c515242595.sprcon(e,c)
-    if c==nil then return true end
-    local tp=c:GetControler()
-	 return Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
+    	if c==nil then return true end
+    	local tp=c:GetControler()
+	return Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
 	and Duel.IsExistingMatchingCard(c515242595.sprfilter1,tp,LOCATION_EXTRA,0,1,nil,tp)
 end
-
 function c515242595.sprop(e,tp,eg,ep,ev,re,r,rp,c)
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-    local g1=Duel.SelectMatchingCard(tp,c515242595.sprfilter1,tp,LOCATION_EXTRA,0,1,1,nil,tp)
-    Duel.SendtoGrave(g1,REASON_MATERIAL+REASON_LINK)
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-    local g2=Duel.SelectMatchingCard(tp,c515242595.sprfilter2,tp,LOCATION_EXTRA,0,2,2,nil,g1:GetFirst():GetLevel())
-    Duel.SendtoGrave(g2,REASON_MATERIAL+REASON_LINK)
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-    local g3=Duel.SelectMatchingCard(tp,c515242595.sprfilter3,tp,LOCATION_EXTRA,0,1,1,nil,tp)
-    Duel.SendtoGrave(g3,REASON_MATERIAL+REASON_LINK)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g1=Duel.SelectMatchingCard(tp,c515242595.sprfilter1,tp,LOCATION_EXTRA,0,1,1,nil,tp)
+	Duel.SendtoGrave(g1,REASON_MATERIAL+REASON_LINK)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g2=Duel.SelectMatchingCard(tp,c515242595.sprfilter2,tp,LOCATION_EXTRA,0,2,2,nil,g1:GetFirst():GetLevel())
+	Duel.SendtoGrave(g2,REASON_MATERIAL+REASON_LINK)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g3=Duel.SelectMatchingCard(tp,c515242595.sprfilter3,tp,LOCATION_EXTRA,0,1,1,nil,tp)
+	Duel.SendtoGrave(g3,REASON_MATERIAL+REASON_LINK)
 end
