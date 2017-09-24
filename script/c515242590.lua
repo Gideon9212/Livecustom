@@ -1,7 +1,7 @@
 --Blue Striker: Moon Burst the Wish Maker
 function c515242590.initial_effect(c)
 	--link summon
-aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
 	c:EnableReviveLimit()
 	--add link summon
 	local e0=Effect.CreateEffect(c)
@@ -26,7 +26,7 @@ aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
 	e1:SetTarget(c515242590.destg1)
 	e1:SetOperation(c515242590.desop1)
 	c:RegisterEffect(e1)
---banish this card, return TP to the deck
+	--banish this card, return TP to the deck
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(515242590,2))
 	e2:SetCategory(CATEGORY_TODECK)
@@ -38,9 +38,7 @@ aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
 	e2:SetTarget(c515242590.tdtg)
 	e2:SetOperation(c515242590.tdop)
 	c:RegisterEffect(e2)
-
 end
-
 function c515242590.tdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not Duel.IsPlayerAffectedByEffect(e:GetHandlerPlayer(),515242590) 
 		and e:GetHandler():IsAbleToRemoveAsCost() end
@@ -60,23 +58,6 @@ function c515242590.tdop(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local g=Duel.GetMatchingGroup(c515242590.tdfilter,tp,LOCATION_REMOVED,0,nil)
 	Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function c515242590.cfilter(c)
 	return c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER)
 end
@@ -99,33 +80,30 @@ function c515242590.desop1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-
-
 function c515242590.sprfilter1(c,tp)
-    local lv=c:GetLevel()
-    return lv>0 and c:IsSetCard(0x666) and not c:IsCode(515242564) and c:IsFaceup() and c:IsAbleToGraveAsCost()
-        and Duel.IsExistingMatchingCard(c515242590.sprfilter2,tp,LOCATION_EXTRA,0,1,nil,lv)
-        and Duel.IsExistingMatchingCard(c515242590.sprfilter3,tp,LOCATION_EXTRA,0,1,nil,tp)
+    	local lv=c:GetLevel()
+    	return lv>0 and c:IsSetCard(0x666) and not c:IsCode(515242564) and c:IsFaceup() and c:IsAbleToGraveAsCost()
+        	and Duel.IsExistingMatchingCard(c515242590.sprfilter2,tp,LOCATION_EXTRA,0,1,nil,lv)
+        	and Duel.IsExistingMatchingCard(c515242590.sprfilter3,tp,LOCATION_EXTRA,0,1,nil,tp)
 end
 function c515242590.sprfilter2(c,lv)
-    return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsCode(515242564) and c:IsAbleToGraveAsCost()
+    	return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsCode(515242564) and c:IsAbleToGraveAsCost()
 end
 function c515242590.sprfilter3(c,lv)
-    return c:IsFaceup() and c:IsCode(515242564) and c:IsAbleToGraveAsCost()
+    	return c:IsFaceup() and c:IsCode(515242564) and c:IsAbleToGraveAsCost()
 end
 function c515242590.sprcon(e,c)
-    if c==nil then return true end
-    local tp=c:GetControler()
-	 return Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
-	and Duel.IsExistingMatchingCard(c515242590.sprfilter2,tp,LOCATION_EXTRA,0,1,nil,tp)
-	and Duel.IsExistingMatchingCard(c515242590.sprfilter3,tp,LOCATION_EXTRA,0,1,nil,tp)
+    	if c==nil then return true end
+    	local tp=c:GetControler()
+	return Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
+		and Duel.IsExistingMatchingCard(c515242590.sprfilter2,tp,LOCATION_EXTRA,0,1,nil,tp)
+		and Duel.IsExistingMatchingCard(c515242590.sprfilter3,tp,LOCATION_EXTRA,0,1,nil,tp)
 end
-
 function c515242590.sprop(e,tp,eg,ep,ev,re,r,rp,c)
-    local g1=Duel.SelectMatchingCard(tp,c515242590.sprfilter2,tp,LOCATION_EXTRA,0,1,1,nil,tp)
-    Duel.SendtoGrave(g1,REASON_MATERIAL+REASON_LINK)
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	 local g3=Duel.SelectMatchingCard(tp,c515242590.sprfilter3,tp,LOCATION_EXTRA,0,1,1,nil,tp)
-    Duel.SendtoGrave(g3,REASON_MATERIAL+REASON_LINK)
+    	local g1=Duel.SelectMatchingCard(tp,c515242590.sprfilter2,tp,LOCATION_EXTRA,0,1,1,nil,tp)
+    	Duel.SendtoGrave(g1,REASON_MATERIAL+REASON_LINK)
+    	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g3=Duel.SelectMatchingCard(tp,c515242590.sprfilter3,tp,LOCATION_EXTRA,0,1,1,nil,tp)
+    	Duel.SendtoGrave(g3,REASON_MATERIAL+REASON_LINK)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 end
