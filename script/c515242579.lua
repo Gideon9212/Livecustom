@@ -1,6 +1,6 @@
 --Blue Striker: The Little Harbinger
 function c515242579.initial_effect(c)
-		--pendulum summon
+	--pendulum summon
 	aux.EnablePendulumAttribute(c)
 	-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
 	-- Special Summon 1 "Blue Striker" monster with a different name from your Deck.
@@ -12,7 +12,7 @@ function c515242579.initial_effect(c)
 	e1:SetOperation(c515242579.op)
 	e1:SetCountLimit(1)
 	c:RegisterEffect(e1)
-		local e2=Effect.CreateEffect(c)
+	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(40737112,1))
 	e2:SetCategory(CATEGORY_REMOVE)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
@@ -22,7 +22,6 @@ function c515242579.initial_effect(c)
 	e2:SetTarget(c515242579.rmtg)
 	e2:SetOperation(c515242579.rmop)
 	c:RegisterEffect(e2)
-
 	--Search
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(4066,0))
@@ -47,26 +46,23 @@ function c515242579.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingMatchingCard(c515242579.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	end
-	
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,rg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 	
 end
 function c515242579.op(e,tp,eg,ep,ev,re,r,rp)
-if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242579.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
-    local rg=Duel.SelectMatchingCard(tp,c515242579.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-    local code=rg:GetFirst():GetCode()
-   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
-    if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-    local g=Duel.SelectMatchingCard(tp,c515242579.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
-    if g:GetCount()>0 then
-        Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-    end
+	if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242579.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
+    	local rg=Duel.SelectMatchingCard(tp,c515242579.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+    	local code=rg:GetFirst():GetCode()
+   	if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
+    		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+    		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+    		local g=Duel.SelectMatchingCard(tp,c515242579.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
+    		if g:GetCount()>0 then
+        		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+    		end
+	end
 end
-end
-
-
 function c515242579.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local bc=e:GetHandler():GetBattleTarget()
 	if chk==0 then return bc:IsAbleToRemove(e,0,tp,false,false) end
@@ -75,7 +71,7 @@ function c515242579.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c515242579.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
+	if tc and tc:IsRelateToEffect(e) then
 		Duel.Remove(tc,0,tp,tp1,false,false,POS_FACEUP)
 	end
 end
@@ -100,6 +96,3 @@ function c515242579.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.ConfirmCards(1-tp,tg)
 	end
 end
-
-
-
