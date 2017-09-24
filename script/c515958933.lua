@@ -1,8 +1,5 @@
 --Odd-Eyes Illusory Magician
-local ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
-if Duel.GetMasterRule and Duel.GetMasterRule()>=4 
-then ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 
-end
+local ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 -- ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
 function c515958933.initial_effect(c)
 	--pendulum treat
 	aux.EnablePendulumAttribute(c)
@@ -60,28 +57,12 @@ function c515958933.initial_effect(c)
 	e7:SetOperation(c515958933.activate)
 	c:RegisterEffect(e7)
 end	
---Set to scale when destroyed
-function c515958933.pensetcon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0
-end
-function c515958933.pensettg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckLocation(tp,ScaleLocation,leftScale) or Duel.CheckLocation(tp,ScaleLocation,rightScale) end
-end
-function c515958933.pensetop(e,tp,eg,ep,ev,re,r,rp) 
-	if not Duel.CheckLocation(tp,ScaleLocation,leftScale) and not Duel.CheckLocation(tp,ScaleLocation,rightScale) then return false end
-	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) then
-		Duel.MoveToField(c,tp,tp,ScaleLocation,POS_FACEUP,true)
-	end
-end
 --Atk/Def up
 function c515958933.atkval(e,c,tp) 
+	
 	local tp=c:GetControler()
-	local loc=LOCATION_SZONE
-    local l,r=6,7
-	if Duel.GetMasterRule and Duel.GetMasterRule()>=4 then loc,l,r=LOCATION_PZONE,0,1 end
-    local psL=Duel.GetFieldCard(tp,loc,l)
-    local psR=Duel.GetFieldCard(tp,loc,r)
+    local psL=Duel.GetFieldCard(tp,ScaleLocation,leftScale)
+    local psR=Duel.GetFieldCard(tp,ScaleLocation,rightScale)
     if psL then psL=psL:GetLeftScale(psL) else psL=0 end
     if psR then psR=psR:GetLeftScale(psR) else psR=0 end
     return (psL+psR)*150

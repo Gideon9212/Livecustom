@@ -1,9 +1,7 @@
 --Odd-Eyes Exceed Magician
-local ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
-if Duel.GetMasterRule and Duel.GetMasterRule()>=4 
-then ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 
-end
+local ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 --ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
 function c515958930.initial_effect(c)
+
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
 	--Treat
@@ -58,20 +56,6 @@ function c515958930.initial_effect(c)
 	c:RegisterEffect(e6)
 	
 end
---Set to scale when destroyed
-function c515958930.pensetcon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0
-end
-function c515958930.pensettg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckLocation(tp,ScaleLocation,leftScale) or Duel.CheckLocation(tp,ScaleLocation,rightScale) end
-end
-function c515958930.pensetop(e,tp,eg,ep,ev,re,r,rp) 
-	if not Duel.CheckLocation(tp,ScaleLocation,leftScale) and not Duel.CheckLocation(tp,ScaleLocation,rightScale) then return false end
-	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) then
-		Duel.MoveToField(c,tp,tp,ScaleLocation,POS_FACEUP,true)
-	end
-end
 --Xyz to lvl7
 function c515958930.xyzfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_XYZ)
@@ -88,7 +72,7 @@ function c515958930.xyzop(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_XYZ_LEVEL)
+		e1:SetCode(EFFECT_RANK_LEVEL_S)
 		e1:SetValue(c515958930.xyzlv)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
@@ -136,12 +120,6 @@ function c515958930.spxyzfilter(c,e,tp,mc)
 	and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false) 
 	and c:GetRank(c)==rk and (c:IsRace(RACE_DRAGON) or c:IsRace(RACE_SPELLCASTER))
 end
-function c515958930.spxyzfilter2(c,e,tp,mc)
-	local rk=mc:GetLevel(mc)
-	return mc:IsCanBeXyzMaterial(c)	
-	and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false) 
-	and c:GetRank(c)==rk and (c:IsRace(RACE_DRAGON) or c:IsRace(RACE_SPELLCASTER))
-end
 function c515958930.spxyztg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then 
 	return Duel.IsExistingMatchingCard(c515958930.spxyzfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,e:GetHandler()) end
@@ -151,7 +129,7 @@ function c515958930.spxyzop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsFaceup() and c:IsRelateToEffect(e) and c:IsControler(tp) and not c:IsImmuneToEffect(e) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-			local g=Duel.SelectMatchingCard(tp,c515958930.spxyzfilter2,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,c)
+			local g=Duel.SelectMatchingCard(tp,c515958930.spxyzfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,c)
 			local sc=g:GetFirst()
 			if sc then
 				local mg=c:GetOverlayGroup()

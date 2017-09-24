@@ -1,10 +1,7 @@
 --Odd-Eyes Blood Magician
-local ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
-if Duel.GetMasterRule and Duel.GetMasterRule()>=4 
-then ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 
-end
-
+local ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 --ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
 function c515958931.initial_effect(c)
+
 	--pendulum treat
 	aux.EnablePendulumAttribute(c)
 	--Treat
@@ -29,7 +26,6 @@ function c515958931.initial_effect(c)
 	e3:SetHintTiming(TIMING_DAMAGE_STEP,TIMING_DAMAGE_STEP+0x1c0)
 	e3:SetCountLimit(1)
 	e3:SetCondition(c515958931.copycond)
-	e3:SetCost(c515958931.copycost)
 	e3:SetTarget(c515958931.copytg)
 	e3:SetOperation(c515958931.copyop)
 	c:RegisterEffect(e3)
@@ -49,7 +45,7 @@ function c515958931.initial_effect(c)
 	e6:SetType(EFFECT_TYPE_IGNITION)
 	e6:SetRange(LOCATION_PZONE)
 	e6:SetCountLimit(1)
-	if Duel.GetMasterRule and Duel.GetMasterRule()<4 then
+	if Duel.GetMasterRule and Duel.GetMasterRule()>=4 then
 		e6:SetTarget(c515958931.target)
 		e6:SetOperation(c515958931.activate)
 	else
@@ -128,10 +124,6 @@ end
 function c515958931.copycond(e,tp,eg,ep,ev,re,r,rp) 
 	return Duel.GetTurnPlayer()~=tp 
 end
-function c515958931.copycost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():GetFlagEffect(41209827)==0 end
-	e:GetHandler():RegisterFlagEffect(41209827,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
-end
 function c515958931.copyfilter(c)
 	return c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_TOKEN) and c:IsFaceup()
 end
@@ -150,21 +142,22 @@ function c515958931.copyop(e,tp,eg,ep,ev,re,r,rp)
 		if not tc:IsType(TYPE_TRAPMONSTER) then
 			local cid=c:CopyEffect(code,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,2)
 		end
-		Card.SetTurnCounter(c,1)
-		if Card.GetTurnCounter(c)==1 then
-		local e3=Effect.CreateEffect(c)
-		e3:SetDescription(aux.Stringid(43387895,0))
-		e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e3:SetCode(EVENT_PHASE+PHASE_END)
-		e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-		e3:SetCountLimit(1)
-		e3:SetRange(LOCATION_MZONE)
-		e3:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-		e3:SetLabel(cid)
-		e3:SetOperation(c515958931.rstop)
-		c:RegisterEffect(e3)
-		end
 	end
+	local e1=Effect.CreateEffect(c)
+			e1:SetDescription(aux.Stringid(43387895,0))
+			e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+			e1:SetCode(EVENT_PHASE+PHASE_END)
+			e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+			e1:SetCountLimit(1)
+			e1:SetRange(LOCATION_MZONE)
+			e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+			e1:SetLabel(cid)
+			e1:SetCondition(c515958931.copycond2)
+			e1:SetOperation(c515958931.rstop)
+			c:RegisterEffect(e1)
+end
+function c515958931.copycond2(e,tp,eg,ep,ev,re,r,rp) 
+	return Duel.GetTurnPlayer()==tp 
 end
 function c515958931.rstop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
