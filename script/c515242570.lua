@@ -1,8 +1,8 @@
 --Lunar Guardian's Blessing
 function c515242570.initial_effect(c)
-    c:EnableCounterPermit(0x99)
+    	c:EnableCounterPermit(0x99)
 	c:SetCounterLimit(0x99,12)
-    --Activate
+    	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(4066,1))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -11,7 +11,7 @@ function c515242570.initial_effect(c)
 	e1:SetCountLimit(1,515242570)
 	e1:SetOperation(c515242570.activate)
 	c:RegisterEffect(e1)
-    --add counter
+    	--add counter
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2:SetRange(LOCATION_SZONE)
