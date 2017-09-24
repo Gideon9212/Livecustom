@@ -18,7 +18,8 @@ function c515242588.initial_effect(c)
 	e2:SetDescription(aux.Stringid(515242588,1))
 	e2:SetCategory(CATEGORY_ATKCHANGE)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e2:SetCode(EVENT_BATTLE_DAMAGE)
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetTarget(c515242588.atktg)
 	e2:SetOperation(c515242588.atkop)
 	c:RegisterEffect(e2)
@@ -55,7 +56,7 @@ function c515242588.op(e,tp,eg,ep,ev,re,r,rp)
 if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242588.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
     local rg=Duel.SelectMatchingCard(tp,c515242588.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
     local code=rg:GetFirst():GetCode()
-    Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
+   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
     if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
     local g=Duel.SelectMatchingCard(tp,c515242588.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
@@ -63,7 +64,7 @@ if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c51
         Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
     end
 end
-
+end
 
 --atk 200
 function c515242588.atkfilter(c)
@@ -96,7 +97,7 @@ end
 function c515242588.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242588.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242588.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242588.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end

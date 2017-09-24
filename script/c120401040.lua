@@ -3,7 +3,7 @@
 --Scripted by Eerie Code
 function c120401040.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_SPELLCASTER),2)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunctionEx(Card.IsRace,RACE_SPELLCASTER),2)
 	--cannot be tributed
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -64,7 +64,7 @@ function c120401040.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tg=te:GetTarget()
 	e:SetCategory(te:GetCategory())
 	e:SetProperty(te:GetProperty())
-	if tg then tg(e,tp,ceg,cep,cev,cre,cr,crp,1) end
+	if tg then tg(te,tp,ceg,cep,cev,cre,cr,crp,1) end
 	te:SetLabelObject(e:GetLabelObject())
 	e:SetLabelObject(te)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,nil,0,0,0)
@@ -75,6 +75,6 @@ function c120401040.operation(e,tp,eg,ep,ev,re,r,rp)
 	if not te:GetHandler():IsRelateToEffect(e) then return end
 	e:SetLabelObject(te:GetLabelObject())
 	local op=te:GetOperation()
-	if op then op(e,tp,eg,ep,ev,re,r,rp) end
+	if op then op(te,tp,eg,ep,ev,re,r,rp) end
 	Duel.SendtoDeck(te:GetHandler(),nil,1,REASON_EFFECT)
 end

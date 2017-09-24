@@ -29,6 +29,7 @@ function c120401008.initial_effect(c)
 	e4:SetOperation(c120401008.spop)
 	c:RegisterEffect(e4)
 end
+c120401008.toss_coin=true
 function c120401008.thfilter(c)
 	return c:IsRace(RACE_MACHINE) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToHand()
 end

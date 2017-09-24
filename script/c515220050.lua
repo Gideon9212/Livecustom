@@ -27,8 +27,8 @@ function c515220050.initial_effect(c)
 	e3:SetOperation(c515220050.atkop)
 	c:RegisterEffect(e3)
 end
-function c515220050.matfilter(c)
-	return (c:IsSetCard(0x98) and c:IsLinkType(TYPE_PENDULUM)) or c:IsSetCard(0x99) or c:IsSetCard(0x9f)
+function c515220050.matfilter(c,lc,sumtype,tp)
+	return (c:IsSetCard(0x98) and c:IsType(TYPE_PENDULUM,lc,sumtype,tp)) or c:IsSetCard(0x99) or c:IsSetCard(0x9f)
 end
 function c515220050.bstval(e,c)
 	return e:GetHandler():GetLinkedGroupCount()*300

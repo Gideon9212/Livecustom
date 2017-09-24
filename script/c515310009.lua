@@ -6,7 +6,6 @@ function c515310009.initial_effect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(c515310009.target)
 	e1:SetOperation(c515310009.activate)
 	c:RegisterEffect(e1)
 	--atk & def
@@ -25,7 +24,7 @@ function c515310009.initial_effect(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e4:SetRange(LOCATION_FZONE)
-	e4:SetCode(EVENT_LEAVE_FIELD)
+	e4:SetCode(EVENT_DESTROYED)
 	e4:SetCondition(c515310009.descon)
 	e4:SetOperation(c515310009.desop)
 	c:RegisterEffect(e4)
@@ -71,10 +70,6 @@ end
 function c515310009.filter(c)
 	return c:IsSetCard(0xf31) and c:IsAbleToHand()
 end
-function c515310009.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c515310009.filter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
-end
 function c515310009.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local g=Duel.GetMatchingGroup(c515310009.filter,tp,LOCATION_DECK,0,nil)
@@ -89,7 +84,7 @@ function c515310009.filter1(c)
 	return c:IsFaceup() and c:IsSetCard(0xf31)
 end
 function c515310009.desfilter(c)
-	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
+	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
 function c515310009.descon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c515310009.desfilter,1,nil)
@@ -100,7 +95,7 @@ function c515310009.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c515310009.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
-	return loc==LOCATION_HAND and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev) 
+	return loc==LOCATION_HAND and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev) and not eg:GetFirst():IsControler(tp)
 		and Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,2,nil)
 end
 function c515310009.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -116,7 +111,9 @@ function c515310009.negop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c515310009.discon(e,tp,eg,ep,ev,re,r,rp)
-	return re:IsActiveType(TYPE_MONSTER) and re:GetHandler():GetAttack()==0 and Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,3,nil)
+	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
+	return re:IsActiveType(TYPE_MONSTER) and (loc==LOCATION_GRAVE or loc==LOCATION_REMOVED) and rp~=tp 
+		and Duel.IsExistingMatchingCard(c515310009.filter1,tp,LOCATION_MZONE,0,3,nil)
 end
 function c515310009.disop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateEffect(ev)

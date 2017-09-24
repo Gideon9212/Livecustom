@@ -19,8 +19,6 @@ function c515242581.initial_effect(c)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetCountLimit(1,515242578)
---	e2:SetCondition(c515242581.descon1)
-	--e2:SetCost(c515242581.descost1)
 	e2:SetTarget(c515242581.destg1)
 	e2:SetOperation(c515242581.desop1)
 	c:RegisterEffect(e2)
@@ -57,7 +55,7 @@ function c515242581.op(e,tp,eg,ep,ev,re,r,rp)
 if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242581.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
     local rg=Duel.SelectMatchingCard(tp,c515242581.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
     local code=rg:GetFirst():GetCode()
-    Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
+   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
     if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
     local g=Duel.SelectMatchingCard(tp,c515242581.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
@@ -65,7 +63,7 @@ if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c51
         Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
     end
 end
-
+end
 --Effect 1 (Search) Code
 function c515242581.thcon(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -75,7 +73,7 @@ end
 function c515242581.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242581.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242581.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242581.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end
@@ -89,13 +87,7 @@ function c515242581.thop(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 
 --Destroy monster
-function c515242581.descon1(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_PENDULUM
-end
-function c515242581.descost1(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsReleasable() end
-	Duel.Destroy(e:GetHandler(),REASON_COST)
-end
+
 function c515242581.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsController(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_MZONE,1,nil) end

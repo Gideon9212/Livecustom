@@ -93,7 +93,7 @@ function c515310011.seqfilter(c,tp)
 end
 function c515310011.seqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c515310011.seqfilter(chkc,tp) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c515310011.seqfilter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(4031,12))
 	Duel.SelectTarget(tp,c515310011.seqfilter,tp,LOCATION_MZONE,0,1,1,nil,tp)
 end

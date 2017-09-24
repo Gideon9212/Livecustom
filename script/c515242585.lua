@@ -67,7 +67,7 @@ function c515242585.op(e,tp,eg,ep,ev,re,r,rp)
 if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242585.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
     local rg=Duel.SelectMatchingCard(tp,c515242585.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
     local code=rg:GetFirst():GetCode()
-    Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
+   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
     if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
     local g=Duel.SelectMatchingCard(tp,c515242585.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
@@ -75,7 +75,7 @@ if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c51
         Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
     end
 end
-
+end
 
 
 
@@ -91,7 +91,7 @@ end
 function c515242585.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242585.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242585.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242585.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end

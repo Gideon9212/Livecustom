@@ -23,8 +23,8 @@ function c120401010.initial_effect(c)
 	e2:SetTarget(c120401010.splimit)
 	c:RegisterEffect(e2)
 end
-function c120401010.matfilter(c)
-	return c:IsRace(RACE_WARRIOR) and c:IsAttribute(ATTRIBUTE_EARTH) and c:GetLevel()==7
+function c120401010.matfilter(c,lc,sumtype,tp)
+	return c:IsRace(RACE_WARRIOR,lc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_EARTH,lc,sumtype,tp) and c:GetLevel()==7
 end
 function c120401010.filter(c)
 	return c:IsFaceup() and c:IsCode(11790356)

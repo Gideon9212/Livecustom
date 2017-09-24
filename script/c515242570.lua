@@ -8,7 +8,7 @@ function c515242570.initial_effect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,515242570+EFFECT_COUNT_CODE_OATH)
+	e1:SetCountLimit(1,515242570)
 	e1:SetOperation(c515242570.activate)
 	c:RegisterEffect(e1)
     --add counter
@@ -63,7 +63,7 @@ end
 function c515242570.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local g=Duel.GetMatchingGroup(c515242570.thfilter,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(515242570,0)) then
+	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(4066,1)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)
 		Duel.SendtoHand(sg,nil,REASON_EFFECT)

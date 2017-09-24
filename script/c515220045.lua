@@ -4,7 +4,7 @@
 function c515220045.initial_effect(c)
 	c:EnableReviveLimit()
 	aux.EnablePendulumAttribute(c,false)
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_DRAGON),7,2,c515220045.ovfilter,aux.Stringid(515220045,0),2,c515220045.xyzop)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunctionEx(Card.IsRace,RACE_DRAGON),7,2,c515220045.ovfilter,aux.Stringid(515220045,0),2,c515220045.xyzop)
 	--rank to level
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(515220045,1))

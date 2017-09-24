@@ -5,7 +5,7 @@ function c515242566.initial_effect(c)
 	
 		--Search
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(515242566,0))
+	e1:SetDescription(aux.Stringid(4066,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_HAND)
@@ -58,13 +58,14 @@ function c515242566.op(e,tp,eg,ep,ev,re,r,rp)
 if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242566.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
     local rg=Duel.SelectMatchingCard(tp,c515242566.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
     local code=rg:GetFirst():GetCode()
-    Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
+   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
     if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
     local g=Duel.SelectMatchingCard(tp,c515242566.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
     if g:GetCount()>0 then
         Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
     end
+end
 end
 
 --If deal damage,kill a thing
@@ -94,7 +95,7 @@ end
 function c515242566.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242566.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242566.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242566.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end

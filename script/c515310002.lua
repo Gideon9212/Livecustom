@@ -67,7 +67,7 @@ function c515310002.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c515310002.rmcfilter(c)
-	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsPreviousLocation(LOCATION_GRAVE)
+	return c:IsSetCard(0xf31) and c:IsType(TYPE_MONSTER) and c:IsPreviousLocation(LOCATION_GRAVE) and c:IsControler(tp)
 end
 function c515310002.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg and eg:IsExists(c515310002.rmcfilter,1,e:GetHandler())

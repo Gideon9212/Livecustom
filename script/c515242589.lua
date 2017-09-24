@@ -20,7 +20,7 @@ function c515242589.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EVENT_DESTROYED)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY+EFFECT_FLAG_NO_TURN_RESET)
-	e3:SetCountLimit(1)
+	e3:SetCountLimit(1,515242589)
 	e3:SetCondition(c515242589.drcon)
 	e3:SetTarget(c515242589.drtg)
 	e3:SetOperation(c515242589.drop)
@@ -103,7 +103,7 @@ end
 function c515242589.filter(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242589.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242589.destg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242589.filter,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end

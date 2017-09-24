@@ -3,7 +3,7 @@
 --Scripted by Eerie Code
 function c120401052.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkType,TYPE_EFFECT),3)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunctionEx(Card.IsType,TYPE_EFFECT),3)
 	--immunity
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -41,6 +41,7 @@ function c120401052.initial_effect(c)
 	e4:SetTarget(c120401052.breptg)
 	c:RegisterEffect(e4)
 end
+c120401052.toss_coin=true
 function c120401052.immtg(e,c)
 	return e:GetHandler():GetLinkedGroup():IsContains(c)
 end
@@ -58,14 +59,14 @@ function c120401052.thfilter(c,sc1,sc2)
 		and not c:IsCode(sc2:GetCode())
 end
 function c120401052.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c120401052.thcfilter,tp,LOCATION_DECK,0,1,nil,tp) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c120401052.thcfilter,tp,LOCATION_HAND,0,1,nil,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local tc1=Duel.SelectMatchingCard(tp,c120401052.thcfilter,tp,LOCATION_DECK,0,1,1,nil,tp):GetFirst()
+	local tc1=Duel.SelectMatchingCard(tp,c120401052.thcfilter,tp,LOCATION_HAND,0,1,1,nil,tp):GetFirst()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local tc2=Duel.SelectMatchingCard(tp,c120401052.thcfilter,tp,LOCATION_DECK,0,1,1,nil,tp,tc1):GetFirst()
+	local tc2=Duel.SelectMatchingCard(tp,c120401052.thcfilter,tp,LOCATION_HAND,0,1,1,nil,tp,tc1):GetFirst()
 	local g=Group.FromCards(tc1,tc2)
 	Duel.SendtoGrave(g,REASON_COST)
-	e:SetLabelObject(g)
+	e:SetLabelObject(Duel.GetOperatedGroup())
 end
 function c120401052.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

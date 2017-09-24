@@ -21,7 +21,6 @@ aux.EnablePendulumAttribute(c,true)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	--e2:SetCondition(c515242574.descon1)
 	e2:SetCost(c515242574.descost1)
 	e2:SetTarget(c515242574.destg1)
 	e2:SetOperation(c515242574.desop1)
@@ -59,13 +58,14 @@ function c515242574.op(e,tp,eg,ep,ev,re,r,rp)
 if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242574.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
     local rg=Duel.SelectMatchingCard(tp,c515242574.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
     local code=rg:GetFirst():GetCode()
-    Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
+   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
     if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
     local g=Duel.SelectMatchingCard(tp,c515242574.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
     if g:GetCount()>0 then
         Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
     end
+end
 end
 
 	--Effect 1 (Search) Code
@@ -77,7 +77,7 @@ end
 function c515242574.filter3(c)
 	return c:IsCode(515242564) and c:IsAbleToHand()
 end
-function c515242574.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function c515242574.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c515242574.filter3,tp,0x51,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,0x51)
 end
@@ -93,19 +93,17 @@ end
 
 
 --Effect 2/3 (Banish code fuction
-function c515242574.descon1(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_PENDULUM
-end
+
 function c515242574.descost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsReleasable() end
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c515242574.destg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsController(1-tp) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
 function c515242574.desop1(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
