@@ -1,6 +1,6 @@
 --Blue Striker: Moon Burst Origins
 function c515242588.initial_effect(c)
-		--pendulum summon
+	--pendulum summon
 	aux.EnablePendulumAttribute(c)
 	-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
 	-- Special Summon 1 "Blue Striker" monster with a different name from your Deck.
@@ -14,7 +14,7 @@ function c515242588.initial_effect(c)
 	c:RegisterEffect(e1)
 	--atk up
 	--
-       local e2=Effect.CreateEffect(c)
+       	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(515242588,1))
 	e2:SetCategory(CATEGORY_ATKCHANGE)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
@@ -23,8 +23,8 @@ function c515242588.initial_effect(c)
 	e2:SetTarget(c515242588.atktg)
 	e2:SetOperation(c515242588.atkop)
 	c:RegisterEffect(e2)
-
-		local e3=Effect.CreateEffect(c)
+	--
+	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(4066,0))
 	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e3:SetType(EFFECT_TYPE_IGNITION)
@@ -47,47 +47,44 @@ function c515242588.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingMatchingCard(c515242588.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	end
-	
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,rg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
-	
 end
 function c515242588.op(e,tp,eg,ep,ev,re,r,rp)
-if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242588.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
-    local rg=Duel.SelectMatchingCard(tp,c515242588.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-    local code=rg:GetFirst():GetCode()
-   if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
-    if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-    local g=Duel.SelectMatchingCard(tp,c515242588.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
-    if g:GetCount()>0 then
-        Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-    end
+	if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242588.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
+    	local rg=Duel.SelectMatchingCard(tp,c515242588.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+    	local code=rg:GetFirst():GetCode()
+   	if  Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)>0 then
+    		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+    		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+    		local g=Duel.SelectMatchingCard(tp,c515242588.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
+    		if g:GetCount()>0 then
+        		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+    		end
+	end
 end
-end
-
 --atk 200
 function c515242588.atkfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666) and c:IsFaceup()
 end
 function c515242588.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-    if chk==0 then return Duel.IsExistingMatchingCard(c515242588.atkfilter,tp,LOCATION_MZONE,0,1,nil) end
+    	if chk==0 then return Duel.IsExistingMatchingCard(c515242588.atkfilter,tp,LOCATION_MZONE,0,1,nil) end
 end
 function c515242588.atkop(e,tp,eg,ep,ev,re,r,rp)
-    local sg=Duel.GetMatchingGroup(c515242588.atkfilter,tp,LOCATION_MZONE,0,nil)
-    local codect=Duel.GetMatchingGroup(c515242588.atkfilter,tp,LOCATION_GRAVE+LOCATION_EXTRA,0,nil)
-    local atk=codect:GetClassCount(Card.GetCode)*100
-    local c=e:GetHandler()
-    local tc=sg:GetFirst()
-    while tc do
-        local e1=Effect.CreateEffect(c)
-        e1:SetType(EFFECT_TYPE_SINGLE)
-        e1:SetCode(EFFECT_UPDATE_ATTACK)
-        e1:SetValue(atk)
-        e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_STANDBY,2)
-        tc:RegisterEffect(e1)
-        tc=sg:GetNext()
-    end
+	local sg=Duel.GetMatchingGroup(c515242588.atkfilter,tp,LOCATION_MZONE,0,nil)
+	local codect=Duel.GetMatchingGroup(c515242588.atkfilter,tp,LOCATION_GRAVE+LOCATION_EXTRA,0,nil)
+	local atk=codect:GetClassCount(Card.GetCode)*100
+	local c=e:GetHandler()
+	local tc=sg:GetFirst()
+	while tc do
+		local e1=Effect.CreateEffect(c)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetValue(atk)
+		e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_STANDBY,2)
+		tc:RegisterEffect(e1)
+		tc=sg:GetNext()
+	end
 end
 function c515242588.descon1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
