@@ -1,7 +1,7 @@
 --Blue Striker: Moon Burst Conflicting Thoughts
 function c515242592.initial_effect(c)
-		--link summon
-aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
+	--link summon
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
 	c:EnableReviveLimit()
 	--link summon
 	local e0=Effect.CreateEffect(c)
@@ -14,8 +14,7 @@ aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
 	e0:SetOperation(c515242592.lkop)
 	e0:SetValue(SUMMON_TYPE_LINK)
 	c:RegisterEffect(e0)
-
-		--cannot be target/battle indestructable
+	--cannot be target/battle indestructable
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
@@ -23,7 +22,6 @@ aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x666),2)
 	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e3:SetTarget(c515242592.tgtg)
 	e3:SetValue(c515242592.indval)
-
 	c:RegisterEffect(e3)
 end
 function c515242592.tgtg(e,c)
@@ -32,8 +30,6 @@ end
 function c515242592.indval(e,c)
 	return not c:IsType(TYPE_LINK)
 end
-
-
 function c515242592.lkfilter1(c,lc,tp)
 	return c:IsFaceup() and c:IsCode(515242564) and c:IsAbleToGraveAsCost()
 		and Duel.IsExistingMatchingCard(c515242592.lkfilter2,tp,LOCATION_EXTRA,0,1,nil,c,tp) 
