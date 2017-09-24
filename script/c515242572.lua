@@ -23,7 +23,7 @@ function c515242572.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c515242572.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
+	if tc and tc:IsRelateToEffect(e) then
 		Duel.SendtoGrave(tc,REASON_EFFECT+REASON_RETURN,nil,nil)
 		Duel.BreakEffect()
 		Duel.ShuffleDeck(tp)

@@ -1,6 +1,6 @@
 --Blue Striker: Moon Burst the Helpful Pony
 function c515242578.initial_effect(c)
---atkup
+	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetDescription(aux.Stringid(515242578,0))
@@ -29,11 +29,11 @@ function c515242578.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function c515242578.target(e,tp,eg,ep,ev,re,r,rp,chk)
-   local c=e:GetHandler()
-    if chk==0 then
-        if e:GetLabel()~=100 then return false end
-        e:SetLabel(0)
-        return Duel.GetFlagEffect(tp,515242578)==0 and c:IsAbleToGraveAsCost() end
+   	local c=e:GetHandler()
+    	if chk==0 then
+        	if e:GetLabel()~=100 then return false end
+        	e:SetLabel(0)
+        	return Duel.GetFlagEffect(tp,515242578)==0 and c:IsAbleToGraveAsCost() end
 	Duel.SendtoGrave(c,REASON_COST)
 	Duel.RegisterFlagEffect(tp,515242578,RESET_PHASE+PHASE_DAMAGE,0,1)
 end 

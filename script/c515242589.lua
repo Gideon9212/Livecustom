@@ -1,6 +1,6 @@
 --Blue Striker: Crying Pony Moon Burst
 function c515242589.initial_effect(c)
-		--pendulum summon
+	--pendulum summon
 	aux.EnablePendulumAttribute(c)
 	c:EnableCounterPermit(0x99,LOCATION_SZONE)
 	-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
@@ -13,7 +13,7 @@ function c515242589.initial_effect(c)
 	e1:SetOperation(c515242589.op)
 	e1:SetCountLimit(1)
 	c:RegisterEffect(e1)
-	
+	--
    	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_DRAW)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
@@ -25,7 +25,7 @@ function c515242589.initial_effect(c)
 	e3:SetTarget(c515242589.drtg)
 	e3:SetOperation(c515242589.drop)
 	c:RegisterEffect(e3)
-		--Search
+	--Search
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(4066,0))
 	e4:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -35,9 +35,7 @@ function c515242589.initial_effect(c)
 	e4:SetTarget(c515242589.destg1)
 	e4:SetOperation(c515242589.desop1)
 	c:RegisterEffect(e4)
-
 end
-
 --OPT, send a Striker you control to the deck, If you do, sp summon a different one from the deck.
 function c515242589.filter1(c,e,tp)
 	local code=c:GetCode()
@@ -51,27 +49,21 @@ function c515242589.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 		and Duel.IsExistingMatchingCard(c515242589.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	end
-	
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,rg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
-	
 end
 function c515242589.op(e,tp,eg,ep,ev,re,r,rp)
-if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242589.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
-    local rg=Duel.SelectMatchingCard(tp,c515242589.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-    local code=rg:GetFirst():GetCode()
-    Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
-    if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-    local g=Duel.SelectMatchingCard(tp,c515242589.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
-    if g:GetCount()>0 then
-        Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
-    end
+	if not e:GetHandler():IsRelateToEffect(e) or not Duel.IsExistingMatchingCard(c515242589.filter1,tp,LOCATION_MZONE,0,1,nil,e,tp) then return end
+    	local rg=Duel.SelectMatchingCard(tp,c515242589.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+    	local code=rg:GetFirst():GetCode()
+    	Duel.SendtoDeck(rg,nil,2,REASON_EFFECT)
+    	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+    	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+    	local g=Duel.SelectMatchingCard(tp,c515242589.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
+    	if g:GetCount()>0 then
+        	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+    	end
 end
-
-
-
-
 function c515242589.cfilter(c,tp)
 	return c:IsSetCard(0x666) and c:IsPreviousPosition(POS_FACEUP) and c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE)
 		and c:GetReasonPlayer()~=tp and (c:IsReason(REASON_EFFECT) or (c:IsReason(REASON_BATTLE)))
@@ -91,9 +83,6 @@ function c515242589.drop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=Duel.GetMatchingGroupCount(c515242589.dfilter,tp,LOCATION_MZONE,0,nil)
 	Duel.Draw(tp,ct,REASON_EFFECT)
 end
-
-
-
 --Effect 1 (Search) Code
 function c515242589.descon1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -115,4 +104,3 @@ function c515242589.desop1(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.ConfirmCards(1-tp,tg)
 	end
 end
-
