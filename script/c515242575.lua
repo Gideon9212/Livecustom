@@ -1,7 +1,5 @@
 --Night Guardian's Sword
 function c515242575.initial_effect(c)
-
-
 	--negate
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(515242575,1))
@@ -23,17 +21,10 @@ function c515242575.initial_effect(c)
 	e5:SetTarget(c515242575.thtg)
 	e5:SetOperation(c515242575.thop)
 	c:RegisterEffect(e5)
-	
-
 end
-
-
-
 function c515242575.thfilter(c)
 	return c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
-
-
 function c515242575.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
@@ -43,20 +34,18 @@ function c515242575.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c515242575.thop(e,tp,eg,ep,ev,re,r,rp,chk)
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,c515242575.thfilter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
 --negate code
 function c515242575.discon(e,tp,eg,ep,ev,re,r,rp)
-    -- if c==nil then return true end
-    local c=e:GetHandler()
-    local g=Duel.GetMatchingGroup(c515242575.thfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
-    local ct=g:GetClassCount(Card.GetCode)
+    	local c=e:GetHandler()
+    	local g=Duel.GetMatchingGroup(c515242575.thfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
+    	local ct=g:GetClassCount(Card.GetCode)
         return ct>1
 end
 
@@ -71,13 +60,9 @@ function c515242575.disop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SendtoDeck(tc,nil,2,REASON_COST)
 		end
 	end
-
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
-
-		Duel.NegateActivation(ev)
-		if re:GetHandler():IsRelateToEffect(re) then
-			Duel.Destroy(eg,REASON_EFFECT)
-		end
+	Duel.NegateActivation(ev)
+	if re:GetHandler():IsRelateToEffect(re) then
+		Duel.Destroy(eg,REASON_EFFECT)
 	end
-
-
+end
