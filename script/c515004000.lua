@@ -107,13 +107,16 @@ function c515004000.initial_effect(c)
 	end
 end
 function c515004000.fil(...)
-	local c,val,sc,sumtype,tp
+	local c,val,sc,sumtype,tp,g
 	local t={...}
-	if type(t[3])=='number' then
-		c,sc,sumtype,tp=table.unpack(t)
-	else
-		c,val,sc,sumtype,tp=table.unpack(t)
-	end
+    	if type(t[2])=='boolean' then
+        	tp,g=t[3],t[4]
+        	return g:IsExists(Card.IsType,1,nil,TYPE_TUNER) and g:IsExists(aux.NOT(Card.IsType),1,nil,TYPE_TUNER)
+    	elseif type(t[3])=='number' then
+        	c,sc,sumtype,tp=table.unpack(t)
+    	else
+        	c,val,sc,sumtype,tp=table.unpack(t)
+    	end
 	return c:IsLevel(6) and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON,sc,sumtype,tp)
 end
 function c515004000.fil2(c,sc,sumtype,tp)
