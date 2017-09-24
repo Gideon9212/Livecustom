@@ -4,7 +4,7 @@ function c515004000.initial_effect(c)
 	c:SetSPSummonOnce(515004000)
 	--xyz summon
 	Auxiliary.AddFusionProcMix(c,false,false,c515004000.fil2,aux.NonTuner(c515004000.fil))
-	aux.AddSynchroProcedure(c,c515004000.fil,1,1,aux.NonTuner(c515004000.fil),1,1)
+	aux.AddSynchroProcedure(c,c515004000.fil,1,1,aux.NonTunerEx(c515004000.fil),1,1)
 	aux.AddXyzProcedure(c,c515004000.fil,nil,2,nil,nil,nil,nil,true,c515004000.xyzcheck)
 	c:EnableReviveLimit()
 	--splimit
@@ -108,10 +108,11 @@ function c515004000.initial_effect(c)
 end
 function c515004000.fil(...)
 	local c,val,sc,sumtype,tp
-	if type({...}[3])=='number' then
-		c,sc,sumtype,tp=table.unpack({...})
+	local t={...}
+	if type(t[3])=='number' then
+		c,sc,sumtype,tp=table.unpack(t)
 	else
-		c,val,sc,sumtype,tp=table.unpack({...})
+		c,val,sc,sumtype,tp=table.unpack(t)
 	end
 	return c:IsLevel(6) and c:IsLocation(LOCATION_ONFIELD) and c:IsRace(RACE_DRAGON,sc,sumtype,tp)
 end
