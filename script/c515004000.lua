@@ -170,11 +170,14 @@ end
 function c515004000.dmcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
+function c515004000.dmcardfilter(c)
+	return c:IsFaceup() and c:IsType(TYPE_MONSTER)
+end
 function c515004000.dmfilter(c)
 	return (c:GetLevel()+c:GetRank())*200
 end
 function c515004000.dmop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Damage(1-e:GetHandlerPlayer(),Duel.GetMatchingGroup(Card.IsType,0,LOCATION_ONFIELD,LOCATION_ONFIELD,e:GetHandler(),TYPE_MONSTER):GetSum(c515004000.dmfilter),REASON_EFFECT)
+	Duel.Damage(1-e:GetHandlerPlayer(),Duel.GetMatchingGroup(c515004000.dmcardfilter,0,LOCATION_ONFIELD,LOCATION_ONFIELD,e:GetHandler()):GetSum(c515004000.dmfilter),REASON_EFFECT)
 end
 function c515004000.adfilter(c)
 	return c:IsType(TYPE_XYZ) and not c:IsCode(515004000)
