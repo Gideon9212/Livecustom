@@ -64,7 +64,7 @@ function c515220018.pcop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
 	local g=Duel.SelectMatchingCard(tp,c515220018.pcfilter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
-		Duel.MoveToField(g:GetFirst(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+		Duel.MoveToField(g:GetFirst(),tp,tp,LOCATION_PZONE,POS_FACEUP,true)
 	end
 end
 function c515220018.splimit(e,c,sump,sumtype,sumpos,targetp,se)
@@ -109,7 +109,6 @@ function c515220018.scfilter1(c,tp,mc)
 end
 function c515220018.scfilter2(c,mc,sc)
 	local mg=Group.FromCards(c,mc)
-	c:AssumeProperty(ASSUME_TYPE,c:GetOriginalType())
 	return c:IsCanBeSynchroMaterial(sc) and sc:IsSynchroSummonable(nil,mg)
 end
 function c515220018.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
