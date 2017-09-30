@@ -69,10 +69,10 @@ function c515958933.atkval(e,c,tp)
 end
 --Level Up/Down by 1
 function c515958933.lvfilter(c)
-    return c:IsFaceup()        
+    return c:IsFaceup() and c:GetLevel()>0     
 end
 function c515958933.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c515958933.lvfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,550)
 	local g=Duel.SelectTarget(tp,c515958933.lvfilter,tp,LOCATION_MZONE,0,1,1,nil)
@@ -82,10 +82,10 @@ function c515958933.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	
 end
 function c515958933.lvop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	local c=e:GetHandler()
-	if c:IsFaceup() and c:IsRelateToEffect(e) and  tc:IsRelateToEffect(e) then
-		local e1=Effect.CreateEffect(tc)
+	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_LEVEL)
 		if e:GetLabel()==0 then
