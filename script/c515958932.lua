@@ -1,6 +1,7 @@
 --Odd-Eyes Slayer Magician
 local ScaleLocation,leftScale,rightScale=LOCATION_PZONE,0,1 --ScaleLocation,leftScale,rightScale=LOCATION_SZONE,6,7
 function c515958932.initial_effect(c)
+	extradeckoesm=true
 	--pendulum treat
 	aux.EnablePendulumAttribute(c)
 	--Treat
@@ -48,18 +49,23 @@ function c515958932.initial_effect(c)
 	
 end	
 --Negate extra deck Pendulum summons
-function c515958932.pensumfilter(c,e,tp)
+function c515958932.pensumfilter2(c,e,tp)
 	return c:IsControler(tp) and c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:GetSummonLocation()==LOCATION_EXTRA and (not e or c:IsRelateToEffect(e)) 
 end
+function c515958932.pensumfilter1(c,e,tp)
+	if c:GetSummonLocation()==LOCATION_HAND then extradeckoesm=false end 
+	return c:IsControler(tp) and c:GetSummonLocation()==LOCATION_EXTRA and (not e or c:IsRelateToEffect(e)) 
+end
 function c515958932.pensumcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c515958932.pensumfilter,1,nil,nil,tp)
+    if extradeckoesm==false then return false end
+	return eg:IsExists(c515958932.pensumfilter1,1,nil,nil,tp)
 end
 function c515958932.pensumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsRelateToEffect(e) end
 	Duel.SetTargetCard(eg)
 end
 function c515958932.pensumop(e,tp,eg,ep,ev,re,r,rp)
-	local g=eg:Filter(c515958932.pensumfilter,nil,e,tp)
+	local g=eg:Filter(c515958932.pensumfilter2,nil,e,tp)
 	local dg=Group.CreateGroup()
 	local c=e:GetHandler()
 	local tc=g:GetFirst()
@@ -72,6 +78,7 @@ function c515958932.pensumop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 		tc=g:GetNext()
 	end
+	extradeckoesm=true
 end
 --Additional Pendulum summon from faceup extra deck ignoring conditions type mr3
 function c515958932.penfilter(c,e,tp,lscale,rscale)
@@ -186,6 +193,17 @@ function c515958932.sumpenop(e,tp,eg,ep,ev,re,r,rp,c,sg,og)
 	e1:SetOperation(c515958932.pensumop)
 	e1:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_END)
 	c:RegisterEffect(e1)
+	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_DISABLE)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e2:SetRange(LOCATION_PZONE)
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e2:SetCountLimit(1)
+	e2:SetCondition(c515958932.pensumcon)
+	e2:SetTarget(c515958932.pensumtg)
+	e2:SetOperation(c515958932.pensumop)
+	e2:SetReset(RESET_EVENT+0x1ff0000+RESET_PHASE+PHASE_END)
+	c:RegisterEffect(e2)
 end
 --Mr4
 function c515958932.penop(e,tp,eg,ep,ev,re,r,rp)
