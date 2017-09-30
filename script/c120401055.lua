@@ -27,9 +27,8 @@ function c120401055.initial_effect(c)
 	--chain check
 	if not c120401055.global_flag then
 		c120401055.global_flag=true
-		c120401055.counter={}
-		c120401055.counter[0]=0
-		c120401055.counter[1]=0
+		c120401055.[0]=0
+		c120401055.[1]=0
 		local g1=Effect.CreateEffect(c)
 		g1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		g1:SetCode(EVENT_CHAINING)
@@ -80,12 +79,12 @@ function c120401055.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c120401055.chainop1(e,tp,eg,ep,ev,re,r,rp)
-	c120401055.counter[rp]=c120401055.counter[rp]+1
+	c120401055[rp]=c120401055[rp]+1
 end
 function c120401055.chainop2(e,tp,eg,ep,ev,re,r,rp)
-	if c120401055.counter[1-tp]>=2 then
+	if c120401055[1-tp]>=2 then
 		Duel.RaiseSingleEvent(e:GetHandler(),EVENT_CUSTOM+120401055,re,r,rp,0,0)
 	end
-	c120401055.counter[0]=0
-	c120401055.counter[1]=0
+	c120401055[0]=0
+	c120401055[1]=0
 end
