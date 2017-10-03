@@ -21,7 +21,7 @@ function c515002507.initial_effect(c)
 	Duel.AddCustomActivityCounter(515002507,ACTIVITY_SUMMON,c515002507.counterfilter)
 	Duel.AddCustomActivityCounter(515002507,ACTIVITY_SPSUMMON,c515002507.counterfilter)
 end
-c515002507.listed_names={46986414,515002507}
+c515002507.card_code_list={46986414,515002507}
 function c515002507.counterfilter(c)
 	return c:IsCode(46986414)
 end
