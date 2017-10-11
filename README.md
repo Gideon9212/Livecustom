@@ -17,6 +17,8 @@ Check setcode list here: https://docs.google.com/spreadsheets/d/1QEB79bUre_l6NMF
 
 -Card pictures must be SFW. Picture resolution must be 177x254 and in JPG format for card proxies, 512x512 in PNG for field images.
 
+-Cards must be original - do not submit copies of anime cards. In addition, do not design your card to work with anime cards, as they are not on the custom server and will not be available to play with.
+
 -Cards must pass review by Gideon, passing both these guidelines and a general evaluation of balance.
 
 -When your card passes, please put just the artwork here: https://github.com/Gideon9212/CustomArtwork
