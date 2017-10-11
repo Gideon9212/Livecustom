@@ -42,7 +42,7 @@ function c210310252.atktg(e,c)
 	return not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)
 end
 function c210310252.indtg(e,c)
-	return c:IsSummonType(SUMMON_TYPE_ADVANCE) and (not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36))
+	return not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)
 end
 function c210310252.indct(e,re,r,rp)
 	if bit.band(r,REASON_BATTLE)~=0 then
