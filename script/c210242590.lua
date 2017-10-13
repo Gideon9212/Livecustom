@@ -84,13 +84,13 @@ function c210242590.sprfilter1(c,tp)
     	local lv=c:GetLevel()
     	return lv>0 and c:IsSetCard(0x666) and c:IsFaceup() and c:IsAbleToGraveAsCost()
         	and Duel.IsExistingMatchingCard(c210242590.sprfilter2,tp,LOCATION_EXTRA,0,1,nil,lv)
-        	and Duel.IsExistingMatchingCard(c210242590.sprfilter3,tp,LOCATION_EXTRA,0,1,nil,tp)
+        	and Duel.IsExistingMatchingCard(c210242590.sprfilter3,tp,LOCATION_MZONE,0,1,nil,tp)
 end
 function c210242590.sprfilter2(c,lv)
     	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsAbleToGraveAsCost()
 end
 function c210242590.sprfilter3(c,lv)
-    	return c:IsFaceup() and c:IsCode(210242564) and c:IsAbleToGraveAsCost()
+    	return c:IsFaceup() and c:IsCode(210242564) 
 end
 function c210242590.sprcon(e,c)
     	if c==nil then return true end

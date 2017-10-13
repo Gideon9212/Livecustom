@@ -47,7 +47,7 @@ function c210242593.sprfilter2(c,lv)
     	return c:IsFaceup() and c:IsSetCard(0x666) and c:GetLevel()==lv and c:IsAbleToGraveAsCost()
 end
 function c210242593.sprfilter3(c,lv)
-    	return c:IsFaceup() and c:IsCode(210242564) and c:IsAbleToGraveAsCost()
+    	return c:IsFaceup() and c:IsCode(210242564)
 end
 function c210242593.sprcon(e,c)
     	if c==nil then return true end

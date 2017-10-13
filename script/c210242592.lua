@@ -31,7 +31,7 @@ function c210242592.indval(e,c)
 	return not c:IsType(TYPE_LINK)
 end
 function c210242592.lkfilter1(c,lc,tp)
-	return c:IsFaceup() and c:IsCode(210242564) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsCode(210242564)
 		and Duel.IsExistingMatchingCard(c210242592.lkfilter2,tp,LOCATION_EXTRA,0,1,nil,c,tp) 
 end
 function c210242592.lkfilter2(c,lc,tp)
