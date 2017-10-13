@@ -67,12 +67,12 @@ function c210242595.desop2(e,tp,eg,ep,ev,re,r,rp)
 end
 function c210242595.sprfilter1(c,tp)
     	local lv=c:GetLevel()
-    	return lv>0 and c:IsSetCard(0x666) and not c:IsCode(210242564) and c:IsFaceup() and c:IsAbleToGraveAsCost()
+    	return lv>0 and c:IsSetCard(0x666) and c:IsFaceup() and c:IsAbleToGraveAsCost()
     		and Duel.IsExistingMatchingCard(c210242595.sprfilter2,tp,LOCATION_EXTRA,0,2,nil,lv)
-        	and Duel.IsExistingMatchingCard(c210242595.sprfilter3,tp,LOCATION_EXTRA,0,1,nil,tp)
+        	and Duel.IsExistingMatchingCard(c210242595.sprfilter3,tp,LOCATION_MZONE,0,1,nil,tp)
 end
 function c210242595.sprfilter2(c,lv)
-    	return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsCode(210242564) and c:GetLevel()==lv and c:IsAbleToGraveAsCost()
+    	return c:IsFaceup() and c:IsSetCard(0x666) and c:GetLevel()==lv and c:IsAbleToGraveAsCost()
 end
 function c210242595.sprfilter3(c,lv)
     	return c:IsFaceup() and c:IsCode(210242564) and c:IsAbleToGraveAsCost()
@@ -91,6 +91,6 @@ function c210242595.sprop(e,tp,eg,ep,ev,re,r,rp,c)
 	local g2=Duel.SelectMatchingCard(tp,c210242595.sprfilter2,tp,LOCATION_EXTRA,0,2,2,nil,g1:GetFirst():GetLevel())
 	Duel.SendtoGrave(g2,REASON_MATERIAL+REASON_LINK)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g3=Duel.SelectMatchingCard(tp,c210242595.sprfilter3,tp,LOCATION_EXTRA,0,1,1,nil,tp)
+	local g3=Duel.SelectMatchingCard(tp,c210242595.sprfilter3,tp,LOCATION_MZONE,0,1,1,nil,tp)
 	Duel.SendtoGrave(g3,REASON_MATERIAL+REASON_LINK)
 end
