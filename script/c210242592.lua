@@ -35,22 +35,22 @@ function c210242592.lkfilter1(c,lc,tp)
 		and Duel.IsExistingMatchingCard(c210242592.lkfilter2,tp,LOCATION_EXTRA,0,1,nil,c,tp) 
 end
 function c210242592.lkfilter2(c,lc,tp)
-	return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsCode(210242564) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsAbleToGraveAsCost()
 		and Duel.IsExistingMatchingCard(c210242592.lkfilter3,tp,LOCATION_EXTRA,0,1,c,lc,c,tp)
 end
 function c210242592.lkfilter3(c,lc,mc,tp)
 	local mg=Group.FromCards(c,mc)
-	return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsCode(210242564) and c:IsAbleToGraveAsCost() 
+	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsAbleToGraveAsCost() 
 		and c:IsAttribute(mc:GetAttribute()) and Duel.GetLocationCountFromEx(tp,tp,mg,lc)>0
 end
 function c210242592.lkcon(e,c)
 	if c==nil then return true end
 	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 	local tp=c:GetControler()
-	return Duel.IsExistingMatchingCard(c210242592.lkfilter1,tp,LOCATION_EXTRA,0,1,nil,c,tp) 
+	return Duel.IsExistingMatchingCard(c210242592.lkfilter1,tp,LOCATION_MZONE,0,1,nil,c,tp) 
 end
 function c210242592.lkop(e,tp,eg,ep,ev,re,r,rp,c)
-	local g1=Duel.SelectMatchingCard(tp,c210242592.lkfilter1,tp,LOCATION_EXTRA,0,1,1,nil,c,tp)
+	local g1=Duel.SelectMatchingCard(tp,c210242592.lkfilter1,tp,LOCATION_MZONE,0,1,1,nil,c,tp)--<<<<Tiny Pony
 	local g2=Duel.SelectMatchingCard(tp,c210242592.lkfilter2,tp,LOCATION_EXTRA,0,1,1,nil,c,tp)
 	local g3=Duel.SelectMatchingCard(tp,c210242592.lkfilter3,tp,LOCATION_EXTRA,0,1,1,g2:GetFirst(),c,g2:GetFirst(),tp)
 	g1:Merge(g2)
