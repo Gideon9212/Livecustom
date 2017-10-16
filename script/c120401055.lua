@@ -27,8 +27,8 @@ function c120401055.initial_effect(c)
 	--chain check
 	if not c120401055.global_flag then
 		c120401055.global_flag=true
-		c120401055.[0]=0
-		c120401055.[1]=0
+		c120401055[0]=0
+		c120401055[1]=0
 		local g1=Effect.CreateEffect(c)
 		g1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		g1:SetCode(EVENT_CHAINING)
