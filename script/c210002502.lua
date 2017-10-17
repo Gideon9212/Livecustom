@@ -35,7 +35,7 @@ function c210002502.initial_effect(c)
     e3:SetOperation(c210002502.operation2)
     c:RegisterEffect(e3) 
 end
-c210002502.card_code_list={46986414,210002502,38033121,30208479}
+c210002502.listed_names={46986414,210002502,38033121,30208479}
 function c210002502.atg(e,tp,eg,ep,ev,re,r,rp,chk)
     if chk==0 then return true end
     if c210002502.cost(e,tp,eg,ep,ev,re,r,rp,0) 
