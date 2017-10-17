@@ -32,7 +32,7 @@ function c210002501.initial_effect(c)
     e4:SetCode(EFFECT_UPDATE_DEFENSE)
     c:RegisterEffect(e4)
 end
-c210002501.card_code_list={46986414,210002501}
+c210002501.listed_names={46986414,210002501}
 function c210002501.filter(c)
     return (c:IsCode(46986414) or 
         (aux.IsCodeListed(c,46986414) and c:IsType(TYPE_SPELL+TYPE_TRAP)) or
