@@ -1,4 +1,4 @@
---Dark Magic Aroma
+--Dark Magic Aurora
 --designed and scripted by Larry126
 function c210002501.initial_effect(c)
     c:SetUniqueOnField(1,0,210002501)
