@@ -92,8 +92,9 @@ function c210242580.filter3(c)
 	return c:IsSetCard(0x666) and c:IsType(TYPE_PENDULUM) and not c:IsType(TYPE_LINK)
 	end
 	
-function c210242580.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
+function c210242580.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return false end
+	if chk==0 then return Duel.IsExistingTarget(c210242580.filter3,tp,LOCATION_EXTRA,0,2,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,2,tp,LOCATION_EXTRA)
 end
 function c210242580.operation(e,tp,eg,ep,ev,re,r,rp)
