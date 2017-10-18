@@ -59,15 +59,13 @@ function c210171115.activate(e,tp,eg,ep,ev,re,r,rp)
 				sg1:Sub(cg)
 			end
 		end
+		Duel.ConfirmCards(1-tp,sg1)
 		Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_ATOHAND)
 		local tg=sg1:Select(1-tp,1,1,nil)
 		Duel.SendtoHand(tg,nil,REASON_EFFECT)
 	end
 end
 function c210171115.drfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xb4)
-end
-function c210171115.drfilter2(c)
 	return c:IsSetCard(0xb4) and c:IsType(TYPE_SPELL) and c:IsAbleToDeck() and not c:IsPublic()
 end
 function c210171115.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -76,14 +74,14 @@ function c210171115.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c210171115.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp)
-		and Duel.IsExistingMatchingCard(c210171115.drfilter2,tp,LOCATION_HAND,0,1,nil) end
+		and Duel.IsExistingMatchingCard(c210171115.drfilter,tp,LOCATION_HAND,0,1,nil) end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,1,tp,LOCATION_HAND)
 end
 function c210171115.drop(e,tp,eg,ep,ev,re,r,rp)
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
 	Duel.Hint(HINT_SELECTMSG,p,HINTMSG_TODECK)
-	local g=Duel.SelectMatchingCard(p,c210171115.drfilter2,p,LOCATION_HAND,0,1,99,nil)
+	local g=Duel.SelectMatchingCard(p,c210171115.drfilter,p,LOCATION_HAND,0,1,99,nil)
 	if g:GetCount()>0 then
 		Duel.ConfirmCards(1-p,g)
 		local ct=Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
