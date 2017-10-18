@@ -59,7 +59,7 @@ function c120401058.initial_effect(c)
 	c:RegisterEffect(e7)
 end
 function c120401058.spcheck(g,lc,tp)
-	return g:GetClassCount(Card.GetRace,lc,SUMMON_TYPE_LINK,tp)>1
+	return g:GetClassCount(Card.GetRace,lc,SUMMON_TYPE_LINK,tp)>2
 end
 function c120401058.lbcon(e)
 	return e:GetHandler():GetLinkedGroup():IsExists(aux.NOT(Card.IsControler),1,nil,e:GetHandlerPlayer())

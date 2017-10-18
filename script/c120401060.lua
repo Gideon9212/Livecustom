@@ -102,7 +102,7 @@ function c120401060.rmop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c120401060.rmcon2(e,tp,eg,ep,ev,re,r,rp)
-	return re and re:IsActiveType(TYPE_MONSTER) and e:GetHandler():IsPreviousLocation(LOCATION_MZONE)
+	return re and re:IsActiveType(TYPE_MONSTER) and e:GetHandler():IsPreviousLocation(LOCATION_DECK)
 end
 function c120401060.rmcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,0) end
