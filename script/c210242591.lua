@@ -59,8 +59,8 @@ function c210242591.filter2(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x666)
 end
 function c210242591.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c210242591.filter2(chkc) end
-	if chk==0 then return Duel.IsExistingMatchingCard(c210242591.filter2,tp,LOCATION_GRAVE,0,1,nil) end
+	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c210242591.filter2(chkc) end
+		if chk==0 then return Duel.IsExistingTarget(c210242591.filter2,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_HINTMSG_ATOEXTRA,g,1,0,0)
 end
 function c210242591.spop2(e,tp,eg,ep,ev,re,r,rp)
