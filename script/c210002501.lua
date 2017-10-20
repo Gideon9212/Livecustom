@@ -24,9 +24,9 @@ function c210002501.initial_effect(c)
     e3:SetType(EFFECT_TYPE_FIELD)
     e3:SetCode(EFFECT_UPDATE_ATTACK)
     e3:SetRange(LOCATION_SZONE)
-    e3:SetTargetRange(LOCATION_ONFIELD,0)
+    e3:SetTargetRange(LOCATION_MZONE,0)
     e3:SetTarget(c210002501.atktg)
-    e3:SetOperation(c210002501.atkval)
+    e3:SetValue(c210002501.atkval)
     c:RegisterEffect(e3)
     local e4=e3:Clone()
     e4:SetCode(EFFECT_UPDATE_DEFENSE)
@@ -35,8 +35,8 @@ end
 c210002501.listed_names={46986414,210002501}
 function c210002501.filter(c)
     return (c:IsCode(46986414) or 
-        (aux.IsCodeListed(c,46986414) and c:IsType(TYPE_SPELL+TYPE_TRAP)) or
-        (c:IsSetCard(0xa1) and c:IsType(TYPE_SPELL)))
+        (aux.IsCodeListed(c,46986414) and c:IsType(TYPE_SPELL+TYPE_TRAP))
+        or (c:IsSetCard(0xa1) and c:IsType(TYPE_SPELL)))
         and c:IsAbleToHand() and not c:IsCode(210002501)
 end
 function c210002501.activate(e,tp,eg,ep,ev,re,r,rp)
@@ -72,9 +72,6 @@ end
 function c210002501.atktg(e,c)
     return c:IsFaceup() and (c:IsSetCard(0x10a2) or (c:IsRace(RACE_SPELLCASTER) and (c:IsLevelAbove(6) or c:IsRankAbove(6))))
 end
-function c210002501.atkfilter(c)
-    return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS)
-end
 function c210002501.atkval(e,c)
-    return Duel.GetMatchingGroupCount(c210002501.atkfilter,tp,LOCATION_ONFIELD,0,nil)*100
+    return Duel.GetMatchingGroupCount(Card.IsFaceup,tp,LOCATION_SZONE,0,nil)*100
 end
