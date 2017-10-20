@@ -68,7 +68,7 @@ end
 function c210242595.sprfilter1(c,tp)
     	local lv=c:GetLevel()
     	return lv>0 and c:IsSetCard(0x666) and c:IsFaceup() and c:IsAbleToGraveAsCost()
-    		and Duel.IsExistingMatchingCard(c210242595.sprfilter2,tp,LOCATION_EXTRA,0,2,nil,lv)
+    		and Duel.IsExistingMatchingCard(c210242595.sprfilter2,tp,LOCATION_EXTRA,0,3,nil,lv)
         	and Duel.IsExistingMatchingCard(c210242595.sprfilter3,tp,LOCATION_MZONE,0,1,nil,tp)
 end
 function c210242595.sprfilter2(c,lv)
