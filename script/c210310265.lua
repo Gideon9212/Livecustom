@@ -40,7 +40,9 @@ function c210310265.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c210310265.filter1(c)
-	return c:IsDiscardable(REASON_EFFECT) and ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT)) or (c:IsSetCard(0xf36) or c:IsCode(911883)))
+	return c:IsDiscardable(REASON_EFFECT)
+		and ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4))
+		or (c:IsSetCard(0xf36) or c:IsCode(911883)))
 end
 function c210310265.filter2(c)
 	return c:IsFaceup() and c:IsAbleToRemove()
@@ -99,7 +101,7 @@ function c210310265.efilter(e,re)
 	return re:IsActiveType(TYPE_MONSTER)
 end
 function c210310265.spfilter(c)
-	return not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)
+	return (not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36)
 end
 function c210310265.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return not eg:IsContains(e:GetHandler()) and eg:FilterCount(c210310265.spfilter,nil)>0

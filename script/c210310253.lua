@@ -12,7 +12,8 @@ function c210310253.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c210310253.cfilter(c)
-	return c:IsFaceup() and ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT)) or (c:IsSetCard(0xf36) or c:IsCode(911883))) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4))
+		or (c:IsSetCard(0xf36) or c:IsCode(911883))) and c:IsAbleToGraveAsCost()
 end
 function c210310253.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210310253.cfilter,tp,LOCATION_ONFIELD,0,1,nil) end
@@ -22,7 +23,8 @@ function c210310253.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c210310253.desfilter(c)
 	if c:IsFaceup() then
-		return not ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT)) or (c:IsSetCard(0xf36) or c:IsCode(911883)))
+		return not ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4))
+			or (c:IsSetCard(0xf36) or c:IsCode(911883)))
 	else
 		return true
 	end

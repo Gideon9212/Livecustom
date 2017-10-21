@@ -12,7 +12,7 @@ function c210310252.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(c210310252.atktg)
+	e2:SetTarget(c210310252.indtg)
 	e2:SetValue(300)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -38,11 +38,8 @@ function c210310252.initial_effect(c)
 	e5:SetOperation(c210310252.desop)
 	c:RegisterEffect(e5)
 end
-function c210310252.atktg(e,c)
-	return not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)
-end
 function c210310252.indtg(e,c)
-	return not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)
+	return (not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36)
 end
 function c210310252.indct(e,re,r,rp)
 	if bit.band(r,REASON_BATTLE)~=0 then
@@ -50,7 +47,8 @@ function c210310252.indct(e,re,r,rp)
 	else return 0 end
 end
 function c210310252.thfilter(c)
-	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT)) or (c:IsSetCard(0xf36) or c:IsCode(911883))) and c:IsAbleToHand()
+	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4))
+		or (c:IsSetCard(0xf36) or c:IsCode(911883))) and c:IsAbleToHand()
 end
 function c210310252.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(nil,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler())

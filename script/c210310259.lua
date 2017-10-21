@@ -22,7 +22,7 @@ function c210310259.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c210310259.desfilter(c)
-	return c:IsFaceup() and (not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36))
+	return c:IsFaceup() and ((not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36))
 		and Duel.IsExistingTarget(aux.TRUE,0,LOCATION_ONFIELD,LOCATION_ONFIELD,1,c)
 end
 function c210310259.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

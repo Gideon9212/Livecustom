@@ -37,7 +37,7 @@ function c210310250.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function c210310250.filter(c)
-	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT)) or c:IsSetCard(0xf36)) and c:IsAbleToHand()
+	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36)) and c:IsAbleToHand()
 end
 function c210310250.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c210310250.filter(chkc) end

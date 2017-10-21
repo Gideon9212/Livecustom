@@ -50,7 +50,7 @@ function c210310255.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(tp,0)
 end
 function c210310255.filter(c)
-	return c:IsFaceup() and (not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36))
+	return c:IsFaceup() and ((not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36))
 end
 function c210310255.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c210310255.filter(chkc) end

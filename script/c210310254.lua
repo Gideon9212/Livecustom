@@ -15,7 +15,8 @@ function c210310254.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c210310254.filter(c)
-	return c:IsFaceup() and (not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)) and not c:IsCode(210310254) and c:GetLevel()>0
+	return c:IsFaceup() and ((not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36))
+		and not c:IsCode(210310254) and c:GetLevel()>0
 end
 function c210310254.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c210310254.filter(chkc) end
