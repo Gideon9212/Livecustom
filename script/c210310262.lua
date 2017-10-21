@@ -68,7 +68,7 @@ function c210310262.drop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210310262.sumfilter(c)
-	return (c:IsSetCard(0xf36) or not c:IsType(TYPE_EFFECT)) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0xf36) and c:IsSummonable(true,nil,1)
 end
 function c210310262.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210310262.sumfilter,tp,LOCATION_HAND,0,1,nil) end
