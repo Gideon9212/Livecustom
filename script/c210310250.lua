@@ -52,11 +52,14 @@ function c210310250.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 end
+function c210310250.reftg(c)
+	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36))
+end
 function c210310250.refcon(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
 	local c=e:GetHandler()
-	return (a:IsSetCard(0x10) or (d and d:IsSetCard(0x10))) and Duel.GetBattleDamage(tp)>0
+	return (c210310250.reftg(a) or (d and c210310250.reftg(d))) and Duel.GetBattleDamage(tp)>0
 end
 function c210310250.refop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(1-tp,Duel.GetBattleDamage(1-tp)+Duel.GetBattleDamage(tp),false)
