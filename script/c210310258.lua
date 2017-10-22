@@ -12,7 +12,7 @@ function c210310258.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c210310258.filter(c)
-	return (c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT)) or c:IsSetCard(0xf36) or c:IsCode(911883)
+	return (c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36) or c:IsCode(911883)
 end
 function c210310258.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210310258.filter,tp,LOCATION_REMOVED+LOCATION_GRAVE,LOCATION_REMOVED+LOCATION_GRAVE,1,nil) end

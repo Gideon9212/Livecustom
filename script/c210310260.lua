@@ -31,8 +31,8 @@ function c210310260.sprfilter1(c,tp,g,sc)
 end
 function c210310260.sprfilter2(c,tp,mc,sc)
 	local sg=Group.FromCards(c,mc)
-	return c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and (not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36))
-		and Duel.GetLocationCountFromEx(tp,tp,sg,sc)>0
+	return c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and Duel.GetLocationCountFromEx(tp,tp,sg,sc)>0
+		and ((not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36))
 end
 function c210310260.sprcon(e,c)
 	if c==nil then return true end
