@@ -42,26 +42,26 @@ function c210014801.initial_effect(c)
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e5:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e5:SetCondition(c210014801.pcon)
+	e5:SetRange(LOCATION_MZONE)
 	e5:SetCondition(c210014801.damcon)
 	e5:SetOperation(c210014801.damop)
 	c:RegisterEffect(e5)
 end
 c210014801.listed_names={0x9b}
-function c210014801.damcon(e,tp,eg,ep,ev,re,r,rp)
-	local at=Duel.GetAttacker()
-	return ep~=tp and at:IsControler(tp) and at:IsSetCard(0x9b)
-		and Duel.GetAttackTarget() and Duel.GetAttackTarget():IsDefensePos()
-end
-function c210014801.damop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.ChangeBattleDamage(ep,ev*2)
-end
----------------------------------------------------
 function c210014801.pcon(e,c)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL)
 end
 function c210014801.ptg(e,c)
 	return c:IsSetCard(0x9b) 
+end
+function c210014801.damcon(e,tp,eg,ep,ev,re,r,rp)
+	local tc=eg:GetFirst()
+	return ep~=tp and tc:IsSetCard(0x9b) and tc:GetBattleTarget()~=nil
+		and tc:GetBattleTarget():IsDefensePos()
+		and e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL)
+end
+function c210014801.damop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.ChangeBattleDamage(ep,ev*2)
 end
 -------------------------------------------------------------
 function c210014801.thfilter(c)
