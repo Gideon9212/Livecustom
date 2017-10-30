@@ -84,11 +84,14 @@ function c210014801.splimit(e,c,sump,sumtype,sumpos,targetp)
 	return not c:IsSetCard(0x9b) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 -------------------------------------------------------------
+function c210014801.filter0(c)
+	return c:IsAbleToRemove()
+end
 function c210014801.filter1(c,e)
 	return not c:IsImmuneToEffect(e) and c:IsAbleToRemove()
 end
 function c210014801.filter2(c,e,tp,m,f)
-	return c:IsType(TYPE_FUSION) and c:IsSetCard(0xdf) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x9b) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,tp)
 end
 function c210014801.filter3(c)
@@ -96,7 +99,7 @@ function c210014801.filter3(c)
 end
 function c210014801.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		local mg1=Duel.GetFusionMaterial(tp):Filter(Card.IsAbleToRemove,nil)
+		local mg1=Duel.GetFusionMaterial(tp):Filter(c210014801.filter0,nil)
 		if not Duel.IsPlayerAffectedByEffect(tp,69832741) then
 			local mg2=Duel.GetMatchingGroup(c210014801.filter3,tp,LOCATION_GRAVE,0,nil)
 			mg1:Merge(mg2)

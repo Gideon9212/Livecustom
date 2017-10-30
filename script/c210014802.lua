@@ -8,7 +8,6 @@ function c210014802.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_PZONE)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCountLimit(1,210014802)
 	e1:SetCost(c210014802.spcost)
 	e1:SetTarget(c210014802.sptg)
@@ -52,13 +51,15 @@ end
 function c210014802.filter(c,e,tp)
 	return c:IsSetCard(0x9b) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
+function c210014802.cfilter(c,e,tp)
+	return c:IsDiscardable() and Duel.IsExistingMatchingCard(c210014802.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,c,e,tp)
+end
 function c210014802.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,e:GetHandler()) end
-	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
+	if chk==0 then return Duel.IsExistingMatchingCard(c210014802.cfilter,tp,LOCATION_HAND,0,1,nil,e,tp) end
+	Duel.DiscardHand(tp,c210014802.cfilter,1,1,REASON_COST+REASON_DISCARD,nil,e,tp)
 end
 function c210014802.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c210014802.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,nil,e,tp)
-		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE+LOCATION_HAND)
 end
 function c210014802.spop(e,tp,eg,ep,ev,re,r,rp)
