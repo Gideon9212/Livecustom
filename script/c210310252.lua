@@ -48,7 +48,7 @@ function c210310252.indct(e,re,r,rp)
 end
 function c210310252.thfilter(c)
 	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4))
-		or (c:IsSetCard(0xf36) or c:IsCode(911883))) and c:IsAbleToHand()
+		or (c:IsSetCard(0xf36) or c:IsCode(911883))) and not c:IsCode(210310252) and c:IsAbleToHand()
 end
 function c210310252.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(nil,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler())
