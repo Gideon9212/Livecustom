@@ -30,6 +30,7 @@ function c210001107.initial_effect(c)
 	c:RegisterEffect(e3)
 	--destroy replace
 	local e4=Effect.CreateEffect(c)
+	e4:SetCountLimit(1,210001107+2)
 	e4:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e4:SetCode(EFFECT_DESTROY_REPLACE)
 	e4:SetRange(LOCATION_MZONE)
