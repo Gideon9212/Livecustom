@@ -72,7 +72,7 @@ function c210001105.thcondition(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_ONFIELD+LOCATION_GRAVE)
 end
 function c210001105.thfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xfed) and c:IsAbleToHand()
+	return c:IsSetCard(0xfed) and c:IsAbleToHand()
 end
 function c210001105.thtarget(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210001105.thfilter,tp,LOCATION_DECK,0,1,nil) end
