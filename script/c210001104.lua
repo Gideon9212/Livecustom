@@ -92,8 +92,8 @@ function c210001104.dcostfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xfed) and c:IsAbleToHandAsCost()
 end
 function c210001104.dcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c210001104.dcostfilter,tp,LOCATION_MZONE,0,1,nil) end
-	local tg=Duel.SelectMatchingCard(tp,c210001104.dcostfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(c210001104.dcostfilter,tp,LOCATION_MZONE,0,1,e:GetHandler()) end
+	local tg=Duel.SelectMatchingCard(tp,c210001104.dcostfilter,tp,LOCATION_MZONE,0,1,1,e:GetHandler())
 	Duel.SendtoHand(tg,nil,REASON_COST)
 end
 function c210001104.dtarget(e,tp,eg,ep,ev,re,r,rp,chk)
