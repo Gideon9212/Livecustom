@@ -23,8 +23,8 @@ end
 function c210001109.caconditionfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xfed)
 end
-function c210001109.cacondition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c210001109.caconditionfilter,tp,LOCATION_MZONE,0,1,e:GetHandler())
+function c210001109.cacondition(e)
+	return Duel.IsExistingMatchingCard(c210001109.caconditionfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,e:GetHandler())
 end
 function c210001109.retfilter(c,lg)
 	return c:IsAbleToHand() and lg:IsContains(c)
