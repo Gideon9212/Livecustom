@@ -78,7 +78,7 @@ function c210001107.sprcondition(e,c)
 end
 function c210001107.sproperation(e,tp,eg,ep,ev,re,r,rp,c)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-	local mg=Duel.GetMatchingGroup(c210001107.sprfilter,tp,LOCATION_MZONE,0,2,nil)
+	local mg=Duel.GetMatchingGroup(c210001107.sprfilter,tp,LOCATION_MZONE,0,nil)
 	local g=aux.SelectUnselectGroup(mg,e,tp,1,1,aux.ChkfMMZ(1),1,tp,HINTMSG_RTOHAND)
 	Duel.SendtoHand(g,nil,REASON_COST)
 end
