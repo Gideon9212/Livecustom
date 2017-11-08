@@ -33,6 +33,7 @@ function c210014811.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_LEAVE_FIELD)
 	e4:SetProperty(EFFECT_FLAG_DELAY)
+	e4:SetCountLimit(1,2100148110)
 	e4:SetCondition(c210014811.pencon)
 	e4:SetTarget(c210014811.pentg)
 	e4:SetOperation(c210014811.penop)
@@ -43,6 +44,7 @@ function c210014811.initial_effect(c)
 	e5:SetCategory(CATEGORY_DESTROY+CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_PZONE)
+	e5:SetCountLimit(1,210014811)
 	e5:SetTarget(c210014811.thtg)
 	e5:SetOperation(c210014811.thop)
 	c:RegisterEffect(e5)
@@ -73,21 +75,15 @@ function c210014811.pencon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
 end
-function c210014811.penfilter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-end
 function c210014811.pentg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c210014811.penfilter,tp,LOCATION_PZONE,0,1,nil,e,tp) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_PZONE)
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToHand,tp,LOCATION_PZONE,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_PZONE)
 end
 function c210014811.penop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c210014811.penfilter,tp,LOCATION_PZONE,0,1,1,nil,e,tp)
-	if g:GetCount()>0 and Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)>0 then
-		Duel.MoveToField(c,tp,tp,LOCATION_PZONE,POS_FACEUP,true)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToHand,tp,LOCATION_PZONE,0,1,1,nil)
+	if g:GetCount()>0 and Duel.SendtoHand(g,nil,REASON_EFFECT) then
+		Duel.MoveToField(e:GetHandler(),tp,tp,LOCATION_PZONE,POS_FACEUP,true)
 	end
 end
 ---------------------------------------------------
