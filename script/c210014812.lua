@@ -31,7 +31,6 @@ function c210014812.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_LEAVE_FIELD)
 	e4:SetProperty(EFFECT_FLAG_DELAY)
-	e4:SetCountLimit(1,210014812)
 	e4:SetCondition(c210014812.pencon)
 	e4:SetTarget(c210014812.pentg)
 	e4:SetOperation(c210014812.penop)
@@ -86,15 +85,13 @@ function c210014812.pencon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
 end
 function c210014812.pentg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToHand,tp,LOCATION_PZONE,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_PZONE)
+	if chk==0 then return Duel.IsExistingMatchingCard(aux.NOT(Card.IsForbidden),tp,LOCATION_PZONE,0,1,nil) end
 end
 function c210014812.penop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToHand,tp,LOCATION_PZONE,0,1,1,nil,e,tp)
-	if g:GetCount()>0 and Duel.SendtoHand(g,nil,REASON_EFFECT) then
-		Duel.MoveToField(c,tp,tp,LOCATION_PZONE,POS_FACEUP,true)
+	Duel.Hint(HINT_SELECTMSG,tp,HINT_CARD)
+	local g=Duel.SelectMatchingCard(tp,aux.NOT(Card.IsForbidden),tp,LOCATION_PZONE,0,1,1,nil)
+	if g:GetCount()>0 and Duel.SendtoExtraP(g,tp,REASON_EFFECT)>0 then
+		Duel.MoveToField(e:GetHandler(),tp,tp,LOCATION_PZONE,POS_FACEUP,true)
 	end
 end
 ----------------------------------------------------
