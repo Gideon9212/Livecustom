@@ -76,7 +76,7 @@ function c210660017.rmop(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToBattle() then Duel.Remove(tc,POS_FACEUP,REASON_EFFECT) end
 end
 ------------------------------------------------------
-function c210660017.cfilter(c,tp)
+function c210660017.cfilter(c)
 	return c:IsSetCard(0xa4) and c:IsType(TYPE_MONSTER) 
 		and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or aux.SpElimFilter(c,true))
 end
@@ -92,7 +92,5 @@ function c210660017.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,tp,0)
 end
 function c210660017.spop(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetHandler():IsRelateToEffect(e) then 
-		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)
-	end
+	Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)
 end
