@@ -4,7 +4,6 @@
 function c210660013.initial_effect(c)
 	--to defense
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(210660013,0))
 	e1:SetCategory(CATEGORY_POSITION)
 	e1:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
@@ -22,25 +21,27 @@ function c210660013.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
-	--destroy
+	--draw
 	local e4=Effect.CreateEffect(c)
-	e4:SetCategory(CATEGORY_DESTROY)
-	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e4:SetDescription(aux.Stringid(14816688,1))
+	e4:SetCategory(CATEGORY_DRAW+CATEGORY_TODECK)
+	e4:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1)
-	e4:SetCode(EVENT_PHASE+PHASE_END)
-	e4:SetCondition(c210660013.descon)
-	e4:SetOperation(c210660013.desop)
+	e4:SetTarget(c210660013.drtg)
+	e4:SetOperation(c210660013.drop)
 	c:RegisterEffect(e4)
-	--draw
+	--summon
 	local e5=Effect.CreateEffect(c)
-	e5:SetCategory(CATEGORY_DRAW+CATEGORY_TODECK)
-	e5:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e5:SetDescription(aux.Stringid(80604091,2))
+	e5:SetCategory(CATEGORY_SUMMON)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
-	e5:SetCountLimit(1)
-	e5:SetTarget(c210660013.drtg)
-	e5:SetOperation(c210660013.drop)
+	e5:SetCountLimit(2,210660013)
+	e5:SetCost(c210660013.cost)
+	e5:SetTarget(c210660013.target)
+	e5:SetOperation(c210660013.operation)
 	c:RegisterEffect(e5)
 end
 function c210660013.drfilter(c)
@@ -77,13 +78,34 @@ function c210660013.poop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ChangePosition(c,POS_FACEUP_DEFENSE)
 	end
 end
-function c210660013.descon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()==tp
+function c210660013.cfilter(c)
+	return c:IsType(TYPE_SPELL) and c:IsAbleToRemoveAsCost()
 end
-function c210660013.desop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	Duel.HintSelection(Group.FromCards(c))
-	if Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(210660013,0)) then
-		Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
-	else Duel.Destroy(c,REASON_COST) end
+function c210660013.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c210660013.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local g=Duel.SelectMatchingCard(tp,c210660013.cfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	Duel.Remove(g,POS_FACEUP,REASON_COST)
+end
+function c210660013.filter(c)
+	return c:IsRace(RACE_FIEND) and c:IsLevelBelow(4) and (c:IsSummonable(true,nil) or c:IsMSetable(true,nil))
+end
+function c210660013.target(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(c210660013.filter,tp,LOCATION_HAND,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_SUMMON,nil,1,0,0)
+end
+function c210660013.operation(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SUMMON)
+	local g=Duel.SelectMatchingCard(tp,c210660013.filter,tp,LOCATION_HAND,0,1,1,nil)
+	local tc=g:GetFirst()
+	if tc then
+		local s1=tc:IsSummonable(true,nil)
+		local s2=tc:IsMSetable(true,nil)
+		if (s1 and s2 and Duel.SelectPosition(tp,tc,POS_FACEUP_ATTACK+POS_FACEDOWN_DEFENSE)==POS_FACEUP_ATTACK) or not s2 then
+			Duel.Summon(tp,tc,true,nil)
+		else
+			Duel.MSet(tp,tc,true,nil)
+		end
+	end
 end

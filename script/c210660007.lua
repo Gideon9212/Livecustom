@@ -20,6 +20,13 @@ function c210660007.initial_effect(c)
 	e2:SetTarget(c210660007.thtg1)
 	e2:SetOperation(c210660007.tgop1)
 	c:RegisterEffect(e2)
+	--Draw
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e3:SetCode(EVENT_SUMMON_SUCCESS)
+	e3:SetCondition(c210660007.condition)
+	e3:SetOperation(c210660007.operation)
+	c:RegisterEffect(e3)
 end
 function c210660007.thfilter(c)
 	return c:IsSetCard(0xf66) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
@@ -50,4 +57,23 @@ function c210660007.tgop1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end
+end
+function c210660007.condition(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetFieldGroupCount(tp,LOCATION_ONFIELD,0)<=1
+end
+function c210660007.operation(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetFlagEffect(tp,210660007)~=0 then return end
+	--extra summon
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
+	e1:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsRace,RACE_FIEND))
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1,tp)
+	local e2=e1:Clone()
+	e2:SetCode(EFFECT_EXTRA_SET_COUNT)
+	Duel.RegisterEffect(e2,tp)
+	Duel.RegisterFlagEffect(tp,210660007,RESET_PHASE+PHASE_END,0,1)
 end

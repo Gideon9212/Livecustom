@@ -31,9 +31,8 @@ function c210660005.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE)
 	e5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e5:SetRange(LOCATION_MZONE)
-	e5:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
-	e5:SetCountLimit(2)
-	e5:SetValue(c210660005.valcon)
+	e5:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)
+	e5:SetValue(1)
 	c:RegisterEffect(e5)
 	--triple tribute
 	local e6=Effect.CreateEffect(c)
@@ -60,9 +59,6 @@ function c210660005.poop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsFaceup() and c:IsAttackPos() and c:IsRelateToEffect(e) then
 		Duel.ChangePosition(c,POS_FACEUP_DEFENSE)
 	end
-end
-function c210660005.valcon(e,re,r,rp)
-	return bit.band(r,REASON_BATTLE)~=0
 end
 function c210660005.ttfilter(c)
 	return c:GetOriginalCode()==210660005 and c:IsReleasable()
