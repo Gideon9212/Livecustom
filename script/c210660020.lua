@@ -15,12 +15,14 @@ function c210660020.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c210660020.filter(c)
-	return not c:IsRace(RACE_FIEND) or not c:IsLevel(10)
+	return not c:IsRace(RACE_FIEND) or not c:IsLevel(10) or c:IsFacedown()
 end
 function c210660020.condition(e,tp,eg,ep,ev,re,r,rp)
 	local t=Duel.GetFieldGroupCount(tp,0,LOCATION_ONFIELD)
 	local s=Duel.GetFieldGroupCount(tp,LOCATION_ONFIELD,0)
-	return t>s and not Duel.IsExistingMatchingCard(c210660020.filter,tp,LOCATION_MZONE,0,1,nil)
+	local m=Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)
+	return t>s and m>0
+		and not Duel.IsExistingMatchingCard(c210660020.filter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c210660020.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local t=Duel.GetFieldGroupCount(tp,0,LOCATION_ONFIELD)
