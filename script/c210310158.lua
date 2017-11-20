@@ -49,12 +49,10 @@ function c210310158.chlimit(e,ep,tp)
 end
 function c210310158.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		local g=Duel.SelectMatchingCard(tp,c210310158.thfilter,tp,LOCATION_DECK,0,1,1,nil,tc:GetCode())
-		if g:GetCount()>0 then
-			Duel.SendtoHand(g,nil,REASON_EFFECT)
-			Duel.ConfirmCards(1-tp,g)
-		end
+	local g=Duel.SelectMatchingCard(tp,c210310158.thfilter,tp,LOCATION_DECK,0,1,1,nil,tc:GetCode())
+	if g:GetCount()>0 then
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
 	end
 end
 function c210310158.cfilter(c)
