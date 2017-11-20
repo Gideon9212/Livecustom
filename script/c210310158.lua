@@ -32,7 +32,7 @@ function c210310158.mfilter(c,lc,sumtype,tp)
 	return c:IsRace(RACE_DRAGON,lc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_DARK,lc,sumtype,tp)
 end
 function c210310158.thfilter(c,code)
-	return c:IsAbleToHand() and not c:IsCode(code)
+	return c:IsAbleToHand() and c:IsSetCard(0x102) and not c:IsCode(code)
 end
 function c210310158.thtgfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x102) and Duel.IsExistingMatchingCard(c210310158.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
