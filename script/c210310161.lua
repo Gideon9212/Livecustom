@@ -18,15 +18,17 @@ function c210310161.initial_effect(c)
 	e2:SetValue(c210310161.repval)
 	e2:SetOperation(c210310161.repop)
 	c:RegisterEffect(e2)
-	--gain
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	e3:SetCode(EVENT_BE_MATERIAL)
-	e3:SetCountLimit(1,210312161)
-	e3:SetCondition(c210310161.mtcon)
-	e3:SetOperation(c210310161.mtop)
-	c:RegisterEffect(e3)
+	--tohand
+	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_TOHAND)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e2:SetCode(EVENT_RELEASE)
+	e2:SetCountLimit(1,210312161)
+	e2:SetCondition(c210310161.thcon)
+	e2:SetTarget(c210310161.thtg)
+	e2:SetOperation(c210310161.thop)
+	c:RegisterEffect(e2)
 end
 function c210310161.rlevel(e,c)
 	local lv=e:GetHandler():GetLevel()
@@ -49,38 +51,10 @@ end
 function c210310161.repop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
 end
-function c210310161.mtcon(e,tp,eg,ep,ev,re,r,rp)
-	return r==REASON_RITUAL
-end
-function c210310161.mtfilter(c)
-	return c:IsAttribute(ATTRIBUTE_WATER) and c:GetType()&0x81==0x81 and not c:IsType(TYPE_EFFECT)
-end
-function c210310161.mtop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(tp,210310161)~=0 then return end
+function c210310161.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=eg:Filter(c210310161.mtfilter,nil)
-	local rc=g:GetFirst()
-	if not rc then return end
-	--to hand
-	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e1:SetType(EFFECT_TYPE_IGNITION)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(1)
-	e1:SetTarget(c210310161.thtg)
-	e1:SetOperation(c210310161.thop)
-	e1:SetReset(RESET_EVENT+0x1fe0000)
-	rc:RegisterEffect(e1,true)
-	if not rc:IsType(TYPE_EFFECT) then
-		local e2=Effect.CreateEffect(c)
-		e2:SetType(EFFECT_TYPE_SINGLE)
-		e2:SetCode(EFFECT_ADD_TYPE)
-		e2:SetValue(TYPE_EFFECT)
-		e2:SetReset(RESET_EVENT+0x1fe0000)
-		rc:RegisterEffect(e2,true)
-	end
-	rc:RegisterFlagEffect(0,RESET_EVENT+0x1fe0000,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(210310161,0))
-	Duel.RegisterFlagEffect(tp,2,RESET_PHASE+PHASE_END,0,1)
+	local rc=c:GetReasonCard()
+	return c:IsReason(REASON_RITUAL) and rc and rc:IsAttribute(ATTRIBUTE_WATER) and rc:GetType()&0x81==0x81 and not rc:IsType(TYPE_EFFECT)
 end
 function c210310161.thfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WATER) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
