@@ -10,7 +10,7 @@ function c210310305.initial_effect(c)
    e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
    e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
    e2:SetProperty(EFFECT_FLAG_DELAY)
-   e2:SetRange(LOCATION_FZONE)
+   e2:SetRange(LOCATION_SZONE)
    e2:SetCode(EVENT_LEAVE_FIELD)
    e2:SetCountLimit(1,210310305)
    e2:SetCondition(c210310305.spcon1)
@@ -28,10 +28,11 @@ function c210310305.initial_effect(c)
    local e4=Effect.CreateEffect(c)
    e4:SetType(EFFECT_TYPE_IGNITION)
    e4:SetCode(EVENT_FREE_CHAIN)
+   e4:SetRange(LOCATION_SZONE)
    e4:SetProperty(EFFECT_FLAG_CARD_TARGET)
    e4:SetCountLimit(1,210310305+200)
    e4:SetTarget(c210310305.target)
-   e4::SetOperation(c210310305.activate)
+   e4:SetOperation(c210310305.activate)
    c:RegisterEffect(e4)
 end
 --first type of special summon e2
@@ -86,7 +87,7 @@ function c210310305.spop2(e,tp,eg,ep,ev,re,r,rp)
 end
 --counter effect
 function c210310305.target(e,tp,eg,ep,ev,re,r,rp,chk)
-   if chk==0 then return Duel.
+   if chk==0 then return Duel.IsExistingMatchingCard(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
    Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 end
 function c210310305.activate(e,tp,eg,ep,ev,re,r,rp)
