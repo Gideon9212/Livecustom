@@ -2,7 +2,7 @@ function c210310305.initial_effect(c)
  +   --Activate
  +   local e1=Effect.CreateEffect(c)
  +   e1:SetType(EFFECT_TYPE_ACTIVATE)
- +   e1:SetCode(EVENT_LEAVE_FIELD)
+ +   e1:SetCode(EVENT_FREE_CHAIN)
  +   c:RegisterEffect(e1)
  +   --special summon
  +   local e2=Effect.CreateEffect(c)
