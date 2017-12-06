@@ -1,6 +1,6 @@
 --Dance of Forgotten Masks
 --Created and scripted by ahtelel/Naga
-function c301.initial_effect(c)
+function c210700001.initial_effect(c)
 	aux.AddRitualProcGreaterCode(c,210700002) 
 	--to deck
 	local e2=Effect.CreateEffect(c)
@@ -9,9 +9,9 @@ function c301.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetRange(LOCATION_GRAVE)
 	e2:SetCountLimit(1,210700001+EFFECT_COUNT_CODE_OATH)
-	e2:SetCost(c301.cost)
-	e2:SetTarget(c301.thtg)
-	e2:SetOperation(c301.thop)
+	e2:SetCost(c210700001.cost)
+	e2:SetTarget(c210700001.thtg)
+	e2:SetOperation(c210700001.thop)
 	c:RegisterEffect(e2)
 end
 function c210700001.cost(e,tp,eg,ep,ev,re,r,rp,chk)
