@@ -63,6 +63,7 @@ function c210424258.op(e,tp,eg,ep,ev,re,r,rp)
     		local g=Duel.SelectMatchingCard(tp,c210424258.filter2,tp,LOCATION_DECK,0,1,1,nil,code,e,tp)
     		if g:GetCount()>0 then
         		Duel.SendtoHand(g,nil,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,g)
     		end
 	end
 
