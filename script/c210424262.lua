@@ -130,20 +130,22 @@ end
 
 
 
-
 function c210424262.thfilter(c)
 	return c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER) and c:IsDestructable() and c:IsFaceup()
 end
 function c210424262.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c210424262.thfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c210424262.thfilter,tp,LOCATION_MZONE,0,1,nil)
-		and Duel.IsExistingMatchingCard(c210424262.desfilter,tp,0,LOCATION_ONFIELD,1,nil) end
+	and Duel.IsExistingMatchingCard(c210424262.desfilter,tp,0,LOCATION_ONFIELD,1,nil) end
+	local rt=Duel.GetTargetCount(aux.TRUE,tp,0,LOCATION_ONFIELD,nil)
+	if rt>2 then rt=2 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c210424262.thfilter,tp,LOCATION_MZONE,0,1,2,nil)
+	local g=Duel.SelectTarget(tp,c210424262.thfilter,tp,LOCATION_MZONE,0,1,rt,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
+
 function c210424262.desfilter(c)
-	return c:IsFaceup() and c:IsDestructable()
+	return c:IsFaceup()
 end
 function c210424262.activate(e,tp,eg,ep,ev,re,r,rp)
 if not e:GetHandler():IsRelateToEffect(e) then return end
