@@ -41,7 +41,8 @@ function c210310262.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c210310262.tdfilter(c)
-	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT)) or (c:IsSetCard(0xf36) or c:IsCode(911883))) and c:IsAbleToDeck()
+	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4))
+		or (c:IsSetCard(0xf36) or c:IsCode(911883))) and c:IsAbleToDeck()
 end
 function c210310262.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c210310262.tdfilter(chkc) end
@@ -67,7 +68,7 @@ function c210310262.drop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210310262.sumfilter(c)
-	return (c:IsSetCard(0xf36) or not c:IsType(TYPE_EFFECT)) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0xf36) and c:IsSummonable(true,nil,1)
 end
 function c210310262.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210310262.sumfilter,tp,LOCATION_HAND,0,1,nil) end

@@ -6,6 +6,7 @@ function c210310261.initial_effect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetCountLimit(1,210310261+EFFECT_COUNT_CODE_OATH)
 	e1:SetTarget(c210310261.target)
 	e1:SetOperation(c210310261.activate)
 	c:RegisterEffect(e1)
@@ -19,7 +20,7 @@ function c210310261.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c210310261.filter(c)
-	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT)) or (c:IsSetCard(0xf36) or c:IsCode(911883))) and not c:IsCode(210310261) and c:IsAbleToHand()
+	return ((c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or (c:IsSetCard(0xf36) or c:IsCode(911883))) and not c:IsCode(210310261) and c:IsAbleToHand()
 end
 function c210310261.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210310261.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -44,5 +45,5 @@ function c210310261.indop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function c210310261.indtg(e,c)
-	return not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)
+	return not (c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36)
 end

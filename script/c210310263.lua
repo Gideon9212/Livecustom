@@ -34,7 +34,7 @@ function c210310263.poop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210310263.indtg(e,c)
-	return not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)
+	return (not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36)
 end
 function c210310263.indval(e,re,rp)
 	return re:IsActiveType(TYPE_SPELL+TYPE_TRAP)

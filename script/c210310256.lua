@@ -14,7 +14,8 @@ function c210310256.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c210310256.filter(c,e,tp)
-	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and (not c:IsType(TYPE_EFFECT) or c:IsSetCard(0xf36)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
+	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
+		and ((not c:IsType(TYPE_EFFECT) and c:IsLevelBelow(4)) or c:IsSetCard(0xf36))
 end
 function c210310256.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and c210310256.filter(chkc,e,tp) end
