@@ -2,8 +2,7 @@
 function c210424258.initial_effect(c)
 --pendulum summon
 	aux.EnablePendulumAttribute(c)
-		-- Once per turn: You can shuffle 1 "Blue Striker" monster you control into the Deck; 
-	-- Special Summon 1 "Blue Striker" monster with a different name from your Deck.
+-- Target 1 pony, add a different one to the hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
@@ -20,6 +19,7 @@ function c210424258.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
+	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCountLimit(1,210424261)
 	e2:SetTarget(c210424258.sumtg)
 	e2:SetOperation(c210424258.sumop)
@@ -27,12 +27,13 @@ function c210424258.initial_effect(c)
 	local e3=e2:Clone()
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
-			--search
+			--on target, search 1 back row
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(4066,0))
 	e4:SetCategory(CATEGORY_SEARCH)
 	e4:SetType(EFFECT_TYPE_QUICK_O)
 	e4:SetCode(EVENT_BECOME_TARGET)
+	e4:SetProperty(EFFECT_FLAG_DELAY)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1,210424262)
 	e4:SetCondition(c210424258.swapcon)
