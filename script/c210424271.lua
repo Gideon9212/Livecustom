@@ -20,7 +20,6 @@ aux.AddLinkProcedure(c,c210424271.lfilter,3,3)
 	c:RegisterEffect(e3)
 		--remove
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(40737112,1))
 	e4:SetCategory(CATEGORY_REMOVE)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e4:SetCode(EVENT_BATTLED)

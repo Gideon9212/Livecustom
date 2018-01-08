@@ -41,7 +41,6 @@ function c210424257.initial_effect(c)
 	c:RegisterEffect(e3)
 	
 end
-
 function c210424257.desfilter1(c,e,sp)
 	return c:IsFaceup() and c:IsSetCard(0x666)
 end
@@ -69,28 +68,6 @@ local g=Duel.SelectMatchingCard(tp,c210424257.desfilter2,tp,0,LOCATION_SZONE,1,1
 end
 end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function c210424257.filter(c)
 	return c:IsCanChangePosition()
 end
@@ -107,19 +84,8 @@ function c210424257.posop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ChangePosition(tc,POS_FACEUP_DEFENSE,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK)
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
 function c210424257.spfilter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+return c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsSetCard(0x666)
 end
 function c210424257.swapcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
@@ -147,6 +113,3 @@ function c210424257.swapop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-
-
-

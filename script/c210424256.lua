@@ -49,7 +49,6 @@ if chk==0 then return Duel.IsExistingTarget(c210424256.filter1,tp,LOCATION_MZONE
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	local g=Duel.SelectTarget(tp,c210424256.filter1,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
 end
-
 function c210424256.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local c=e:GetHandler()
@@ -92,7 +91,7 @@ function c210424256.drop(e,tp,eg,ep,ev,re,r,rp)
 end
 --swap
 function c210424256.spfilter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+return c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsSetCard(0x666)
 end
 function c210424256.swapcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
@@ -120,6 +119,3 @@ function c210424256.swapop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-
-
-

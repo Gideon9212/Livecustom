@@ -17,7 +17,6 @@ function c210424259.initial_effect(c)
 	
 	--send 1 to extra, nerf opp by 500 atk
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(69529337,0))
 	e2:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_TODECK)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e2:SetType(EFFECT_TYPE_IGNITION)
@@ -28,7 +27,6 @@ function c210424259.initial_effect(c)
 	c:RegisterEffect(e2)
 	--Destroys
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(88241506,1))
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
@@ -60,13 +58,6 @@ function c210424259.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-
-
-
-
-
-
-
 function c210424259.statfilter(c,e,tp)
 	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsType(TYPE_PENDULUM+TYPE_MONSTER)
 end
@@ -103,34 +94,6 @@ function c210424259.tdop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function c210424259.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666) and c:IsAbleToHand()
 end

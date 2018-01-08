@@ -1,6 +1,7 @@
 --Moon Burst's Big Bang
 function c210424265.initial_effect(c)
 	c:EnableCounterPermit(0xc)
+	c:SetCounterLimit(0xc,3)
 	--activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -51,7 +52,6 @@ function c210424265.initial_effect(c)
 	e5:SetOperation(c210424265.op1)
 	c:RegisterEffect(e5)
 end
-
 function c210424265.tg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
     if chkc then return chkc:IsLocation(LOCATION_MZONE) and c210424265.filter(chkc) end
     if chk==0 then return Duel.IsExistingTarget(c210424265.filter,tp,LOCATION_MZONE,0,1,nil,tp) end
@@ -71,17 +71,11 @@ function c210424265.op1(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-
-
 function c210424265.ctop2(e,tp,eg,ep,ev,re,r,rp)
-
- 
     local c=e:GetHandler()
     local ct=c:GetCounter(0xc)
-
     c:RemoveCounter(tp,0xc,ct,REASON_EFFECT) 
 end
-
 function c210424265.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler() and e:GetHandler():GetCounter(0xc)==3 end 
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
@@ -101,21 +95,8 @@ function c210424265.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
-		
 	   end
 	end
-
-
-
-
-
-
-
-
-
-
-
-
 function c210424265.filter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x666)
 end
@@ -130,7 +111,6 @@ function c210424265.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetTargetParam(200)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,200)
 end
-
 function c210424265.acop(e,tp,eg,ep,ev,re,r,rp)
 local c=e:GetHandler()
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
