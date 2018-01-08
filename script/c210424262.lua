@@ -11,8 +11,8 @@ function c210424262.initial_effect(c)
 	e1:SetHintTiming(0,0x1e0)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetCountLimit(1,210424268)
-	e1:SetTarget(c210424262.target)
-	e1:SetOperation(c210424262.activate)
+	e1:SetTarget(c210424262.destg)
+	e1:SetOperation(c210424262.desop)
 	c:RegisterEffect(e1)
 		--swap
 	local e2=Effect.CreateEffect(c)
@@ -97,28 +97,28 @@ end
 function c210424262.thfilter(c)
 	return c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER) and c:IsDestructable() and c:IsFaceup()
 end
-function c210424262.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c210424262.thfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c210424262.thfilter,tp,LOCATION_MZONE,0,1,nil)
-	and Duel.IsExistingMatchingCard(c210424262.desfilter,tp,0,LOCATION_ONFIELD,1,nil) end
-	local rt=Duel.GetTargetCount(aux.TRUE,tp,0,LOCATION_ONFIELD,nil)
-	if rt>2 then rt=2 end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c210424262.thfilter,tp,LOCATION_MZONE,0,1,rt,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
-end
 function c210424262.desfilter(c)
-	return c:IsFaceup()
+	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER)
 end
-function c210424262.activate(e,tp,eg,ep,ev,re,r,rp)
+function c210424262.desfilter2(c)
+	return c:IsFaceup() 
+end
+function c210424262.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return false end
+	if chk==0 then return Duel.IsExistingTarget(c210424262.desfilter,tp,LOCATION_ONFIELD,0,1,nil)
+		and Duel.IsExistingTarget(c210424262.desfilter2,tp,0,LOCATION_ONFIELD,1,nil)
+end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g1=Duel.SelectTarget(tp,c210424262.desfilter,tp,LOCATION_ONFIELD,0,1,1,nil)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g2=Duel.SelectTarget(tp,c210424262.desfilter2,tp,0,LOCATION_ONFIELD,1,1,nil)
+	g1:Merge(g2)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g1,2,0,0)
+end
+function c210424262.desop(e,tp,eg,ep,ev,re,r,rp)
 if not e:GetHandler():IsRelateToEffect(e) then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect,nil,e)
-	Duel.Destroy(g,REASON_EFFECT)
-	local ct=g:FilterCount(Card.IsLocation,nil,LOCATION_EXTRA+LOCATION_GRAVE+LOCATION_REMOVED)
-	local dg=Duel.GetMatchingGroup(c210424262.desfilter,tp,0,LOCATION_ONFIELD,nil)
-	if ct>0 and Duel.IsExistingMatchingCard(c210424262.desfilter,tp,0,LOCATION_ONFIELD,1,ct) then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		local rg=Duel.SelectMatchingCard(tp,c210424262.desfilter,tp,0,LOCATION_ONFIELD,ct,ct,nil)
-		Duel.Destroy(rg,REASON_EFFECT)
+	if g:GetCount()>0 then
+		Duel.Destroy(g,REASON_EFFECT)
 	end
 end
