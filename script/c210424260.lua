@@ -29,7 +29,6 @@ function c210424260.initial_effect(c)
 	c:RegisterEffect(e3)
 		--change target to def
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(4066,0))
 	e4:SetCategory(CATEGORY_POSITION)
 	e4:SetType(EFFECT_TYPE_QUICK_O)
 	e4:SetCode(EVENT_BECOME_TARGET)
@@ -41,11 +40,9 @@ function c210424260.initial_effect(c)
 	e4:SetOperation(c210424260.posop)
 	c:RegisterEffect(e4)
 end
-
 function c210424260.desfilter(c)
  return c:IsFaceup() and c:IsType(TYPE_MONSTER) and (c:IsRankAbove(4) or c:IsLevelAbove(4))
-end
-	
+end	
 function c210424260.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc~=c and chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c210424260.desfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c210424260.desfilter,tp,0,LOCATION_MZONE,1,nil) end
@@ -59,25 +56,6 @@ function c210424260.desop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function c210424260.swapcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
 end
@@ -105,16 +83,11 @@ function c210424260.posop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-
-
-
-
 function c210424260.filter1(c,e)
 	local code=c:GetCode()
 	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER)
 
 end
-
 function c210424260.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
 	if chk==0 then return 
@@ -175,5 +148,3 @@ if not e:GetHandler():IsRelateToEffect(e) then return end
 		end
 	end
 end
-
-

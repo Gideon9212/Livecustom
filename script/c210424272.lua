@@ -5,24 +5,22 @@ function c210424272.initial_effect(c)
 	c:EnableReviveLimit()
 	--special summon
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(61665245,0))
 	e1:SetCategory(CATEGORY_DRAW)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
-	e1:SetCountLimit(1,210424273)
+	e1:SetCountLimit(1,210424274)
 	e1:SetCondition(c210424272.spcon1)
 	e1:SetTarget(c210424272.sptg1)
 	e1:SetOperation(c210424272.spop1)
 	c:RegisterEffect(e1)
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(88241506,1))
 	e3:SetCategory(CATEGORY_DRAW+CATEGORY_TODECK)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCode(EVENT_BECOME_TARGET)
-	e3:SetCountLimit(1,210424272)
+	e3:SetCountLimit(1,210424275)
 	e3:SetCondition(c210424272.swapcon)
 	e3:SetTarget(c210424272.target)
 	e3:SetOperation(c210424272.operation)
@@ -46,15 +44,6 @@ function c210424272.operation(e,tp,eg,ep,ev,re,r,rp)
 	p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
     Duel.Draw(p,d,REASON_EFFECT) 
 	end
-
-
-
-
-
-
-
-
-
 function c210424272.lfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666)
 end

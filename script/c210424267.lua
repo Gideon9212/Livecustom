@@ -2,7 +2,6 @@
 function c210424267.initial_effect(c)
 		--indes
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(210424267,0))
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetRange(LOCATION_SZONE)
@@ -12,7 +11,6 @@ function c210424267.initial_effect(c)
 	c:RegisterEffect(e1)
 			--indes
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(210424267,0))
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetRange(LOCATION_SZONE)
@@ -56,14 +54,6 @@ if not Duel.CheckLocation(tp,LOCATION_PZONE,0) and not Duel.CheckLocation(tp,LOC
 		end
 	end
 end
-
-
-
-
-
-
-
-
 function c210424267.indfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER)
 end
