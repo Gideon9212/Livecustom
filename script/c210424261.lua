@@ -16,12 +16,11 @@ function c210424261.initial_effect(c)
 	c:RegisterEffect(e1)
 		--NS/Monster Search
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(1020041,0))
 	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,210424267)
 	e2:SetTarget(c210424261.scon)
 	e2:SetOperation(c210424261.sop)
 	c:RegisterEffect(e2)
@@ -63,14 +62,6 @@ function c210424261.atkop(e,tp,eg,ep,ev,re,r,rp)
 		tc=g:GetNext()
 	end
 end
-
-
-
-
-
-
-
-
 function c210424261.sfilter(c,tpe)
 	return c:IsSetCard(0x666) and c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
 end
@@ -88,24 +79,6 @@ function c210424261.sop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function c210424261.filter1(c)
 	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsType(TYPE_MONSTER) and c:IsCanChangePosition()
 end
@@ -129,6 +102,5 @@ if not e:GetHandler():IsRelateToEffect(e) then return end
 		local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	if g:GetCount()==2 then
 		Duel.ChangePosition(g,POS_FACEUP_DEFENSE,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK)
-	
 		end
 	end

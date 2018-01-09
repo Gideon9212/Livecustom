@@ -4,14 +4,13 @@ function c210424263.initial_effect(c)
 	aux.EnablePendulumAttribute(c)
 		--atk up
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(11439455,0))
 	e1:SetCategory(CATEGORY_ATKCHANGE)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCountLimit(1,210424268)
+	e1:SetCountLimit(1,210424270)
 	e1:SetTarget(c210424263.atktg)
 	e1:SetOperation(c210424263.atkop)
 	c:RegisterEffect(e1)
@@ -23,7 +22,7 @@ function c210424263.initial_effect(c)
 	e2:SetCode(EVENT_BECOME_TARGET)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
-	e2:SetCountLimit(1,210424269)
+	e2:SetCountLimit(1,210424271)
 	e2:SetCondition(c210424263.swapcon)
 	e2:SetTarget(c210424263.swaptg)
 	e2:SetOperation(c210424263.swapop)
@@ -35,7 +34,7 @@ function c210424263.initial_effect(c)
 	e3:SetCode(EVENT_BECOME_TARGET)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,210424269)
+	e3:SetCountLimit(1,210424271)
 	e3:SetCondition(c210424263.swapcon)
 	e3:SetTarget(c210424263.xswingtg)
 	e3:SetOperation(c210424263.xswingop)
@@ -62,30 +61,8 @@ function c210424263.xswingop(e,tp,eg,ep,ev,re,r,rp)
 		tc:RegisterEffect(e1)
 	end
 end
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	function c210424263.spfilter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+function c210424263.spfilter(c,e,tp)
+return c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsSetCard(0x666)
 end
 function c210424263.swapcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
@@ -113,7 +90,6 @@ function c210424263.swapop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-
 function c210424263.atkfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsType(TYPE_PENDULUM)
 end

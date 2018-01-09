@@ -40,7 +40,6 @@ c:SetCounterLimit(0x99,15)
 	e4:SetOperation(c210424264.desop)
 	c:RegisterEffect(e4)
 end
-
 function c210424264.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsCanAddCounter(tp,0x99,3,e:GetHandler()) end
 	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,3,0,0x99)
@@ -58,7 +57,6 @@ end
 function c210424264.thfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666) and c:IsAbleToHand()
 end
-
 function c210424264.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210424264.thfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
@@ -72,19 +70,6 @@ function c210424264.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
 function c210424264.dfilter(c,tp)
 	return c:IsFaceup() and c:IsLocation(LOCATION_SZONE) and not c:IsReason(REASON_REPLACE) 
 		and c:IsSetCard(0x666) and c:IsControler(tp) and c:IsReason(REASON_EFFECT)
@@ -105,14 +90,6 @@ function c210424264.desop(e,tp,eg,ep,ev,re,r,rp)
 	local count=e:GetLabel()
 	Duel.RemoveCounter(tp,1,0,0x99,count*3,REASON_EFFECT)
 end
-
-
-
-
-
-
-
-
 function c210424264.filter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x666)
 end
@@ -121,9 +98,6 @@ function c210424264.accon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
 	return g and g:IsExists(c210424264.filter,1,nil,tp)
 end
-
-
 function c210424264.acop(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():AddCounter(0x99,1)
-	
 end

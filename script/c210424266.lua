@@ -20,7 +20,6 @@ function c210424266.initial_effect(c)
 	c:RegisterEffect(e2)
 -- Send 2 ponies from extra to grave, kill 1	
 		local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(52467217,0))
 	e4:SetCategory(CATEGORY_DESTROY)
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_FZONE)
@@ -30,7 +29,6 @@ function c210424266.initial_effect(c)
 	e4:SetOperation(c210424266.desop)
 	c:RegisterEffect(e4)
 end
-
 function c210424266.desfilter(c)
 	return c:IsSetCard(0x666) and c:IsType(TYPE_PENDULUM) and c:IsAbleToGraveAsCost() and c:IsFaceup()
 end
