@@ -43,6 +43,14 @@ function c210555555.initial_effect(c)
 	e5:SetCondition(c210555555.efcon)
 	e5:SetOperation(c210555555.efop)
 	c:RegisterEffect(e5)
+	--with a bit of magic it became a cydra 
+  	local e6=Effect.CreateEffect(c)
+  	e6:SetType(EFFECT_TYPE_SINGLE)
+  	e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+ 	e6:SetCode(EFFECT_CHANGE_CODE)
+  	e6:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
+  	e6:SetValue(70095154)
+  	c:RegisterEffect(e6)
 end 
 --sp effects 
 function c210555555.spfilter(c)
