@@ -48,7 +48,7 @@ function c210424262.copyfilter(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x666)
 end
 function c210424262.copytarget(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-if not e:GetHandler():IsRelateToEffect(e) then return end
+
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_EXTRA) and c210424262.copyfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c210424262.copyfilter,tp,LOCATION_EXTRA,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
