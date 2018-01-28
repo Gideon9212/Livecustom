@@ -29,7 +29,7 @@ aux.AddLinkProcedure(c,c210424271.lfilter,3,3)
 	c:RegisterEffect(e4)
 end
 	function c210424271.lfilter(c)
-	return c:IsType(TYPE_PENDULUM) and c:IsAttribute(ATTRIBUTE_WIND)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666)
 end
 function c210424271.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
