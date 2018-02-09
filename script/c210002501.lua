@@ -19,10 +19,10 @@ function c210002501.initial_effect(c)
 	e2:SetOperation(c210002501.repop)
 	c:RegisterEffect(e2)
 end
-c210002501.listed_names={46986414,210002501}
+c210002501.listed_names={46986414,210002501,0xa1,0x10a2}
 function c210002501.filter(c)
-	return (c:IsCode(46986414)
-		or (c:IsSetCard(0xa1) and c:IsType(TYPE_SPELL)))
+	return (c:IsSetCard(0x10a2) and c:IsType(TYPE_MONSTER)
+		or c:IsSetCard(0xa1) and c:IsType(TYPE_SPELL))
 		and c:IsAbleToHand() and not c:IsCode(210002501)
 end
 function c210002501.activate(e,tp,eg,ep,ev,re,r,rp)

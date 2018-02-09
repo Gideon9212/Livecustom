@@ -24,12 +24,12 @@ function c210002503.initial_effect(c)
 	e3:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e3)
 end
-c210002503.listed_names={46986414,210002503}
+c210002503.listed_names={46986414,210002503,0xa1}
 function c210002503.atktg(e,c)
 	return c:IsFaceup() and (c:IsSetCard(0x10a2) or (c:IsRace(RACE_SPELLCASTER) and (c:IsLevelAbove(6) or c:IsRankAbove(6))))
 end
 function c210002503.atkval(e,c)
-	return Duel.GetMatchingGroupCount(Card.IsFaceup,e:GetHandlerPlayer(),LOCATION_SZONE,0,nil)*100
+	return Duel.GetMatchingGroupCount(Card.IsFaceup,e:GetHandlerPlayer(),LOCATION_SZONE,0,nil)*200
 end
 function c210002503.filter(c)
 	return aux.IsCodeListed(c,46986414) and c:IsType(TYPE_SPELL+TYPE_TRAP)
