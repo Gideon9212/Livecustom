@@ -2,44 +2,64 @@
 function c210424257.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
-	--destroy 1 pony you control, destroy 1 spell/trap opp controls
+	--bounce 1 pony you control, destroy 1 spell/trap opp controls
 	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetCategory(CATEGORY_DESTROY)
-	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetCountLimit(1,210424258)
 	e1:SetTarget(c210424257.target)
 	e1:SetOperation(c210424257.activate)
 	c:RegisterEffect(e1)
-		--swap
-	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(4066,0))
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetType(EFFECT_TYPE_QUICK_O)
-	e2:SetCode(EVENT_BECOME_TARGET)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetProperty(EFFECT_FLAG_DELAY)
-	e2:SetCountLimit(1,210424259)
-	e2:SetCondition(c210424257.swapcon)
-	e2:SetTarget(c210424257.swaptg)
-	e2:SetOperation(c210424257.swapop)
+	local e2=e1:Clone()
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_BE_BATTLE_TARGET)
+	e2:SetCondition(c210424257.battlecon)
 	c:RegisterEffect(e2)
-			--change target's battle position
-	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(4066,2))
-	e3:SetCategory(CATEGORY_POSITION)
-	e3:SetType(EFFECT_TYPE_QUICK_O)
-	e3:SetCode(EVENT_BECOME_TARGET)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,210424259)
-	e3:SetCondition(c210424257.swapcon)
-	e3:SetTarget(c210424257.postg)
-	e3:SetOperation(c210424257.posop)
+	local e3=e1:Clone()
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_CHAIN_SOLVING)
+	e3:SetCondition(c210424257.pendcon)
 	c:RegisterEffect(e3)
-	
+		--swap
+	local e4=Effect.CreateEffect(c)
+	e4:SetDescription(aux.Stringid(4066,0))
+	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e4:SetType(EFFECT_TYPE_QUICK_O)
+	e4:SetCode(EVENT_BECOME_TARGET)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetProperty(EFFECT_FLAG_DELAY)
+	e4:SetCountLimit(1,210424259)
+	e4:SetCondition(c210424257.swapcon)
+	e4:SetTarget(c210424257.swaptg)
+	e4:SetOperation(c210424257.swapop)
+	c:RegisterEffect(e4)
+			--change target's battle position
+	local e5=Effect.CreateEffect(c)
+	e5:SetDescription(aux.Stringid(4066,2))
+	e5:SetCategory(CATEGORY_POSITION)
+	e5:SetType(EFFECT_TYPE_QUICK_O)
+	e5:SetCode(EVENT_BECOME_TARGET)
+	e5:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e5:SetRange(LOCATION_MZONE)
+	e5:SetCountLimit(1,210424259)
+	e5:SetCondition(c210424257.swapcon)
+	e5:SetTarget(c210424257.postg)
+	e5:SetOperation(c210424257.posop)
+	c:RegisterEffect(e5)
+end
+function c210424257.pendfilter(c,tp)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x666)
+end
+function c210424257.pendcon(e,tp,eg,ep,ev,re,r,rp)
+		if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
+	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
+	return g and g:IsExists(c210424257.pendfilter,1,nil,tp)
+end
+function c210424257.battlecon(e,tp,eg,ep,ev,re,r,rp)
+	local ec=eg:GetFirst()
+	return ec:IsFaceup() and ec:IsControler(tp) and ec:IsSetCard(0x666)
 end
 function c210424257.desfilter1(c,e,sp)
 	return c:IsFaceup() and c:IsSetCard(0x666)
@@ -50,17 +70,19 @@ end
 function c210424257.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return (chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c210424257.desfilter1(chkc))
 and (chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(tp-1) and c210424257.desfilter2(chkc)) end
-	if chk==0 then return Duel.IsExistingTarget(c210424257.desfilter1,tp,LOCATION_MZONE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(c210424257.desfilter1,tp,LOCATION_MZONE,0,1,nil)
+	and Duel.IsExistingTarget(c210424257.desfilter2,tp,0,LOCATION_SZONE,1,nil)
+	end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,c210424257.desfilter1,tp,LOCATION_MZONE,0,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function c210424257.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc:IsFaceup() and tc:IsRelateToEffect(e) then
 		
-		if Duel.Destroy(tc,REASON_EFFECT)~=0 then
+		if Duel.SendtoHand(tc,nil,REASON_EFFECT)~=0 then
 	
 local g=Duel.SelectMatchingCard(tp,c210424257.desfilter2,tp,0,LOCATION_SZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)

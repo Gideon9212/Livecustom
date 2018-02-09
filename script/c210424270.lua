@@ -25,7 +25,7 @@ local e3=Effect.CreateEffect(c)
 	c:RegisterEffect(e3)
 	end
 	function c210424270.lfilter(c)
-	return c:IsType(TYPE_PENDULUM) and c:IsAttribute(ATTRIBUTE_WIND)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666)
 end
 function c210424270.filter2(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x666)
