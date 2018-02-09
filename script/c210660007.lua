@@ -59,7 +59,7 @@ function c210660007.tgop1(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210660007.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetFieldGroupCount(tp,LOCATION_ONFIELD,0)<=1
+	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)<=1
 end
 function c210660007.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetFlagEffect(tp,210660007)~=0 then return end
