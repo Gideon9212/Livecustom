@@ -15,11 +15,13 @@ function c210424258.initial_effect(c)
 	local e2=e1:Clone()
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_BE_BATTLE_TARGET)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetCondition(c210424258.battlecon)
 	c:RegisterEffect(e2)
 	local e3=e1:Clone()
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_CHAIN_SOLVING)
+	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e3:SetCondition(c210424258.pendcon)
 	c:RegisterEffect(e3)
 		--spsummon
@@ -27,7 +29,7 @@ function c210424258.initial_effect(c)
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_SUMMON_SUCCESS)
-	e4:SetProperty(EFFECT_FLAG_DELAY)
+	e4:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e4:SetCountLimit(1,210424261)
 	e4:SetTarget(c210424258.sumtg)
 	e4:SetOperation(c210424258.sumop)
@@ -95,7 +97,6 @@ end
 function c210424258.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return  Duel.IsExistingMatchingCard(c210424259.searchfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
-	
 end
 function c210424258.operation(e,tp,eg,ep,ev,re,r,rp)
 
