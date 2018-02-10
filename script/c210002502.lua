@@ -12,8 +12,8 @@ function c210002502.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(4779823,1))
 	e2:SetType(EFFECT_TYPE_QUICK_O)
-	e3:SetCode(EVENT_FREE_CHAIN)
-	e3:SetRange(LOCATION_SZONE)
+	e2:SetCode(EVENT_FREE_CHAIN)
+	e2:SetRange(LOCATION_SZONE)
 	e2:SetHintTiming(TIMING_END_PHASE,TIMING_END_PHASE)
 	e2:SetCost(c210002502.cost)
 	e2:SetTarget(c210002502.target)
@@ -33,16 +33,24 @@ function c210002502.initial_effect(c)
 	e3:SetOperation(c210002502.operation2)
 	c:RegisterEffect(e3) 
 end
-c210002502.listed_names={46986414,210002502,38033121,30208479}
+c210002502.listed_names={46986414,210002502,38033121,30208479,0xa1}
 function c210002502.atg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	if c210002502.cost(e,tp,eg,ep,ev,re,r,rp,0) 
+	local c=e:GetHandler()
+	local e1=c210002502.cost(e,tp,eg,ep,ev,re,r,rp,0) 
 		and c210002502.target(e,tp,eg,ep,ev,re,r,rp,0)
-		and c210002502.condition(e,tp,eg,ep,ev,re,r,rp,0)
+	local e2=c210002502.condition(e,tp,eg,ep,ev,re,r,rp,0)
 		and c210002502.cost2(e,tp,eg,ep,ev,re,r,rp,0) 
 		and c210002502.target2(e,tp,eg,ep,ev,re,r,rp,0)
-		and Duel.SelectEffectYesNo(tp,e:GetHandler()) then
-		local op=Duel.SelectOption(tp,aux.Stringid(4779823,1),aux.Stringid(4779823,2))
+	local op=2
+	if (e1 or e2) and Duel.SelectEffectYesNo(tp,c) then
+		if e1 and e2 then
+			op=Duel.SelectOption(tp,aux.Stringid(4779823,1),aux.Stringid(4779823,2))
+		elseif e1 then
+			op=0
+		else
+			op=1
+		end
 		if op==0 then
 			c210002502.cost(e,tp,eg,ep,ev,re,r,rp,1)
 			c210002502.target(e,tp,eg,ep,ev,re,r,rp,1)
@@ -54,21 +62,6 @@ function c210002502.atg(e,tp,eg,ep,ev,re,r,rp,chk)
 			e:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
 			e:SetOperation(c210002502.operation2)
 		end
-	elseif c210002502.cost(e,tp,eg,ep,ev,re,r,rp,0) 
-		and c210002502.target(e,tp,eg,ep,ev,re,r,rp,0)
-		and Duel.SelectEffectYesNo(tp,e:GetHandler()) then
-		c210002502.cost(e,tp,eg,ep,ev,re,r,rp,1)
-		c210002502.target(e,tp,eg,ep,ev,re,r,rp,1)
-		e:SetOperation(c210002502.operation)
-	elseif c210002502.condition(e,tp,eg,ep,ev,re,r,rp,0)
-		and c210002502.cost2(e,tp,eg,ep,ev,re,r,rp,0) 
-		and c210002502.target2(e,tp,eg,ep,ev,re,r,rp,0)
-		and Duel.SelectEffectYesNo(tp,e:GetHandler()) then
-		c210002502.condition(e,tp,eg,ep,ev,re,r,rp,1)
-		c210002502.cost2(e,tp,eg,ep,ev,re,r,rp,1)
-		c210002502.target2(e,tp,eg,ep,ev,re,r,rp,1)
-		e:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
-		e:SetOperation(c210002502.operation2)
 	else
 		e:SetCategory(0)
 		e:SetProperty(0)
