@@ -13,7 +13,6 @@ function c210424265.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_FIELD)
 	e2:SetCode(EVENT_BECOME_TARGET)
 	e2:SetRange(LOCATION_SZONE)
-	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCondition(c210424265.accon)
 	e2:SetTarget(c210424265.damtg)
 	e2:SetOperation(c210424265.acop)
@@ -23,6 +22,7 @@ function c210424265.initial_effect(c)
     e3:SetDescription(aux.Stringid(4066,6))
     e3:SetCategory(CATEGORY_COUNTER)
     e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
     e3:SetCode(EVENT_PHASE+PHASE_STANDBY)
     e3:SetCountLimit(1)
     e3:SetRange(LOCATION_SZONE)
@@ -33,6 +33,7 @@ function c210424265.initial_effect(c)
 	e4:SetDescription(aux.Stringid(210424265,0))
 	e4:SetCategory(CATEGORY_DESTROY)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e4:SetRange(LOCATION_SZONE)
 	e4:SetCode(EVENT_CUSTOM+210424265)
 	e4:SetCost(c210424265.descost)
@@ -44,20 +45,28 @@ function c210424265.initial_effect(c)
 	e5:SetCategory(CATEGORY_ATKCHANGE)
 	e5:SetDescription(aux.Stringid(4066,5))
 	e5:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
-	e5:SetType(EFFECT_TYPE_QUICK_O)
-	e5:SetCode(EVENT_FREE_CHAIN)
-	e5:SetCountLimit(1)
+	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e5:SetCode(EVENT_ATTACK_ANNOUNCE)
 	e5:SetRange(LOCATION_SZONE)
+	e5:SetCondition(c210424265.battlecon)
 	e5:SetTarget(c210424265.tg1)
 	e5:SetOperation(c210424265.op1)
 	c:RegisterEffect(e5)
 end
+function c210424265.battlecon(e,tp,eg,ep,ev,re,r,rp)
+	local a=Duel.GetAttacker()
+	local d=Duel.GetAttackTarget()
+	if d and a:GetControler()~=d:GetControler() then
+		if a:IsControler(tp) then e:SetLabelObject(a)
+		else e:SetLabelObject(d) end
+		return true
+	else return false end
+end
 function c210424265.tg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-    if chkc then return chkc:IsLocation(LOCATION_MZONE) and c210424265.filter(chkc) end
-    if chk==0 then return Duel.IsExistingTarget(c210424265.filter,tp,LOCATION_MZONE,0,1,nil,tp) end
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-    local g=Duel.SelectTarget(tp,c210424265.filter,tp,LOCATION_MZONE,0,1,1,nil,tp)
-    Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,g,1,0,300)
+	local tc=e:GetLabelObject()
+	if chkc then return chkc==tc end
+	if chk==0 then return tc:IsOnField() and tc:IsCanBeEffectTarget(e) and tc:IsSetCard(0x666) end
+	Duel.SetTargetCard(tc)
 end
 function c210424265.op1(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
