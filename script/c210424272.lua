@@ -45,7 +45,7 @@ function c210424272.operation(e,tp,eg,ep,ev,re,r,rp)
     Duel.Draw(p,d,REASON_EFFECT) 
 	end
 function c210424272.lfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666) and not c:IsCode(210424272)
 end
 function c210424272.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
