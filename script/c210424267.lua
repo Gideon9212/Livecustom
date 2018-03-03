@@ -34,7 +34,8 @@ function card.filter(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x666) and not c:IsForbidden()
 end
 function card.pencon(e,tp,eg,ep,ev,re,r,rp,chk)
-	return Duel.IsExistingMatchingCard(card.filter,tp,LOCATION_DECK+LOCATION_DECK,0,1,nil)
+	return Duel.GetTurnCount()~=e:GetHandler():GetTurnID() or e:GetHandler():IsReason(REASON_RETURN) 
+	and Duel.IsExistingMatchingCard(card.filter,tp,LOCATION_DECK+LOCATION_DECK,0,1,nil)
 end
 function card.pentg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1) end
