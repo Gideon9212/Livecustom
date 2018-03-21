@@ -1,6 +1,7 @@
 --Moon Burst's Big Bang
 local card = c210424265
 function card.initial_effect(c)
+	c:SetUniqueOnField(1,0,210424265)
 	c:EnableCounterPermit(0xc)
 	c:SetCounterLimit(0xc,3)
 	--activate
