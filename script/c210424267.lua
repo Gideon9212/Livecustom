@@ -35,7 +35,7 @@ function card.filter(c)
 end
 function card.pencon(e,tp,eg,ep,ev,re,r,rp,chk)
 	return Duel.GetTurnCount()~=e:GetHandler():GetTurnID() or e:GetHandler():IsReason(REASON_RETURN) 
-	and Duel.IsExistingMatchingCard(card.filter,tp,LOCATION_DECK+LOCATION_DECK,0,1,nil)
+	and Duel.IsExistingMatchingCard(card.filter,tp,LOCATION_DECK,0,1,nil)
 end
 function card.pentg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1) end
@@ -52,6 +52,7 @@ function card.penop(e,tp,eg,ep,ev,re,r,rp)
 	local sc=sg:GetFirst()
 	while sc do
 	Duel.MoveToField(sc,tp,tp,LOCATION_PZONE,POS_FACEUP,true)
+	Duel.MoveToField(sc,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 	sc=sg:GetNext()
 end
 end
