@@ -23,7 +23,7 @@ function card.initial_effect(c)
 	e3:SetDescription(aux.Stringid(210424265,0))
 	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetCode(EVENT_CUSTOM+210424265)
 	e3:SetCost(card.descost)
@@ -62,13 +62,13 @@ function card.op1(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-	e1:SetValue(300)
-	tc:RegisterEffect(e1)
-end
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetValue(300)
+		tc:RegisterEffect(e1)
+	end
 end
 function card.ctop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -83,16 +83,20 @@ end
 function card.desfilter(c)
 	return c:IsDestructable()
 end
-function card.destg(e,tp,eg,ep,ev,re,r,rp,chk)
+function card.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:GetLocation()==LOCATION_ONFIELD and card.desfilter(chkc) end
 	if chk==0 then return Duel.IsExistingMatchingCard(card.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,nil,1,0,0)
+	local g=Duel.GetMatchingGroup(card.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
 function card.desop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectMatchingCard(tp,card.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
+	local tc=g:GetFirst()
 	if g:GetCount()>0 then
 		Duel.HintSelection(g)
-		Duel.Destroy(tc,REASON_EFFECT)
+		Duel.Destroy(g,REASON_EFFECT)
 	end
 end
 function card.filter(c,tp)
@@ -107,6 +111,6 @@ function card.acop(e,tp,eg,ep,ev,re,r,rp)
 local c=e:GetHandler()
 	e:GetHandler() c:AddCounter(0xc,1)
 	if c:GetCounter(0xc)==3 then
-	Duel.RaiseSingleEvent(c,EVENT_CUSTOM+210424265,re,0,0,p,0)
-end
+		Duel.RaiseSingleEvent(c,EVENT_CUSTOM+210424265,re,0,0,p,0)
+	end
 end
