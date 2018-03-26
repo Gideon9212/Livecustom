@@ -33,7 +33,6 @@ function card.initial_effect(c)
 	--atkup
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_ATKCHANGE)
-	e4:SetDescription(aux.Stringid(4066,5))
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e4:SetCode(EVENT_ATTACK_ANNOUNCE)
