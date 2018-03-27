@@ -40,7 +40,6 @@ function card.initial_effect(c)
 	c:RegisterEffect(e5)
 	--add atk
 	local e6=Effect.CreateEffect(c)
-	e6:SetDescription(aux.Stringid(4066,0))
 	e6:SetCategory(CATEGORY_ATKCHANGE)
 	e6:SetType(EFFECT_TYPE_QUICK_O)
 	e6:SetCode(EVENT_BECOME_TARGET)
