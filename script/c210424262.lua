@@ -37,7 +37,7 @@ function card.initial_effect(c)
 	e4:SetTarget(card.swaptg)
 	e4:SetOperation(card.swapop)
 	c:RegisterEffect(e4)
-	--pierce
+	--gain attack
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(4066,3))
 	e5:SetType(EFFECT_TYPE_QUICK_O)

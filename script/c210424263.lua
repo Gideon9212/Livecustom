@@ -112,7 +112,7 @@ end
 end
 end
 function card.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsType(TYPE_PENDULUM)
+	return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsType(TYPE_LINK)
 end
 function card.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and card.atkfilter(chkc) end
