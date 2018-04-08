@@ -40,7 +40,6 @@ function card.initial_effect(c)
 	c:RegisterEffect(e5)
 	--add atk
 	local e6=Effect.CreateEffect(c)
-	e6:SetDescription(aux.Stringid(4066,0))
 	e6:SetCategory(CATEGORY_ATKCHANGE)
 	e6:SetType(EFFECT_TYPE_QUICK_O)
 	e6:SetCode(EVENT_BECOME_TARGET)
@@ -51,7 +50,7 @@ function card.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 function card.pendfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x666)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x666)
 end
 function card.targetcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end

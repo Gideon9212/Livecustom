@@ -16,7 +16,6 @@ function card.initial_effect(c)
 	c:RegisterEffect(e1)
 	--Search
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(4066,0))
 	e2:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_QUICK_F)
 	e2:SetCode(EVENT_BECOME_TARGET)
