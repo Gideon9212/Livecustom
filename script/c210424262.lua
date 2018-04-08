@@ -37,7 +37,7 @@ function card.initial_effect(c)
 	e4:SetTarget(card.swaptg)
 	e4:SetOperation(card.swapop)
 	c:RegisterEffect(e4)
-	--pierce
+	--gain attack
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(4066,3))
 	e5:SetType(EFFECT_TYPE_QUICK_O)
@@ -46,12 +46,12 @@ function card.initial_effect(c)
 	e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e5:SetCountLimit(1,210424273)
 	e5:SetCondition(card.betarget)
-	e5:SetTarget(card.piercetg)
-	e5:SetOperation(card.pierceop)
+	e5:SetTarget(card.atktg)
+	e5:SetOperation(card.atkop)
 	c:RegisterEffect(e5)
 end
 function card.pendfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x666)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x666)
 end
 function card.targetcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
@@ -65,25 +65,27 @@ end
 function card.betarget(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
 end
-function card.piercefilter(c)
+function card.atkfilter(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x666)
 end
-function card.piercetg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and card.piercefilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(card.piercefilter,tp,LOCATION_MZONE,0,1,nil) end
+function card.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and card.atkfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(card.atkfilter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
-	Duel.SelectTarget(tp,card.piercefilter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SelectTarget(tp,card.atkfilter,tp,LOCATION_MZONE,0,1,1,nil)
 end
-function card.pierceop(e,tp,eg,ep,ev,re,r,rp)
+function card.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup() then
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_PIERCE)
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
-	tc:RegisterEffect(e1)
+	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_UPDATE_ATTACK)
+		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetValue(1000)
+		tc:RegisterEffect(e1)
+	end
 end
-end
+
 
 function card.spfilter(c,e,tp)
 	return c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsSetCard(0x666)

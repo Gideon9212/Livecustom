@@ -17,9 +17,8 @@ function card.initial_effect(c)
 	c:RegisterEffect(e2)
 	--atk up
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(4066,0))
 	e3:SetCategory(CATEGORY_ATKCHANGE)
-	e3:SetType(EFFECT_TYPE_QUICK_F)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_BECOME_TARGET)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCondition(card.atkcon)
@@ -30,7 +29,7 @@ function card.lfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x666)
 end
 function card.filter2(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x666)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x666)
 end
 function card.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end

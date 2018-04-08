@@ -51,7 +51,7 @@ function card.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function card.pendfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x666)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x666)
 end
 function card.targetcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
@@ -112,7 +112,7 @@ end
 end
 end
 function card.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x666) and c:IsType(TYPE_PENDULUM)
+	return c:IsFaceup() and c:IsSetCard(0x666) and not c:IsType(TYPE_LINK)
 end
 function card.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and card.atkfilter(chkc) end
