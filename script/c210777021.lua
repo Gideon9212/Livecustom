@@ -1,5 +1,5 @@
 --Aromatheraphy
---Scripted By Steelren
+--Scripted By Naim/Steelren
 function c210777021.initial_effect(c)
 	--search
 	local e1=Effect.CreateEffect(c)
@@ -18,7 +18,7 @@ function c210777021.initial_effect(c)
 	e2:SetCode(EVENT_RECOVER)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,210777021)
+	e2:SetCountLimit(1,210777021+100)
 	e2:SetCondition(c210777021.tohandcond)
 	e2:SetTarget(c210777021.tohandtg)
 	e2:SetOperation(c210777021.tohandoper)
