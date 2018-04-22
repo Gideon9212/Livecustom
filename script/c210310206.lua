@@ -98,7 +98,6 @@ function c210310206.retop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210310206.accost(e,tp,eg,ep,ev,re,r,rp,chk)
-	Debug.Message(e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST))
     if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
     e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
