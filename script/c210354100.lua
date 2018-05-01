@@ -8,7 +8,6 @@ function c210354100.initial_effect(c)
 	--Activate effect
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(77770001,0))
-	e2:SetCategory(CATEGORY_TODECK)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetRange(LOCATION_FZONE)
