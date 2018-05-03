@@ -17,7 +17,7 @@ function c210280005.initial_effect(c)
 end
 function c210280005.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     if chk==0 then return Duel.GetFlagEffect(tp,210280005)<=1 end
-    Duel.RegisterFlagEffect(tp,210280005,PHASE_END,0,2)
+    Duel.RegisterFlagEffect(tp,210280005,0,0,0)
 end
 function c210280005.target(e,tp,eg,ep,ev,re,r,rp,chk)
     if chk==0 then return true end
