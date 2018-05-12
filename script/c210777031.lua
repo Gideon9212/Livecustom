@@ -1,4 +1,5 @@
--- Foreboding Amassment
+--Foreboding Amassment
+--this was moved to Naim's range, but the script is not his
 local function GetID(n)
   n=n or 2
   local t={}

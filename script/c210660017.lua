@@ -2,6 +2,7 @@
 --designed by Gideon
 --scripted by Larry126
 function c210660017.initial_effect(c)
+	c:SetUniqueOnField(1,0,210660017)
 	--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcMix(c,true,true,aux.FilterBoolFunction(Card.IsFusionSetCard,0xa4),aux.FilterBoolFunctionEx(Card.IsRace,RACE_FIEND))

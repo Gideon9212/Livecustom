@@ -1,5 +1,5 @@
 --Life in the Clouds
-local card = c210310311
+local card = c210777036
 function card.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -18,10 +18,10 @@ function card.initial_effect(c)
 	local e3=e2:Clone()
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
-		local e4=e2:Clone()
+	local e4=e2:Clone()
 	e4:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
 	c:RegisterEffect(e4)
-		--sp summon
+	--sp summon
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e5:SetCode(EVENT_LEAVE_FIELD)
