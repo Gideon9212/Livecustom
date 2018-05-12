@@ -1,4 +1,4 @@
-Basic Card Submission Guidelines:
+# Basic Card Submission Guidelines:
 
 -Must have a working card script, card database, and pictures. We will not take requests to be scripted for you here. Request go to this hub: https://github.com/Gideon9212/Custom_Requests
 
@@ -13,7 +13,7 @@ Check setcode list here: https://docs.google.com/spreadsheets/d/1QEB79bUre_l6NMF
 
 -Cards should have a "+0" effect on card advantage, except with extreme costs or conditions. (Even then, chances are low to be added)
 
--No "instant win" conditions unless it is creative and balanced.
+-No "instant win" conditions unless it is creative and balanced. You may use some existing win conditions for ideas, longs the conditions work differently.
 
 -Card text must follow PCST standards, as of Series 9 or higher (for example, we accept either "graveyard" or "GY", but it must be consistent.)
 
@@ -27,7 +27,7 @@ Check setcode list here: https://docs.google.com/spreadsheets/d/1QEB79bUre_l6NMF
 
 (Rules subject to change.)
 
-Balance Tips
+# Balance Tips
 
 Ask yourself these questions when designing the card.
 
