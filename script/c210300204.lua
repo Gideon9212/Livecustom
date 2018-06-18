@@ -1,6 +1,5 @@
 --Chitterite Airforce
 function c210300204.initial_effect(c)
-	c:EnableReviveLimit()
 	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -33,7 +32,7 @@ function c210300204.spcon(e,c)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 end
 function c210300204.filter(c,tp)
-	return c:IsSetCard(0xf37) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0xf37) and c:IsAbleToHand()
 		and Duel.IsExistingMatchingCard(c210300204.thfilter,tp,LOCATION_HAND,0,1,nil,c)
 end
 function c210300204.thfilter(c,cc)

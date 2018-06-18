@@ -9,6 +9,7 @@ function c210300203.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTarget(c210300203.sptg)
 	e1:SetOperation(c210300203.spop)
+	e1:SetCountLimit(1,210300203)
 	c:RegisterEffect(e1)
 	--equip
 	local e2=Effect.CreateEffect(c)
@@ -18,6 +19,7 @@ function c210300203.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e2:SetTarget(c210300203.eqtg)
 	e2:SetOperation(c210300203.eqop)
+	e2:SetCountLimit(1,210300203+1000000)
 	c:RegisterEffect(e2)
 	--to hand
 	local e3=Effect.CreateEffect(c)
@@ -28,13 +30,15 @@ function c210300203.initial_effect(c)
 	e3:SetCost(aux.bfgcost)
 	e3:SetTarget(c210300203.thtg)
 	e3:SetOperation(c210300203.thop)
+	e3:SetCountLimit(1,210300203+2000000)
 	c:RegisterEffect(e3)
 end
 function c210300203.spfilter(c,e,tp)
 	return c:IsRace(RACE_INSECT) and c:IsSummonableCard() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c210300203.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingTarget(aux.NecroValleyFilter(c210300203.spfilter),tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+	if chk==0 then return Duel.IsExistingTarget(aux.NecroValleyFilter(c210300203.spfilter),tp,LOCATION_GRAVE,0,1,nil,e,tp)
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONTROL)
 	local g=Duel.SelectTarget(tp,aux.NecroValleyFilter(c210300203.spfilter),tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
@@ -86,7 +90,7 @@ function c210300203.thfilter(c)
 	return c:IsSetCard(0xf37) and c:IsAbleToHand()
 end
 function c210300203.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.NecroValleyFilter(c210300203.thfilter),tp,LOCATION_GRAVE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(aux.NecroValleyFilter(c210300203.thfilter),tp,LOCATION_GRAVE,0,1,e:GetHandler()) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE)
 	Duel.SetOperationInfo(0,CATEGORY_LEAVE_GRAVE,nil,1,0,0)
 end
