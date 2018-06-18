@@ -32,6 +32,7 @@ function c210300210.initial_effect(c)
 	e3:SetOperation(c210300210.indop)
 	c:RegisterEffect(e3)
 end
+c210300210.fit_monster={210300207}
 function c210300210.rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
