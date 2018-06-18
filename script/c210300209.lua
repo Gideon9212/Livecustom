@@ -28,6 +28,7 @@ end)
 	e2:SetOperation(c210300209.indop)
 	c:RegisterEffect(e2)
 end
+c210300209.fit_monster={210300208}
 function c210300209.rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
@@ -40,7 +41,7 @@ function c210300209.rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
 function c210300209.RPGFilter(c,filter,e,tp,m,m2,ft)
-	if (filter and not filter(c)) or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
+	if not filter(c) or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) or not c:IsType(TYPE_RITUAL) then return false end
 	if c:IsCode(210300207) and Duel.IsPlayerAffectedByEffect(tp,210300210) then m:Merge(m2) end
 	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c)
 	if c.ritual_custom_condition then
@@ -60,7 +61,7 @@ function c210300209.ritop(e,tp,eg,ep,ev,re,r,rp)
 	local mg2=Duel.GetFieldGroup(tp,0,LOCATION_MZONE):Filter(Card.IsFaceup,nil):Filter(Card.IsCanBeRitualMaterial,tc,tc)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tg=Duel.SelectMatchingCard(tp,Auxiliary.RPGFilter,tp,LOCATION_HAND,0,1,1,nil,aux.FilterBoolFunction(Card.IsSetCard,0xf37),e,tp,mg,mg2,ft)
+	local tg=Duel.SelectMatchingCard(tp,c210300209.RPGFilter,tp,LOCATION_HAND,0,1,1,nil,aux.FilterBoolFunction(Card.IsSetCard,0xf37),e,tp,mg,mg2,ft)
 	local tc=tg:GetFirst()
 	if tc then
 		mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)

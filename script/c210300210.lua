@@ -7,12 +7,18 @@ function c210300210.initial_effect(c)
 	e1:SetTarget(c210300210.rittg)
 	e1:SetOperation(c210300210.ritop)
 	c:RegisterEffect(e1)
-	--indes
+	--Untargetable
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_EQUIP)
-	e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-	e2:SetValue(1)
+	e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+	e2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+	e2:SetValue(aux.tgoval)
 	c:RegisterEffect(e2)
+	--dir atk
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_EQUIP)
+	e3:SetCode(EFFECT_DIRECT_ATTACK)
+	c:RegisterEffect(e3)
 	--
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
@@ -26,6 +32,7 @@ function c210300210.initial_effect(c)
 	e3:SetOperation(c210300210.indop)
 	c:RegisterEffect(e3)
 end
+c210300210.fit_monster={210300207}
 function c210300210.rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
@@ -38,7 +45,7 @@ function c210300210.rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 end
 function c210300210.RPGFilter(c,filter,e,tp,m,m2,ft)
-	if (filter and not filter(c)) or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
+	if not filter(c) or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) or not c:IsType(TYPE_RITUAL) then return false end
 	if c:IsCode(210300207) and Duel.IsPlayerAffectedByEffect(tp,210300210) then m:Merge(m2) end
 	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c)
 	if c.ritual_custom_condition then
@@ -58,7 +65,7 @@ function c210300210.ritop(e,tp,eg,ep,ev,re,r,rp)
 	local mg2=Duel.GetFieldGroup(tp,0,LOCATION_MZONE):Filter(Card.IsFaceup,nil):Filter(Card.IsCanBeRitualMaterial,tc,tc)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tg=Duel.SelectMatchingCard(tp,Auxiliary.RPGFilter,tp,LOCATION_HAND,0,1,1,nil,aux.FilterBoolFunction(Card.IsSetCard,0xf37),e,tp,mg,mg2,ft)
+	local tg=Duel.SelectMatchingCard(tp,c210300210.RPGFilter,tp,LOCATION_HAND,0,1,1,nil,aux.FilterBoolFunction(Card.IsSetCard,0xf37),e,tp,mg,mg2,ft)
 	local tc=tg:GetFirst()
 	if tc then
 		mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)
