@@ -20,7 +20,7 @@ function c210300205.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c210300205.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsRelateToBattle()
+	return e:GetHandler():IsRelateToBattle() and Duel.GetAttacker()==e:GetHandler()
 end
 function c210300205.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
