@@ -69,22 +69,24 @@ function card.rmtg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
 	if chkc then
 		return chkc:IsControler(1 - tp) and chkc:IsAbleToRemove()
 	end
-	if chk then
+	if chk == 0 then
 		return Duel.IsExistingTarget(Card.IsAbleToRemove, tp, 0, LOCATION_ONFIELD, 1, nil) and
 			Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) >= 3
 	end
 	Duel.ConfirmDecktop(tp, 3)
 	local g = Duel.GetDecktopGroup(tp, 3)
 	local ct = g:FilterCount(card.cfilter, nil)
-	Duel.ShuffleDeck(tp)
 	if ct > 0 then
 		local tg = Duel.SelectTarget(tp, Card.IsAbleToRemove, tp, 0, LOCATION_ONFIELD, 1, ct, nil)
 		Duel.SetOperationInfo(0, CATEGORY_REMOVE, tg, #tg, 0, 0)
 	end
 end
 function card.rmop(e, tp, eg, ep, ev, re, r, rp)
-	local tg = Duel.GetChainInfo(0, CHAININFO_TARGET_CARDS):Filter(Card.IsRelateToEffect, nil, e)
-	Duel.Remove(tg, POS_FACEUP, REASON_EFFECT)
+	local tg = Duel.GetChainInfo(0, CHAININFO_TARGET_CARDS)
+	if tg and #tg > 0 then
+		local rg = tg:Filter(Card.IsRelateToEffect, nil, e)
+		Duel.Remove(tg, POS_FACEUP, REASON_EFFECT)
+	end
 end
 
 --Reduce Xyz attack
