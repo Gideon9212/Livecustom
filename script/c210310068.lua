@@ -22,7 +22,7 @@ function card.initial_effect(c)
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_SINGLE + EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET + EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DELAY)
+	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP + EFFECT_FLAG_DELAY)
 	e1:SetCondition(card.rmcon)
 	e1:SetTarget(card.rmtg)
 	e1:SetOperation(card.rmop)
@@ -65,27 +65,23 @@ end
 function card.cfilter(c)
 	return (c:IsSetCard(0x55) or c:IsSetCard(0x7b)) and c:IsType(TYPE_MONSTER)
 end
-function card.rmtg(e, tp, eg, ep, ev, re, r, rp, chk, chkc)
-	if chkc then
-		return chkc:IsControler(1 - tp) and chkc:IsAbleToRemove()
-	end
+function card.rmtg(e, tp, eg, ep, ev, re, r, rp, chk)
 	if chk == 0 then
 		return Duel.IsExistingTarget(Card.IsAbleToRemove, tp, 0, LOCATION_ONFIELD, 1, nil) and
 			Duel.GetFieldGroupCount(tp, LOCATION_DECK, 0) >= 3
 	end
+end
+function card.rmop(e, tp, eg, ep, ev, re, r, rp)
 	Duel.ConfirmDecktop(tp, 3)
 	local g = Duel.GetDecktopGroup(tp, 3)
 	local ct = g:FilterCount(card.cfilter, nil)
+	Duel.ShuffleDeck(tp)
 	if ct > 0 then
 		local tg = Duel.SelectTarget(tp, Card.IsAbleToRemove, tp, 0, LOCATION_ONFIELD, 1, ct, nil)
-		Duel.SetOperationInfo(0, CATEGORY_REMOVE, tg, #tg, 0, 0)
-	end
-end
-function card.rmop(e, tp, eg, ep, ev, re, r, rp)
-	local tg = Duel.GetChainInfo(0, CHAININFO_TARGET_CARDS)
-	if tg and #tg > 0 then
-		local rg = tg:Filter(Card.IsRelateToEffect, nil, e)
-		Duel.Remove(tg, POS_FACEUP, REASON_EFFECT)
+		if #tg > 0 then
+			local rg = tg:Filter(Card.IsRelateToEffect, nil, e)
+			Duel.Remove(tg, POS_FACEUP, REASON_EFFECT)
+		end
 	end
 end
 
