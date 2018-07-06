@@ -103,7 +103,8 @@ end
 --Float into Photon Dragon
 function card.spcon(e, tp, eg, ep, ev, re, r, rp)
 	local c = e:GetHandler()
-	return c:IsPreviousPosition(POS_FACEUP) and rp ~= tp and c:GetPreviousControler() == tp
+	return c:IsPreviousPosition(POS_FACEUP) and rp ~= tp and c:GetPreviousControler() == tp 
+		and c:IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function card.spfilter(c, e, tp)
 	return c:IsCode(93717133) and c:IsCanBeSpecialSummoned(e, 0, tp, false, false)
