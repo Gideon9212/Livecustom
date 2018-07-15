@@ -34,13 +34,13 @@ function c120401006.activate(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetCode(EFFECT_IMMUNE_EFFECT)
 		e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 		e1:SetRange(LOCATION_MZONE)
-		e1:SetValue(c120401005.efilter)
+		e1:SetValue(c120401006.efilter)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		e1:SetOwnerPlayer(tp)
 		tc:RegisterEffect(e1)
 		Duel.SpecialSummonComplete()
 	end
 end
-function c120401005.efilter(e,re)
+function c120401006.efilter(e,re)
 	return e:GetOwnerPlayer()~=re:GetOwnerPlayer()
 end
