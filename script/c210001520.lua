@@ -17,7 +17,7 @@ function c210001520.initial_effect(c)
 	e2:SetCode(EFFECT_IMMUNE_EFFECT)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetValue(c210001520.iev)
-	--c:RegisterEffect(e2)
+	c:RegisterEffect(e2)
 	--special summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
