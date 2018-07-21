@@ -1,5 +1,5 @@
 --Shapesnatch the Morinphen Rider
-function c210001520.initial_effect(c)
+function c210938001.initial_effect(c)
 	c:EnableReviveLimit()
 	aux.AddFusionProcMix(c,true,true,55784832,4035199)
 	--atk gain
@@ -8,7 +8,7 @@ function c210001520.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetValue(c210001520.av)
+	e1:SetValue(c210938001.av)
 	c:RegisterEffect(e1)
 	--immuny to other monster effect
 	local e2=Effect.CreateEffect(c)
@@ -16,7 +16,7 @@ function c210001520.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetCode(EFFECT_IMMUNE_EFFECT)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetValue(c210001520.iev)
+	e2:SetValue(c210938001.iev)
 	c:RegisterEffect(e2)
 	--special summon
 	local e3=Effect.CreateEffect(c)
@@ -25,29 +25,29 @@ function c210001520.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1)
-	e3:SetTarget(c210001520.sst)
-	e3:SetOperation(c210001520.sso)
+	e3:SetTarget(c210938001.sst)
+	e3:SetOperation(c210938001.sso)
 	c:RegisterEffect(e3)
 end
-function c210001520.avfilter(c)
+function c210938001.avfilter(c)
 	return c:IsType(TYPE_NORMAL) and c:IsLevelAbove(5) and c:IsDefenseBelow(2000) and c:IsAttackBelow(2000)
 end
-function c210001520.av(e,c)
-	return 1000*Duel.GetMatchingGroupCount(c210001520.avfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
+function c210938001.av(e,c)
+	return 1000*Duel.GetMatchingGroupCount(c210938001.avfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
 end
-function c210001520.iev(e,te)
+function c210938001.iev(e,te)
 	return e:GetHandler()~=te:GetHandler()
 end
-function c210001520.ssfilter(c,e,tp)
-	return c210001520.avfilter(c) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+function c210938001.ssfilter(c,e,tp)
+	return c210938001.avfilter(c) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c210001520.sst(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c210001520.ssfilter(chkc,e,tp) end
-	if chk==0 then return Duel.IsExistingTarget(c210001520.ssfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
-	local g=Duel.SelectTarget(tp,c210001520.ssfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+function c210938001.sst(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c210938001.ssfilter(chkc,e,tp) end
+	if chk==0 then return Duel.IsExistingTarget(c210938001.ssfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+	local g=Duel.SelectTarget(tp,c210938001.ssfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,nil,nil)
 end
-function c210001520.sso(e,tp,eg,ep,ev,re,r,rp)
+function c210938001.sso(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) and Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)>0
