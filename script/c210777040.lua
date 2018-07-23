@@ -51,7 +51,7 @@ function c210777040.tdop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210777040.filter2(c)
-	return c:IsSetCard(0xe1) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
+	return c:IsSetCard(0xe1) and c:IsAbleToDeck()
 end
 function c210777040.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and chkc:IsControler(tp) and c210777040.filter2(chkc) end
