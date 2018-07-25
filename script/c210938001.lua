@@ -36,7 +36,7 @@ function c210938001.av(e,c)
 	return 1000*Duel.GetMatchingGroupCount(c210938001.avfilter,c:GetControler(),LOCATION_GRAVE,0,nil)
 end
 function c210938001.iev(e,te)
-	return e:GetHandler()~=te:GetHandler()
+	return te:GetOwner()~=e:GetOwner()
 end
 function c210938001.ssfilter(c,e,tp)
 	return c210938001.avfilter(c) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
