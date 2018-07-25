@@ -22,7 +22,12 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and (ex or re:IsHasCategory(CATEGORY_FUSION_SUMMON))
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckLPCost(tp,1000) end
+	if chk==0 then return (Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,e:GetHandler())
+		or Duel.IsPlayerAffectedByEffect(tp,EFFECT_DISCARD_COST_CHANGE)) 
+		and Duel.CheckLPCost(tp,1000) end
+	if not Duel.IsPlayerAffectedByEffect(tp,EFFECT_DISCARD_COST_CHANGE) then
+		Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
+	end
 	Duel.PayLPCost(tp,1000)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -35,6 +40,9 @@ end
 function s.filter(c,e,tp,m,f,chkf)
 	return (not f or f(c)) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false,POS_FACEUP,1-tp)
 		and c:CheckFusionMaterial(m,nil,chkf)
+end
+function s.matfilter(c,e)
+	return c:IsFaceup() and c:IsLocation(LOCATION_ONFIELD) and not c:IsImmuneToEffect(e)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local ac=Duel.GetChainInfo(0,CHAININFO_TARGET_PARAM)
@@ -50,7 +58,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ConfirmCards(tp,sg)
 	if not Duel.NegateEffect(ev) then return end
 	local chkf=1-tp
-	local mg1=Duel.GetFusionMaterial(1-tp):Filter(aux.NOT(Card.IsImmuneToEffect),nil,e)
+	local mg1=Duel.GetFusionMaterial(1-tp):Filter(s.matfilter,nil,e)
 	if s.filter(tc,e,1-tp,mg1,nil,chkf) then
 		local mat1=Duel.SelectFusionMaterial(1-tp,tc,mg1,nil,chkf)
 		tc:SetMaterial(mat1)
