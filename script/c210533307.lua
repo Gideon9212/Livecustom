@@ -50,7 +50,7 @@ function c210533307.tho(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210533307.spf(c,e,tp,sg)
-	return c:IsSetCard(0xf72) and c:IsCanBeSpecialSummoned(e,72,tp,false,false) and (not sg or not sg:IsExists(Card.IsCode,1,c,c:GetCode()))
+	return c:IsSetCard(0xf72) and c:IsType(TYPE_PENDULUM) and c:IsCanBeSpecialSummoned(e,72,tp,false,false) and (not sg or not sg:IsExists(Card.IsCode,1,c,c:GetCode()))
 end
 function c210533307.spt1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local loc=0
