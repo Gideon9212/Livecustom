@@ -8,7 +8,12 @@ function c210001109.initial_effect(c)
 	e1:SetCondition(c210001109.cacondition)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetValue(aux.imval1)
+	--to be reworked later when im sure.
+	if not aux.imval2 then
+		e1:SetValue(aux.imval1)
+	else
+		e1:SetValue(aux.imval2)
+	end
 	c:RegisterEffect(e1)
 	--return to hand
 	local e2=Effect.CreateEffect(c)
