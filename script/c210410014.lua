@@ -1,4 +1,4 @@
---created & coded by Lyris, art from "Raidraptor" cards
+--created & coded by Lyris, clip art at http://sweetclipart.com/multisite/sweetclipart/files/fleur_de_lis_black_silhouette.png
 --剣主のオース
 function c240100301.initial_effect(c)
 	local e2=Effect.CreateEffect(c)

@@ -1,4 +1,4 @@
---created & coded by Lyris, art from "Celestial Rage"
+--created & coded by Lyris, art at https://i.pinimg.com/originals/4e/4b/a1/4e4ba1ec59c6ae668333bf31f7ef32b2.jpg
 --剣主のアドバンテージ
 function c240100371.initial_effect(c)
 	local e1=Effect.CreateEffect(c)

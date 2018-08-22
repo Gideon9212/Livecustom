@@ -1,4 +1,4 @@
---created & coded by Lyris, art from "Solemn Strike"
+--created & coded by Lyris, art from It's Time to Get Medieval
 --剣主御注意
 function c240100223.initial_effect(c)
 	local e1=Effect.CreateEffect(c)

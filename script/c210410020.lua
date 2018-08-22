@@ -1,4 +1,4 @@
---created & coded by Lyris, art from "Raidraptor - Call"
+--created & coded by Lyris, art by Todd Lockwood
 --天剣主翔
 function c240100383.initial_effect(c)
 	local e0=Effect.CreateEffect(c)
