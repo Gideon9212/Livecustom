@@ -24,17 +24,17 @@ function c210410023.val(e,c)
 	return Duel.GetMatchingGroupCount(c210410023.rfilter,e:GetHandlerPlayer(),LOCATION_GRAVE,LOCATION_GRAVE,nil)*100
 end
 function c210410023.rfilter(c)
-	return c:IsSetCard(0xbb2) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0xfb2) and c:IsType(TYPE_MONSTER)
 end
 function c210410023.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function c210410023.spfilter(c)
-	return c:IsSetCard(0xbb2) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0xfb2) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c210410023.cfilter(c)
-	return c:IsSetCard(0xbb2) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0xfb2) and c:IsType(TYPE_MONSTER)
 end
 function c210410023.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetMatchingGroupCount(c210410023.cfilter,tp,LOCATION_GRAVE,0,e:GetHandler())==0 then return end

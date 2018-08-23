@@ -17,7 +17,7 @@ function c210410012.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c210410012.filter(c)
-	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0xbb2) or c:IsSetCard(0xbb3)) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0xfb2) or c:IsSetCard(0xbb3)) and c:IsAbleToHand()
 end
 function c210410012.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -31,7 +31,7 @@ function c210410012.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 function c210410012.discon(e,tp,eg,ep,ev,re,r,rp)
 	local ec=Duel.GetAttacker()
-	return ec and ec:GetControler()==tp and (ec:IsSetCard(0xbb2) or ec:IsSetCard(0xbb3)) and ec:GetBattleTarget()
+	return ec and ec:GetControler()==tp and (ec:IsSetCard(0xfb2) or ec:IsSetCard(0xbb3)) and ec:GetBattleTarget()
 end
 function c210410012.disop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttackTarget()

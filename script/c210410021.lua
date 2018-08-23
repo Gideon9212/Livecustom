@@ -2,7 +2,7 @@
 --天剣主女王十
 function c210410021.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xbb2),2,2)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xfb2),2,2)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
@@ -26,17 +26,17 @@ function c210410021.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EVENT_CHAIN_SOLVING)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetOperation(function(e) local c=e:GetHandler() local rc=re:GetHandler() if c:GetFlagEffect(210410021)==0 and re:IsActiveType(TYPE_MONSTER) and rc:IsSetCard(0xbb2) and c:GetLinkedGroup():IsContains(rc) then c:RegisterFlagEffect(210410021,RESET_EVENT+0x1fe0000,0,1) end end)
+	e3:SetOperation(function(e) local c=e:GetHandler() local rc=re:GetHandler() if c:GetFlagEffect(210410021)==0 and re:IsActiveType(TYPE_MONSTER) and rc:IsSetCard(0xfb2) and c:GetLinkedGroup():IsContains(rc) then c:RegisterFlagEffect(210410021,RESET_EVENT+0x1fe0000,0,1) end end)
 	c:RegisterEffect(e3)
 end
 function c210410021.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2)
+	return c:IsFaceup() and c:IsSetCard(0xfb2)
 end
 function c210410021.val(e)
 	return Duel.GetMatchingGroupCount(c210410021.atkfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*100
 end
 function c210410021.filter(c,e,tp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(0xfb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 		and (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 or ((Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE,1-tp))))
 end

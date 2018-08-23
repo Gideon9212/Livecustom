@@ -33,7 +33,7 @@ function c210410018.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 function c210410018.filter(c,e,tp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=210410018
+	return c:IsSetCard(0xfb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=210410018
 end
 function c210410018.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -50,7 +50,7 @@ function c210410018.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 function c210410018.effcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler():GetReasonCard()
-	return r==REASON_XYZ and c:IsSetCard(0xbb2)
+	return r==REASON_XYZ and c:IsSetCard(0xfb2)
 end
 function c210410018.effop1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

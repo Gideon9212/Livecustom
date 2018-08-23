@@ -23,7 +23,7 @@ function c210410008.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c210410008.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2)
+	return c:IsFaceup() and c:IsSetCard(0xfb2)
 end
 function c210410008.val(e,c)
 	return Duel.GetMatchingGroupCount(c210410008.atkfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*200

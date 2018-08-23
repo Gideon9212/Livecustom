@@ -2,7 +2,7 @@
 --天剣主九ナコ
 function c210410017.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xbb2),4,2)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xfb2),4,2)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
@@ -38,7 +38,7 @@ function c210410017.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c210410017.afilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2)
+	return c:IsFaceup() and c:IsSetCard(0xfb2)
 end
 function c210410017.val(e)
 	return Duel.GetMatchingGroupCount(c210410017.afilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,e:GetHandler())*100
@@ -78,7 +78,7 @@ function c210410017.disop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210410017.sfilter(c,e,tp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xfb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c210410017.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c210410017.sfilter(chkc,e,tp) end
