@@ -1,7 +1,7 @@
 --created & coded by Lyris, art from Swordsman Online
 --剣主ツ五シ
 function c210410013.initial_effect(c)
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xbb2),4,2)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xfb2),4,2)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_PIERCE)
@@ -19,7 +19,7 @@ function c210410013.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(function(e,c) return c:IsSetCard(0xbb2) and c~=e:GetHandler() end)
+	e2:SetTarget(function(e,c) return c:IsSetCard(0xfb2) and c~=e:GetHandler() end)
 	e2:SetValue(function(e,c) return e:GetHandler():GetOverlayCount()*200 end)
 	c:RegisterEffect(e2)
 	local e3=Effect.CreateEffect(c)
@@ -42,13 +42,13 @@ function c210410013.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c210410013.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2)
+	return c:IsFaceup() and c:IsSetCard(0xfb2)
 end
 function c210410013.val(e,c)
 	return Duel.GetMatchingGroupCount(c210410013.atkfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,c)*100
 end
 function c210410013.filter(c,e,tp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK,1-tp)
+	return c:IsSetCard(0xfb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK,1-tp)
 end
 function c210410013.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_MZONE)>0
@@ -65,7 +65,7 @@ function c210410013.op(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210410013.sfilter(c,e,tp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xfb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c210410013.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c210410013.sfilter(chkc,e,tp) end

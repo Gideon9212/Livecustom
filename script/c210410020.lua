@@ -37,7 +37,7 @@ function c210410020.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c210410020.cfilter(c)
-	return c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsSetCard(0xbb2)
+	return c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsSetCard(0xfb2)
 end
 function c210410020.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -57,7 +57,7 @@ function c210410020.target1(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c210410020.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(0xfb2) and c:IsAbleToHand()
 end
 function c210410020.sfilter(c,e,tp,code)
 	return c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(code)
@@ -110,5 +110,5 @@ function c210410020.operation2(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210410020.tg(e,c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2)
+	return c:IsFaceup() and c:IsSetCard(0xfb2)
 end

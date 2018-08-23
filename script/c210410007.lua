@@ -30,13 +30,13 @@ function c210410007.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c210410007.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2)
+	return c:IsFaceup() and c:IsSetCard(0xfb2)
 end
 function c210410007.val(e,c)
 	return Duel.GetMatchingGroupCount(c210410007.atkfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*100
 end
 function c210410007.filter2(c,e,sp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,sp,false,false) and not c:IsCode(210410007)
+	return c:IsSetCard(0xfb2) and c:IsCanBeSpecialSummoned(e,0,sp,false,false) and not c:IsCode(210410007)
 end
 function c210410007.sumtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c210410007.filter2(chkc,e,tp) end
@@ -54,7 +54,7 @@ function c210410007.sumop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210410007.filter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xbb2) and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xfb2) and c:IsAbleToHand()
 end
 function c210410007.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210410007.filter,tp,LOCATION_DECK,0,1,nil) end

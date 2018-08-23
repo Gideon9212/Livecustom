@@ -25,13 +25,13 @@ function c210410022.val(e,c)
 	return Duel.GetMatchingGroupCount(c210410022.rfilter,e:GetHandlerPlayer(),LOCATION_GRAVE,LOCATION_GRAVE,nil)*100
 end
 function c210410022.rfilter(c)
-	return c:IsSetCard(0xbb2) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0xfb2) and c:IsType(TYPE_MONSTER)
 end
 function c210410022.desfilter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsDestructable()
 end
 function c210410022.spfilter(c,e,tp)
-	return c:IsSetCard(0xbb2) and not c:IsCode(210410022) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xfb2) and not c:IsCode(210410022) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c210410022.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

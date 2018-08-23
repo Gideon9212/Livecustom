@@ -22,8 +22,8 @@ end
 function c210410011.condition(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local at=Duel.GetAttackTarget()
-	return at and ((a:IsControler(tp) and a:IsSetCard(0xbb2) and aux.nzdef(a:GetBattleTarget()))
-		or (at:IsControler(tp) and at:IsFaceup() and at:IsSetCard(0xbb2) and aux.nzdef(at:GetBattleTarget())))
+	return at and ((a:IsControler(tp) and a:IsSetCard(0xfb2) and aux.nzdef(a:GetBattleTarget()))
+		or (at:IsControler(tp) and at:IsFaceup() and at:IsSetCard(0xfb2) and aux.nzdef(at:GetBattleTarget())))
 end
 function c210410011.activate(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
@@ -39,7 +39,7 @@ function c210410011.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 function c210410011.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local d=Duel.GetAttackTarget()
-	if chk==0 then return d:IsAttackPos() and d:IsControler(tp) and d:IsCanChangePosition() and d:IsSetCard(0xbb2) end
+	if chk==0 then return d:IsAttackPos() and d:IsControler(tp) and d:IsCanChangePosition() and d:IsSetCard(0xfb2) end
 	Duel.SetTargetCard(d)
 	Duel.SetOperationInfo(0,CATEGORY_POSITION,d,1,0,0)
 end

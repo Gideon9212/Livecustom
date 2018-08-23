@@ -22,13 +22,13 @@ function c210410006.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c210410006.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbb2)
+	return c:IsFaceup() and c:IsSetCard(0xfb2)
 end
 function c210410006.val(e,c)
 	return Duel.GetMatchingGroupCount(c210410006.atkfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*100
 end
 function c210410006.filter(c,e,tp)
-	return c:IsSetCard(0xbb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xfb2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c210410006.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

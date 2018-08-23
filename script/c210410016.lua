@@ -22,7 +22,7 @@ function c210410016.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c210410016.filter(c)
-	return c:IsSetCard(0xbb2) and c:IsAbleToDeck()
+	return c:IsSetCard(0xfb2) and c:IsAbleToDeck()
 end
 function c210410016.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210410016.filter,tp,LOCATION_GRAVE+LOCATION_HAND,0,3,nil) end

@@ -15,7 +15,7 @@ function c210410024.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
 	e3:SetCode(EVENT_TO_GRAVE)
-	e3:SetCategory(CATEGORY_TOGRAVE)
+	e3:SetCategory(CATEGORY_TOGRAVE+CATEGORY_TOHAND)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetTarget(c210410024.target)
 	e3:SetOperation(c210410024.operation)
@@ -25,13 +25,13 @@ function c210410024.val(e,c)
 	return Duel.GetMatchingGroupCount(c210410024.rfilter,e:GetHandlerPlayer(),LOCATION_GRAVE,LOCATION_GRAVE,nil)*100
 end
 function c210410024.rfilter(c)
-	return c:IsSetCard(0xbb2) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0xfb2) and c:IsType(TYPE_MONSTER)
 end
 function c210410024.filter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xbb2) and c:IsAbleToGrave() and not c:IsCode(210410024)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xfb2) and c:IsAbleToGrave() and not c:IsCode(210410024)
 end
 function c210410024.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xbb2) and c:IsAbleToHand() and not c:IsCode(210410024)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xfb2) and c:IsAbleToHand() and not c:IsCode(210410024)
 end
 function c210410024.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then
@@ -44,16 +44,18 @@ function c210410024.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	e:SetLabel(ct)
 	if ct==1 then
 		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
+		e:SetCategory(CATEGORY_TOGRAVE)
 		e:SetProperty(0)
 	else
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 		local g=Duel.SelectTarget(tp,c210410024.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-		Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
+		Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
+		e:SetCategory(CATEGORY_TOHAND)
 		e:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	end
 end
 function c210410024.cfilter(c)
-	return c:IsSetCard(0xbb2) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0xfb2) and c:IsType(TYPE_MONSTER)
 end
 function c210410024.operation(e,tp,eg,ep,ev,re,r,rp)
 	local ct=e:GetLabel()
