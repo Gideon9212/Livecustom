@@ -36,7 +36,7 @@ function c210777058.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c210777058.matf(c)
-	return c:IsRace(RACE_AQUA) and c:IsLevel()==2
+	return c:IsRace(RACE_AQUA) and c:IsLevel(2)
 end
 function c210777058.matcheck(g,lc,tp)
 	return g:IsExists(c210777058.matf,1,nil)
@@ -92,12 +92,12 @@ function c210777058.drwop(e,tp,eg,ep,ev,re,r,rp)
 	if ct==0 then return end
 	local dc=Duel.GetOperatedGroup():GetFirst()
 	if dc:IsType(TYPE_TRAP) and Duel.IsExistingMatchingCard(c210777058.tgyfilter,tp,LOCATION_DECK,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(210777058,2)) then
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
 		Duel.ConfirmCards(1-tp,dc)
 		local g=Duel.SelectMatchingCard(tp,c210777058.tgyfilter,tp,LOCATION_DECK,0,1,1,nil)
 		if g:GetCount()>0 then
 			Duel.SendtoGrave(g,REASON_EFFECT)
 		end
 		Duel.ShuffleHand(tp)
-		end
+	end
 end
