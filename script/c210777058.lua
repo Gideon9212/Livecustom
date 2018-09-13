@@ -35,11 +35,11 @@ function c210777058.initial_effect(c)
 	e3:SetOperation(c210777058.drwop)
 	c:RegisterEffect(e3)
 end
-function c210777057.matf(c)
+function c210777058.matf(c)
 	return c:IsRace(RACE_AQUA) and c:IsLevel()==2
 end
 function c210777058.matcheck(g,lc,tp)
-	return g:IsExists(c210777057.matf,1,nil)
+	return g:IsExists(c210777058.matf,1,nil)
 end
 function c210777058.efilter(e,re)
 	return re:IsActiveType(TYPE_MONSTER) and re:GetOwner()~=e:GetOwner()
