@@ -1,10 +1,10 @@
 --Necrofake
---designed by Xeno, scripted by Naim
+--designed by Preischadt#0402, scripted by Naim
 function c210777036.initial_effect(c)
 --fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcMix(c,true,true,28297833,c210777036.matfilter)
-	aux.AddContactFusion(c,c210777036.contactfil,c210777036.contactop,c210777036.splimit,aux.TRUE,1)
+	aux.AddContactFusion(c,c210777036.contactfil,c210777036.contactop,c210777036.splimit,c210777036.contactcon,1)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -34,8 +34,12 @@ end
 function c210777036.contactfil(tp)
 	return Duel.GetMatchingGroup(Card.IsAbleToRemoveAsCost,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,nil)
 end
-function c210777036.contactop(g)
+function c210777036.contactcon(tp)
+    return Duel.GetFlagEffect(tp,210777036)==0
+end
+function c210777036.contactop(g,tp)
 	Duel.Remove(g,POS_FACEUP,REASON_COST+REASON_MATERIAL)
+	Duel.RegisterFlagEffect(tp,210777036,RESET_PHASE+PHASE_END,0,1)
 end
 function c210777036.splimit(e,se,sp,st)
 	return not e:GetHandler():IsLocation(LOCATION_EXTRA)
