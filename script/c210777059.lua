@@ -53,7 +53,7 @@ function c210777059.efilter(e,re)
 	return typecheck~=0 and re:IsActiveType(typecheck)
 end
 function c210777059.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xf10) and not c:IsCode(210777064)
+	return c:IsFaceup() and c:IsSetCard(0xf10) and not c:IsCode(210777059)
 end
 function c210777059.drcond(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
