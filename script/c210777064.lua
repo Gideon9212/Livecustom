@@ -57,7 +57,7 @@ function c210777064.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xf10) and not c:IsCode(210777064)
 end
 function c210777064.dmgcond(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(c210777064.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c210777064.dmgtg(e,tp,eg,ep,ev,re,r,rp,chk)
  	if chk==0 then return true end
