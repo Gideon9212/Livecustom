@@ -94,7 +94,7 @@ function c210777018.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_EXTRA)
 end
 function c210777018.thop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(210777018,3))
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(210777018,2))
 	local g=Duel.SelectMatchingCard(tp,c210777018.thfilter,tp,LOCATION_EXTRA,0,1,1,nil,tp)
 	local tc=g:GetFirst()
 	if tc then
