@@ -48,7 +48,8 @@ function c210777032.psplimit(e,c,tp,sumtp,sumpos)
 	not (c:IsRace(RACE_DRAGON) or c:IsRace(RACE_SPELLCASTER) or c:IsAttribute(ATTRIBUTE_LIGHT))
 end
 function c210777032.filter(c)
-	return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	--All 'Eyes of Blue' cards
+	return c:IsCode(72855441,45644898,8240199,36734924,88241506,2783661,29432790,210777032) and c:IsAbleToHand()
 end
 function c210777032.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210777032.filter,tp,LOCATION_DECK,0,1,nil) end
