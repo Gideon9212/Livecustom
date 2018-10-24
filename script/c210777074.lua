@@ -39,7 +39,7 @@ function c210777074.atkfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xf11)
 end
 function c210777074.atkcond(e)
-	return Duel.IsExistingMatchingCard(c210777074.atkfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(c210777074.atkfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,e:GetHandler())
 end
 function c210777074.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
