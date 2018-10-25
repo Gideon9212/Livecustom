@@ -29,7 +29,7 @@ function c210777074.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e3:SetCode(EVENT_TO_GRAVE)
-	e3:SetCost(c210777074.spcost2)
+	e3:SetCost(c210777074.spcost)
 	e3:SetTarget(c210777074.sptg2)
 	e3:SetOperation(c210777074.spop2)
 	c:RegisterEffect(e3)
@@ -61,14 +61,13 @@ function c210777074.spop1(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210777074.chainfilter(re,tp,cid)
-	local loc=re:GetActivateLocation()
-	return not (re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsSetCard(0xf11)) and loc==LOCATION_GRAVE
+	return not (re:IsActiveType(TYPE_MONSTER) and re:GetHandler():IsSetCard(0xf11) and re:GetHandler():GetLocation()==LOCATION_GRAVE)
 end
-function c210777074.spcost2(e,tp,eg,ep,ev,re,r,rp,chk)
+function c210777074.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetCustomActivityCount(210777074,tp,ACTIVITY_CHAIN)==0 end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
 	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e1:SetTargetRange(1,0)
 	e1:SetValue(c210777074.aclimit)
@@ -76,7 +75,8 @@ function c210777074.spcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.RegisterEffect(e1,tp)
 end
 function c210777074.aclimit(e,re,tp)
-	return not (re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsSetCard(0xf11)) and loc==LOCATION_GRAVE
+	local loc=re:GetActivateLocation()
+	return  re:IsActiveType(TYPE_MONSTER) and re:GetHandler():IsSetCard(0xf11) and not loc==LOCATION_GRAVE	
 end
 function c210777074.spfilter2(c,e,tp)
 	return c:IsSetCard(0xf11) and c:IsCanBeSpecialSummoned(e,186,tp,false,false)
@@ -84,13 +84,13 @@ function c210777074.spfilter2(c,e,tp)
 end
 function c210777074.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c210777074.spfilter2,tp,LOCATION_DECK,0,1,nil,e,tp) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
+		and Duel.IsExistingMatchingCard(c210777074.spfilter2,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil,e,tp) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK+LOCATION_HAND)
 end
 function c210777074.spop2(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c210777074.spfilter2,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,c210777074.spfilter2,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,186,tp,tp,false,false,POS_FACEUP)
 	end

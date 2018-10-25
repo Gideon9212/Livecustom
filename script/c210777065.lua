@@ -1,5 +1,5 @@
 --Great Swarm Re-Population
---designed byNitrogames#8002, scripted by Naim
+--designed by Nitrogames#8002, scripted by Naim
 function c210777065.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

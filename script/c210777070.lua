@@ -52,14 +52,13 @@ function c210777070.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c210777070.chainfilter(re,tp,cid)
-	local loc=re:GetActivateLocation()
-	return not (re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsSetCard(0xf11)) and loc==LOCATION_GRAVE
+	return not (re:IsActiveType(TYPE_MONSTER) and re:GetHandler():IsSetCard(0xf11) and re:GetHandler():GetLocation()==LOCATION_GRAVE)
 end
 function c210777070.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetCustomActivityCount(210777070,tp,ACTIVITY_CHAIN)==0 end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
 	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e1:SetTargetRange(1,0)
 	e1:SetValue(c210777070.aclimit)
@@ -67,7 +66,8 @@ function c210777070.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.RegisterEffect(e1,tp)
 end
 function c210777070.aclimit(e,re,tp)
-	return not (re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsSetCard(0xf11)) and loc==LOCATION_GRAVE
+	local loc=re:GetActivateLocation()
+	return  re:IsActiveType(TYPE_MONSTER) and re:GetHandler():IsSetCard(0xf11) and not loc==LOCATION_GRAVE	
 end
 function c210777070.spfilter(c,e,tp)
 	return c:IsSetCard(0xf11) and c:IsCanBeSpecialSummoned(e,186,tp,false,false)
