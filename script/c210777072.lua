@@ -1,4 +1,4 @@
---Great Swarming Guardian
+--Great Swarm Guardian
 --designed by Nitrogames#8002, scripted by Naim
 function c210777072.initial_effect(c)
 	--sssummon from hand
@@ -19,7 +19,7 @@ function c210777072.initial_effect(c)
 	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCountLimit(1,210777072)
 	e2:SetCondition(c210777072.thcond)
 	e2:SetTarget(c210777072.thtg)
