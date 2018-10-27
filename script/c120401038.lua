@@ -31,7 +31,7 @@ function c120401038.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c120401038.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c120401038.puddingfilter(c)
-	return c:IsFaceup() and (c:IsCode(74641045,44311445) or c.is_pudding)
+	return c:IsFaceup() and (c:IsCode(74641045,44311445,77848740) or c.is_pudding)
 end
 function c120401038.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToDeck,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
