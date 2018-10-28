@@ -31,7 +31,7 @@ function c120401010.filter(c)
 end
 function c120401010.condition(e)
 	local lg=e:GetHandler():GetLinkedGroup()
-	return lg and lg:IsContains(c120401010.filter,1,nil)
+	return lg and lg:IsExists(c120401010.filter,1,nil)
 end
 function c120401010.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:IsLocation(LOCATION_EXTRA) and bit.band(sumtype,SUMMON_TYPE_FUSION)~=SUMMON_TYPE_FUSION
