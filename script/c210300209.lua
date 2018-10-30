@@ -28,7 +28,7 @@ end)
 	e2:SetOperation(c210300209.indop)
 	c:RegisterEffect(e2)
 end
-c210300209.fit_monster={210300208}
+c210300209.fit_monster={210300206}
 function c210300209.rittg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
