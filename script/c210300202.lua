@@ -100,7 +100,7 @@ function c210300202.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 function c210300202.thfilter(c,cc)
 	local lv=cc:GetLevel() or cc:GetRank() or cc:GetLink()
-	return c:IsSetCard(0xf37) and c:IsAbleToHand() and c:GetLevel()<=lv
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xf37) and c:IsAbleToHand() and c:GetLevel()<=lv
 end
 function c210300202.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local d=e:GetHandler():GetBattleTarget()
