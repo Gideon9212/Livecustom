@@ -8,7 +8,7 @@ function c210001200.initial_effect(c)
 	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetValue(c210001200.efilter1)
+	e1:SetValue(1)
 	c:RegisterEffect(e1)
 	--special summon
 	local e2=Effect.CreateEffect(c)
@@ -33,9 +33,6 @@ function c210001200.initial_effect(c)
 end
 function c210001200.spcheck(g,lc,tp)
 	return g:IsExists(Card.IsAttribute,1,nil,ATTRIBUTE_EARTH,lc,SUMMON_TYPE_LINK,tp)
-end
-function c210001200.efilter1(e,re,rp)
-	return re:IsActiveType(TYPE_MONSTER)
 end
 function c210001200.spfilter(c,e,tp)
 	return c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE,tp)
