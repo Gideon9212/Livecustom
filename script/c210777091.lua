@@ -24,7 +24,7 @@ function c210777091.initial_effect(c)
 end
 --special summon from hand
 function c210777091.spfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x42)
+	return c:IsFaceup() and (c:IsSetCard(0x42) or c:IsSetCard(0x4b))
 end
 function c210777091.spcon(e,c)
 	if c==nil then return true end
