@@ -125,8 +125,7 @@ function c210777093.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local pos=c:GetPreviousPosition()
 	if c:IsReason(REASON_BATTLE) then pos=c:GetBattlePosition() end
-	if c:GetPreviousControler()==tp and c:IsReason(REASON_DESTROY)
-		and c:IsPreviousLocation(LOCATION_ONFIELD) and bit.band(pos,POS_FACEUP)~=0 then
+	if c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_ONFIELD) and bit.band(pos,POS_FACEUP)~=0 then
 		c:RegisterFlagEffect(210777093,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 	end
 end
