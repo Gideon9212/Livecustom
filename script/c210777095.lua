@@ -12,6 +12,7 @@ function c210777095.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e1:SetCode(EVENT_CHAINING)
 	e1:SetRange(LOCATION_MZONE)
+	e1:SetCountLimit(1)
 	e1:SetCondition(c210777095.negcond)
 	e1:SetTarget(c210777095.negtg)
 	e1:SetOperation(c210777095.negoper)
@@ -67,10 +68,17 @@ function c210777095.rmvspfilter(c)
 	return c:IsSetCard(0x42) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
 end
 function c210777095.ctrlcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c210777095.rmvspfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,e:GetHandler()) end
+	if chk==0 then return e:GetHandler():GetAttackAnnouncedCount()==0  and
+	Duel.IsExistingMatchingCard(c210777095.rmvspfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectMatchingCard(tp,c210777095.rmvspfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,1,e:GetHandler())
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_CANNOT_ATTACK)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_OATH)
+	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+	e:GetHandler():RegisterEffect(e1)
 end
 function c210777095.controlfilter(c)
 	return c:IsControlerCanBeChanged() and c:IsFaceup()
@@ -87,7 +95,6 @@ function c210777095.ctrlop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.GetControl(tc,tp)
 	end
 end
-
 function c210777095.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local pos=c:GetPreviousPosition()
