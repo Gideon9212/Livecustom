@@ -1,7 +1,8 @@
 --転生のペンデュラムグラフ
 --Creation Pendulumgraph
 --Created and scripted by Eerie Code
-function c210220068.initial_effect(c)
+local s,id=GetID()
+function s.initial_effect(c)
 	--activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
@@ -14,15 +15,15 @@ function c210220068.initial_effect(c)
 	e2:SetCode(EFFECT_UNRELEASABLE_SUM)
 	e2:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(c210220068.reltg)
-	e2:SetValue(c210220068.sumlimit)
+	e2:SetTarget(s.reltg)
+	e2:SetValue(s.sumlimit)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_UNRELEASABLE_NONSUM)
 	c:RegisterEffect(e3)
 	local e4=e3:Clone()
 	e4:SetCode(EFFECT_UNRELEASABLE_EFFECT)
-	e4:SetValue(c210220068.esumlimit)
+	e4:SetValue(s.esumlimit)
 	c:RegisterEffect(e4)
 	--
 	local e5=Effect.CreateEffect(c)
@@ -31,34 +32,34 @@ function c210220068.initial_effect(c)
 	e5:SetCode(EVENT_LEAVE_FIELD)
 	e5:SetProperty(EFFECT_FLAG_DELAY)
 	e5:SetRange(LOCATION_SZONE)
-	e5:SetCountLimit(1,210220068)
-	e5:SetTarget(c210220068.thtg)
-	e5:SetOperation(c210220068.thop)
+	e5:SetCountLimit(1,id)
+	e5:SetTarget(s.thtg)
+	e5:SetOperation(s.thop)
 	c:RegisterEffect(e5)
 end
-function c210220068.reltg(e,c)
+function s.reltg(e,c)
 	return c:IsFaceup() and c:IsType(TYPE_PENDULUM)
 end
-function c210220068.sumlimit(e,c)
+function s.sumlimit(e,c)
 	if not c then return false end
 	return not c:IsControler(e:GetHandlerPlayer())
 end
-function c210220068.esumlimit(re,rp,c)
+function s.esumlimit(re,rp,c)
 	if not c then return false end
 	return not c:IsControler(rp)
 end
-function c210220068.thfilter(c,tp)
+function s.thfilter(c,tp)
 	return c:IsType(TYPE_PENDULUM) and c:IsControler(tp) 
 		and ((c:IsLocation(LOCATION_EXTRA) and c:IsFaceup()) or not c:IsLocation(LOCATION_DECK))
 		and c:GetPreviousControler()==tp and c:IsAbleToHand()
 end
-function c210220068.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return eg and eg:IsExists(c210220068.thfilter,1,nil,tp) end
+function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return eg and eg:IsExists(s.thfilter,1,nil,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,eg,1,0,0)
 end
-function c210220068.thop(e,tp,eg,ep,ev,re,r,rp)
+function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=eg:Filter(c210220068.thfilter,nil,tp)
+	local g=eg:Filter(s.thfilter,nil,tp)
 	if g:GetCount()==0 then return end
 	local tc=nil
 	if g:GetCount()==1 then
