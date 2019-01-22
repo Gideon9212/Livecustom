@@ -43,6 +43,7 @@ function c210777018.initial_effect(c)
 	e6:SetCode(EVENT_CHAINING)
 	e6:SetRange(LOCATION_MZONE)
 	e6:SetCountLimit(1)
+	e6:SetCondition(c210777018.thcd)
 	e6:SetTarget(c210777018.thtg)
 	e6:SetOperation(c210777018.thop)
 	c:RegisterEffect(e6)
@@ -88,6 +89,9 @@ function c210777018.efilter(e,te)
 end
 function c210777018.thfilter(c,tp)
 	return c:IsFaceup() and c:IsSetCard(0xaa) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+end
+function c210777018.thcd(e,tp,eg,ep,ev,re,r,rp)
+	return rp~=tp 
 end
 function c210777018.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c210777018.thfilter,tp,LOCATION_EXTRA,0,1,nil,tp) end
