@@ -21,7 +21,9 @@ Check setcode list here: https://docs.google.com/spreadsheets/d/1QEB79bUre_l6NMF
 
 - Cards must be original - do not submit copies of anime cards. In addition, do not design your card to work with anime cards, as they are not on the custom server and will not be available to play with.
 
-- Cards must pass review by Gideon, passing both these guidelines and a general evaluation of balance.
+- Cards must pass review by Gideon and other reviewers, passing both these guidelines and a general evaluation of balance. Balance must be discussed by majority of reviewers then submitted to Gideon before being approved.
+
+-Only one request (Pull of cards.) can be done at a time per user. **Max 15 cards per request.** Requests must be done via pull or by Request taker via discord.
 
 - [When your card passes, please put just the artwork here](https://github.com/Gideon9212/CustomArtwork)
 
