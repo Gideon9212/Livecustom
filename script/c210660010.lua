@@ -1,6 +1,6 @@
 --Wicked Altar
 --concept by Gideon
---scripted by Larry126
+--scripted by Larry126 and Lyris
 function c210660010.initial_effect(c)
 	--
 	local e0=Effect.CreateEffect(c)
@@ -54,8 +54,16 @@ end
 function c210660010.accon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 end
+function c210660010.otfilter(c,tp)
+    return c:IsAttackAbove(2000) and (c:IsControler(tp) or c:IsFaceup())
+end
 function c210660010.filter(c,se)
 	if not c:IsSummonableCard() or not c:IsRace(RACE_FIEND) then return false end
+    local mg=Duel.GetMatchingGroup(c210660010.otfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
+	local ex={c:GetCardEffect(EFFECT_LIMIT_SUMMON_PROC),c:GetCardEffect(EFFECT_LIMIT_SET_PROC)}
+	for _,te in ipairs(ex) do
+		if type(te:GetCondition())=='function' then return te:GetCondition()(se,c,0) or not Duel.CheckTribute(c,3) or not Duel.CheckTribute(c,1,1,mg) end
+	end
 	local mi,ma=c:GetTributeRequirement()
 	return mi>0 and (c:IsSummonable(false,se) or c:IsMSetable(false,se))
 end
@@ -68,6 +76,15 @@ function c210660010.get_targets(se,tp)
 		local mi,ma=tc:GetTributeRequirement()
 		if mi>0 and mi<minct then minct=mi end
 		if ma>maxct then maxct=ma end
+		local ex={tc:GetCardEffect(EFFECT_LIMIT_SUMMON_PROC),tc:GetCardEffect(EFFECT_LIMIT_SET_PROC)}
+		for _,te in ipairs(ex) do
+			if type(te:GetCondition())=='function' then
+				local ct=3
+				if tc:IsCode(23309606) then ct=1 end
+				if ct<minct then minct=ct end
+				if ct>maxct then maxct=ct end
+			end
+		end
 		tc=g:GetNext()
 	end
 	return minct,maxct
@@ -96,6 +113,11 @@ function c210660010.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c210660010.sfilter(c,se,ct)
 	if not c:IsSummonableCard() then return false end
+    local mg=Duel.GetMatchingGroup(c210660010.otfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
+	local ex={c:GetCardEffect(EFFECT_LIMIT_SUMMON_PROC),c:GetCardEffect(EFFECT_LIMIT_SET_PROC)}
+	for _,te in ipairs(ex) do
+		if type(te:GetCondition())=='function' then return te:GetCondition()(se,c,0) or not Duel.CheckTribute(c,3) or not Duel.CheckTribute(c,1,1,mg) end
+	end
 	local mi,ma=c:GetTributeRequirement()
 	return (mi==ct or ma==ct) and (c:IsSummonable(false,se) or c:IsMSetable(false,se))
 end
@@ -110,10 +132,32 @@ function c210660010.operation(e,tp,eg,ep,ev,re,r,rp)
 	if tc then
 		local s1=tc:IsSummonable(false,se)
 		local s2=tc:IsMSetable(false,se)
-		if (s1 and s2 and Duel.SelectPosition(tp,tc,POS_FACEUP_ATTACK+POS_FACEDOWN_DEFENSE)==POS_FACEUP_ATTACK) or not s2 then
-			Duel.Summon(tp,tc,false,se)
-		else
-			Duel.MSet(tp,tc,false,se)
+		local mg=Duel.GetMatchingGroup(c210660010.otfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
+		local ex1,ex2={tc:GetCardEffect(EFFECT_LIMIT_SUMMON_PROC)},{tc:GetCardEffect(EFFECT_LIMIT_SET_PROC)}
+		for _,te in ipairs(ex1) do
+			if type(te:GetCondition())=='function' then s1=s1 or te:GetCondition()(se,tc,0) or not Duel.CheckTribute(tc,3) or not Duel.CheckTribute(tc,1,1,mg) end
+		end
+		for _,te in ipairs(ex2) do
+			if type(te:GetCondition())=='function' then s2=s2 or te:GetCondition()(se,tc,0) or not Duel.CheckTribute(tc,3) or not Duel.CheckTribute(tc,1,1,mg) end
+		end
+		if s1 and s2 then
+			local pos=Duel.SelectPosition(tp,tc,POS_FACEUP_ATTACK+POS_FACEDOWN_DEFENSE)
+			if pos==POS_FACEUP_ATTACK or not s2 then
+				Duel.Summon(tp,tc,false,se)
+			else
+				Duel.MSet(tp,tc,false,se)
+			end
+			if tc:IsLocation(LOCATION_HAND) then
+				if tc:IsCode(23309606) then
+					local hg=Duel.GetFieldGroup(tp,LOCATION_HAND,0)
+					hg:RemoveCard(tc)
+					Duel.SendtoGrave(hg,REASON_COST+REASON_DISCARD)
+				end
+				Duel.MoveToField(tc,tp,tp,LOCATION_MZONE,pos,true)
+				local event=EVENT_MSET
+				if pos==POS_FACEUP_ATTACK then event=EVENT_SUMMON_SUCCESS end
+				Duel.RaiseEvent(tc,event,se,REASON_EFFECT,tp,tp,0)
+			end
 		end
 	end
 end
